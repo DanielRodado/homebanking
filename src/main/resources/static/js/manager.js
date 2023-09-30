@@ -23,9 +23,8 @@ createApp({
                 lastName: this.inputLastName,
                 email: this.inputEmail
             };
-            this.deleteDataForm();
             this.postClient();
-            this.getClients();
+            this.deleteDataForm();
         },
 
         getClients() {

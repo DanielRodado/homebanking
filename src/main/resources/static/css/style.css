@@ -2,11 +2,6 @@
     margin: 0.5rem;
 }
 
-.rest-response pre {
-    max-height: 36rem;
-    overflow: auto
-}
-
 @media only screen and (min-width: 992px) {
     .rest-response {
         width: 38%;
