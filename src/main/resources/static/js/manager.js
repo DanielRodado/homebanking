@@ -24,7 +24,6 @@ createApp({
                 email: this.inputEmail
             };
             this.postClient();
-            this.deleteDataForm();
         },
 
         getClients() {
@@ -40,12 +39,6 @@ createApp({
         .post("http://localhost:8080/clients", this.userData)
         .then(response => console.log(response))
         .catch(error => console.log(error));
-        },
-
-        deleteDataForm() {
-            this.inputName = "";
-            this.inputLastName = "";
-            this.inputEmail = "";
         }
     }
 
