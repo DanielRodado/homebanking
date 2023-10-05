@@ -23,11 +23,16 @@ public class HomebankingApplication {
 		return args ->  {
 			LocalDate date = LocalDate.now();
 
-			Client client = new Client("Daniel", "Rodado", "d4nielrodado@gmail.com");
-            clientRepository.save(client);
-			Account account = new Account("V0001", date, 7000.00);
-			client.addAccount(account);
-			accountRepository.save(account);
+			Client clientOne = new Client("Melba", "Morel", "melbamorel@gmail.com");
+			clientRepository.save(clientOne);
+
+			Account accountOne = new Account("VIN001", date, 5000.00);
+			clientOne.addAccount(accountOne);
+			accountRepository.save(accountOne);
+
+			Account accountTwo = new Account("VIN002", date.plusDays(1), 7000.00);
+			clientOne.addAccount(accountTwo);
+			accountRepository.save(accountTwo);
 		};
 	}
 
