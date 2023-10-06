@@ -12,6 +12,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "generatorID")
     @GenericGenerator(name = "generatorID", strategy = "native")
     private Long ID;
+    @Enumerated(value = EnumType.STRING)
     private TransactionType type;
     private Double amount;
     private String description;

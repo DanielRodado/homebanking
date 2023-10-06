@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>E-Funds Hub - Accounts</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="../css/styles.css">
+    </head>
+    <body>
+        <div id="app" class="account-app d-flex flex-column">
+            <header>
+                <div class="header-contain">
+                  <div class="bg-contain"></div>
+                  <nav class="navbar navbar-expand-md header-nav">
+                      <div class="container-fluid container--mod">
+                          <a class="navbar-brand text-white fs-4" href="#"
+                              >E-Funds Hub</a
+                          >
+                          <button
+                              class="navbar-toggler"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#navbarNav"
+                              aria-controls="navbarNav"
+                              aria-expanded="false"
+                              aria-label="Toggle navigation"
+                          >
+                              <span class="navbar-toggler-icon text-white"></span>
+                          </button>
+                          <div
+                              class="collapse navbar-collapse justify-content-end"
+                              id="navbarNav"
+                          >
+                              <ul class="navbar-nav">
+                                  <li class="nav-item">
+                                      <a
+                                          class="nav-link link text-white"
+                                          aria-current="page"
+                                          href="./accounts.html"
+                                          >Accounts</a
+                                      >
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link text-white link" href="#"
+                                          >Cards</a
+                                      >
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link text-white link" href="#"
+                                          >Trasaction</a
+                                      >
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link text-white link" href="#"
+                                          >Loan</a
+                                      >
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+                </div>
+            </header>
+            <main class="flex-grow-1 mb-3" v-cloack>
+                <div class="container separation ps-md-0 pe-md-0">
+                  <div class="row justify-content-center ms-3 me-3 me-md-0 ms-md-0 gap-md-5">
+                      <div class="col-12 col-md-3 card-details-account">
+                        <i class="bi bi-person-fill"></i>
+                        <p>Melba</p>
+                      </div>
+                      <div class="col-12 col-md-3 card-details-account">
+                        <i class="bi bi-cash-stack"></i>
+                        <p>Balance: ${{account.balance.toLocaleString()}}</p>
+                      </div>
+                      <div class="col-12 col-md-3 card-details-account">
+                        <i class="bi bi-credit-card-fill"></i>
+                        <p>Number: {{account.number}}</p>
+                      </div>
+                      <div class="col-12 col-md-3 card-details-account">
+                        <i class="bi bi-calendar2-week-fill"></i>
+                        <p>Creation date: {{account.creationDate}}</p>
+                      </div>
+                  </div>
+                  <section class="col-12">
+                      <h4 class="third-color-bg text-white text-center mb-0 p-3">Transection Log</h4>
+                      <div class="table-responsive second-color-bg p-4">
+                        <table class="table table-bordered text-center mb-0">
+                          <thead>
+                            <tr class="table-secondary">
+                              <th scope="col">Type</th>
+                              <th scope="col">Amount</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Description</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table-group-divider">
+                            <tr v-for="transaction of transactions">
+                              <td :class="{'debit': transaction.type === 'DEBIT', 'credit': transaction.type === 'CREDIT'}" class="fw-bold">{{transaction.type}}</td>
+                              <td>{{transaction.amount.toLocaleString()}}</td>
+                              <td>{{transaction.date.replace("T", " ")}}</td>
+                              <td>{{transaction.description}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </section>
+                </div>
+                
+            </main>
+
+            <div v-if="loading" class="loader-container">
+                <div class="loader"></div>
+            </div>
+
+            <footer class="d-flex justify-content-center align-items-center">
+                <p class="m-0 text-center">
+                    Copyright &copy; 2023
+                    <span class="color-text-footer">E-Funds Hub</span> All
+                    Rights Reserved
+                </p>
+            </footer>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="../js/Account.js"></script>
+    </body>
+</html>

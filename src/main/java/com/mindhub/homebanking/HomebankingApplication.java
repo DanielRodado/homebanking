@@ -3,6 +3,7 @@ package com.mindhub.homebanking;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
+import com.mindhub.homebanking.models.TransactionType;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
@@ -14,8 +15,6 @@ import org.springframework.context.annotation.Bean;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import static com.mindhub.homebanking.models.TransactionType.DEBIT;
 
 @SpringBootApplication
 public class HomebankingApplication {
@@ -41,13 +40,27 @@ public class HomebankingApplication {
 			clientOne.addAccount(accountOne);
 			accountRepository.save(accountOne);
 
-			Transaction transactionOne = new Transaction(DEBIT, 8000.00, "My first transaction", formattedLocalDateTime);
+			Transaction transactionOne = new Transaction(TransactionType.DEBIT, 8000.00, "My first transaction", formattedLocalDateTime);
 			accountOne.addTransaction(transactionOne);
 			transactionRepository.save(transactionOne);
+
+            Transaction transactionTwo = new Transaction(TransactionType.DEBIT, 32500.00, "Second transaction", formattedLocalDateTime);
+            accountOne.addTransaction(transactionTwo);
+            transactionRepository.save(transactionTwo);
 
 			Account accountTwo = new Account("VIN002", date.plusDays(1), 7000.00);
 			clientOne.addAccount(accountTwo);
 			accountRepository.save(accountTwo);
+
+            Transaction transactionThree = new Transaction(TransactionType.CREDIT, -2000.00, "Payment per transaction",
+                    formattedLocalDateTime);
+            accountTwo.addTransaction(transactionThree);
+            transactionRepository.save(transactionThree);
+
+			Transaction transactionFour = new Transaction(TransactionType.CREDIT, -2000.00, "Payment of school fees",
+					formattedLocalDateTime);
+			accountOne.addTransaction(transactionFour);
+			transactionRepository.save(transactionFour);
 		};
 	}
 
