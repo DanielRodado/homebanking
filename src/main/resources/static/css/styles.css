@@ -4,6 +4,14 @@
     --third-color: hwb(190 9% 21%);
 }
 
+#app {
+    font-family: "Nunito", sans-serif !important;
+}
+
+.logo {
+    width: 8rem;
+}
+
 .debit {
     color: hwb(120 0% 45%) !important;
 }
@@ -73,12 +81,22 @@
     height: 100%;
 }
 
+.title-header {
+    position: relative;
+    bottom: -10%;
+    font-size: 1.875rem;
+    color: #fff;
+    z-index: 1000;
+}
+
 .account-app {
     background-color: var(--first-color);
     min-height: 100vh;
 }
 
 .header-nav {
+    position: absolute;
+    top: 0;
     background-color: var(--second-color);
     padding: 1rem 0;
     color: #fff !important;
@@ -88,13 +106,15 @@
 .link {
     transition: color 300ms;
     font-weight: bold !important;
+    font-size: 0.8rem;
+    border-top: solid 1px #39375e;
 }
 
-.link:hover:not(.link-active) {
+.link a:hover:not(.link-active) {
     color: var(--third-color) !important;
 }
 
-.link-active {
+.link-active a {
     color: #15aac0 !important;
 }
 
@@ -141,7 +161,8 @@
 footer {
     color: #fff;
     background-color: var(--second-color);
-    height: 8vh;
+    height: 9vh;
+    position: relative;
 }
 
 .color-text-footer {
@@ -158,7 +179,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--second-color); /* Fondo semi-transparente */
+    background: var(--second-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -166,12 +187,42 @@ footer {
 }
 
 .loader {
-    border: 8px solid #f3f3f3; /* Luz gris para el borde del loader */
-    border-top: 8px solid var(--third-color); /* Azul para la parte superior del borde */
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid var(--third-color);
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    animation: spin 1s linear infinite; /* Animación de rotación */
+    animation: spin 1s linear infinite;
+}
+
+.premium-card {
+    position: relative;
+    background: linear-gradient(45deg, #1c2754 55%, #566480);
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 1rem hwb(0 0% 100% / 0.2);
+    padding: 1.5rem;
+    margin-bottom: 1.875rem;
+    color: #fff;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.7rem;
+}
+
+.card-info {
+    font-size: 0.875rem;
+    margin-bottom: 0.7rem;
+}
+
+.btn-details {
+    font-size: 1.3rem;
+    color: var(--third-color);
+    position: absolute;
+    right: 0.5rem;
+    top: 0.25rem;
 }
 
 @keyframes spin {
@@ -194,15 +245,44 @@ footer {
 }
 
 @media only screen and (min-width: 576px) {
+    .logo {
+        width: 10rem;
+    }
     
+    .premium-card {
+        padding: 1.650rem;
+    }
+
+    .card-title {
+        font-size: 1.350rem;
+        margin-bottom: 0.938rem;
+    }
+
+    .card-info {
+        font-size: 0.950rem;
+        margin-bottom: 0.938rem;
+    }
 }
 @media only screen and (min-width: 768px) {
-    .header-nav {
-        background-color: #070b29cc;
+    .logo {
+        width: 12rem;
     }
 
     .header-contain {
         height: 68vh;
+    }
+
+    .header-nav {
+        background-color: #070b29cc;
+    }
+
+    .title-header {
+        font-size: 2rem;
+    }
+
+    .link {
+        border: none;
+        font-size: 1rem;
     }
 
     .container--mod {
@@ -214,55 +294,34 @@ footer {
         min-width: auto;
     }
 
-    
+    .premium-card {
+        padding: 1.875rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.938rem;
+    }
+
+    .card-info {
+        font-size: 1.125rem;
+        margin-bottom: 0.938rem;
+    }
 }
 
 @media only screen and (min-width: 992px) {
     .rest-response {
         width: 38%;
     }
+
+    .link {
+        font-size: 1.25rem;
+    }
+
+    .title-header {
+        font-size: 2.375rem;
+    }
 }
 
 @media only screen and (min-width: 1200px) {
 }
-
-
-
-.premium-card {
-    position: relative;
-    background: linear-gradient(45deg, #1c2754 55%, #566480); /* Degradado azul oscuro a más claro */
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra suave */
-    padding: 30px;
-    margin-bottom: 30px;
-    color: #fff; /* Texto blanco */
-  }
-
-  .card-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-
-  .card-info {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .btn-details {
-    font-size: 1.3rem;
-    color: var(--third-color);
-    position: absolute;
-    right: 0.5rem;
-    top: 0.25rem;
-  }
-
-  .custom-tooltip {
-    background-color: #15aac0;
-    color: #fff;
-  }
-
-  /* .btn-details:hover {
-    
-  } */

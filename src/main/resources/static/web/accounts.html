@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>E-Funds Hub - Accounts</title>
+        <title>FINOVATE - Accounts</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -11,71 +11,76 @@
             crossorigin="anonymous"
         >
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="shortcut icon" href="../assets/logo-favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="../css/styles.css">
     </head>
     <body>
 
 
         <div id="app" class="account-app d-flex flex-column">
-          <header>
-            <div class="header-contain">
-              <div class="bg-contain"></div>
-              <nav class="navbar navbar-expand-md header-nav">
-                  <div class="container--mod">
-                      <a class="navbar-brand text-white fs-4" href="#"
-                          >E-Funds Hub</a
-                      >
-                      <button
-                          class="navbar-toggler"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#navbarNav"
-                          aria-controls="navbarNav"
-                          aria-expanded="false"
-                          aria-label="Toggle navigation"
-                      >
-                          <span class="navbar-toggler-icon text-white"></span>
-                      </button>
-                      <div
-                          class="collapse navbar-collapse justify-content-end"
-                          id="navbarNav"
-                      >
-                          <ul class="navbar-nav">
-                              <li class="nav-item">
-                                  <a
-                                      class="nav-link link-active text-white"
-                                      aria-current="page"
-                                      href="#"
-                                      >Accounts</a
-                                  >
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link text-white link" href="#"
-                                      >Cards</a
-                                  >
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link text-white link" href="#"
-                                      >Trasaction</a
-                                  >
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link text-white link" href="#"
-                                      >Loan</a
-                                  >
-                              </li>
-                          </ul>
+            <header v-cloack>
+                <div class="header-contain d-flex flex-column align-items-center justify-content-center">
+                  <div class="bg-contain"></div>
+                  <nav class="navbar navbar-expand-md header-nav w-100">
+                      <div class="container-fluid container--mod">
+                          <a class="navbar-brand text-white fs-4" href="#"
+                              ><img src="../assets/logo-page.png" class="logo" alt="logo">
+                              <h1 class="d-none">FINOVATE</h1>
+                              </a
+                          >
+                          <button
+                              style="outline: none;"
+                              class="navbar-toggler border-0 text-white"
+                              type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#navbarNav"
+                              aria-controls="navbarNav"
+                              aria-expanded="false"
+                              aria-label="Toggle navigation"
+                          >
+                              <span><i class="bi bi-justify text-white" style="font-size: 2rem;"></i></span>
+                          </button>
+                          <div
+                              class="collapse navbar-collapse justify-content-end"
+                              id="navbarNav"
+                          >
+                              <ul class="navbar-nav mt-3 mt-md-0">
+                                  <li class="nav-item link link-active">
+                                      <a
+                                          class="nav-link text-white ms-3 ms-md-0"
+                                          aria-current="page"
+                                          href="#"
+                                          >Accounts</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="#"
+                                          >Cards</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="#"
+                                          >Trasaction</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="#"
+                                          >Loan</a
+                                      >
+                                  </li>
+                              </ul>
+                          </div>
                       </div>
-                  </div>
-              </nav>
-            </div>
-        </header>
+                  </nav>
+                  <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Accounts</h2>
+                </div>
+            </header>
             <main class="flex-grow-1 mb-3" v-cloack>
                 <section>
-                    <div class="container mt-3">
+                    <div class="container mt-5">
                         <div class="title text-center mb-4">
                             <h2>Hello, {{client.firstName}}</h2>
-                            <p>This is the status of your account:</p>
+                            <p class="">These are their accounts:</p>
                         </div>
                         <div class="d-flex flex-wrap gap-4 justify-content-center">
                             <div v-for="account of client.accounts">
@@ -83,7 +88,8 @@
                                     <a :href="`./account.html?id=${account.id}`" role="button" >
                                         <i class="bi bi-box-arrow-in-up-right btn-details"></i>
                                     </a>
-                                    <p class="card-title mt-3">Account number: <span class="ms-2">{{account.number}}</p>
+                                    <p class="card-title mt-3">Account number:
+                                        <span class="ms-2">{{account.number}}</span></p>
                                     <p class="card-info">Amount: ${{account.balance.toLocaleString()}}</p>
                                     <p class="card-info">Creation date: {{account.creationDate}}</p>
                                   </div>
@@ -103,7 +109,7 @@
               <div class="loader"></div>
             </div>
             <footer class="d-flex justify-content-center align-items-center">
-                <p class="m-0 text-center">Copyright &copy; 2023 <span class="color-text-footer">E-Funds Hub</span> All Rights Reserved</p>
+                <p class="m-0 text-center user-select-none">Copyright &copy; 2023 <span class="color-text-footer">FINOVATE</span> All Rights Reserved</p>
             </footer>
         </div>
 
