@@ -53,6 +53,10 @@ public class Client {
         return accounts;
     }
 
+    public Set<ClientLoan> getClientLoans() {
+        return clientLoans;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

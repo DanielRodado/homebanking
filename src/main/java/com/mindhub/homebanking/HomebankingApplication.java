@@ -68,17 +68,17 @@ public class HomebankingApplication {
 			Loan loanAuto = new Loan("Automotriz", 300000.00, List.of(6, 12, 24, 36));
 			loanRepository.save(loanAuto);
 
-			ClientLoan clientLoanOne = new ClientLoan(clientOne, loanMortgage, 400000.00, 60);
-			clientLoanRepository.save(clientLoanOne);
+			ClientLoan clientLoanOne = new ClientLoan(400000.00, 60);
 
 			loanMortgage.addClientLoan(clientLoanOne);
 			clientOne.addClientLoan(clientLoanOne);
+			clientLoanRepository.save(clientLoanOne);
 
-			ClientLoan clientLoanTwo = new ClientLoan(clientOne, loanPersonal, 50000.00, 12);
-			clientLoanRepository.save(clientLoanTwo);
+			ClientLoan clientLoanTwo = new ClientLoan(50000.00, 12);
 
-			loanMortgage.addClientLoan(clientLoanTwo);
+			loanPersonal.addClientLoan(clientLoanTwo);
 			clientOne.addClientLoan(clientLoanTwo);
+			clientLoanRepository.save(clientLoanTwo);
 
 
 			// Segundoo cliente
@@ -89,17 +89,17 @@ public class HomebankingApplication {
 			clientTwo.addAccount(accountOneClientTwo);
 			accountRepository.save(accountOneClientTwo);
 
-			ClientLoan clientLoanOneClientTwo = new ClientLoan(clientTwo, loanPersonal, 100000.00, 24);
+			ClientLoan clientLoanOneClientTwo = new ClientLoan(100000.00, 24);
+
+			loanPersonal.addClientLoan(clientLoanOneClientTwo);
+			clientTwo.addClientLoan(clientLoanOneClientTwo);
 			clientLoanRepository.save(clientLoanOneClientTwo);
 
-			loanMortgage.addClientLoan(clientLoanOneClientTwo);
-			clientTwo.addClientLoan(clientLoanOneClientTwo);
+			ClientLoan clientLoanTwoClientTwo = new ClientLoan(200000.00, 36);
 
-			ClientLoan clientLoanTwoClientTwo = new ClientLoan(clientTwo, loanAuto, 200000.00, 36);
-			clientLoanRepository.save(clientLoanTwoClientTwo);
-
-			loanMortgage.addClientLoan(clientLoanTwoClientTwo);
+			loanAuto.addClientLoan(clientLoanTwoClientTwo);
 			clientTwo.addClientLoan(clientLoanTwoClientTwo);
+			clientLoanRepository.save(clientLoanTwoClientTwo);
 		};
 	}
 
