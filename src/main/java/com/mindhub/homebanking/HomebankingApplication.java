@@ -22,7 +22,7 @@ public class HomebankingApplication {
 	@Bean
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository,
 									  TransactionRepository transactionRepository, LoanRepository loanRepository,
-									  ClientLoanRepository clientLoanRepository) {
+									  ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return args ->  {
 			LocalDate date = LocalDate.now();
 			LocalDateTime dateTime = LocalDateTime.now();
@@ -80,6 +80,16 @@ public class HomebankingApplication {
 			clientOne.addClientLoan(clientLoanTwo);
 			clientLoanRepository.save(clientLoanTwo);
 
+			Card cardOneClientOne = new Card(clientOne.getFullName(), "0000-0000-0001",
+					"001", date, date.plusYears(5), CardType.GOLD, TransactionType.DEBIT);
+			clientOne.addCard(cardOneClientOne);
+			cardRepository.save(cardOneClientOne);
+
+			Card cardTwoClientOne = new Card(clientOne.getFullName(), "0000-0000-0002",
+					"002", date, date.plusYears(5), CardType.TITANIUM, TransactionType.DEBIT);
+			clientOne.addCard(cardTwoClientOne);
+			cardRepository.save(cardTwoClientOne);
+
 
 			// Segundoo cliente
 			Client clientTwo = new Client("Daniel", "Rodado", "d4nielrodado@gmail.com");
@@ -100,13 +110,12 @@ public class HomebankingApplication {
 			loanAuto.addClientLoan(clientLoanTwoClientTwo);
 			clientTwo.addClientLoan(clientLoanTwoClientTwo);
 			clientLoanRepository.save(clientLoanTwoClientTwo);
+
+			Card cardOneClientTwo = new Card(clientTwo.getFullName(), "0000-0000-0003",
+					"003", date, date.plusYears(5), CardType.SILVER, TransactionType.DEBIT);
+			clientTwo.addCard(cardOneClientTwo);
+			cardRepository.save(cardOneClientTwo);
 		};
 	}
 
 }
-
-/*
-Hipotecario: monto máximo 500.000, cuotas 12,24,36,48,60.
-Personal: monto máximo 100.000, cuotas 6,12,24
-Automotriz: monto máximo 300.000, cuotas 6,12,24,36
-		*/

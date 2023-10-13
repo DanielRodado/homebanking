@@ -11,7 +11,7 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "generatorID")
     @GenericGenerator(name = "generatorID", strategy = "native")
-    private Long ID;
+    private Long id;
     @Enumerated(value = EnumType.STRING)
     private TransactionType type;
     private Double amount;
@@ -32,8 +32,8 @@ public class Transaction {
         this.date = date;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
     public TransactionType getType() {

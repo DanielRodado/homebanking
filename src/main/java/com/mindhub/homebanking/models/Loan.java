@@ -16,7 +16,7 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "generatorID")
     @GenericGenerator(name = "generatorID", strategy = "native")
-    private Long ID;
+    private Long id;
     private String name;
     private Double maxAmount;
     @ElementCollection
@@ -34,8 +34,8 @@ public class Loan {
         this.payments = payments;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -75,7 +75,7 @@ public class Loan {
     @Override
     public String toString() {
         return "Loan{" +
-                "ID=" + ID +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", maxAmount=" + maxAmount +
                 ", payments=" + payments +

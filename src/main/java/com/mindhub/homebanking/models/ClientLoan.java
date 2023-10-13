@@ -10,7 +10,7 @@ public class ClientLoan {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "generatorID")
     @GenericGenerator(name = "generatorID", strategy = "native")
-    private Long ID;
+    private Long id;
 
     private Double amount;
 
@@ -30,8 +30,8 @@ public class ClientLoan {
         this.payments = payments;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
     public Double getAmount() {

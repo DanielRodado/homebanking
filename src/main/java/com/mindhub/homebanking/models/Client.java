@@ -14,7 +14,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "generatorID")
     @GenericGenerator(name = "generatorID", strategy = "native")
-    private Long ID;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -25,6 +25,9 @@ public class Client {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<ClientLoan> clientLoans = new HashSet<>();
 
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
+
     public Client() {
     }
     public Client(String firstName, String lastName, String email) {
@@ -34,7 +37,7 @@ public class Client {
     }
 
     public Long getId() {
-        return ID;
+        return id;
     }
 
     public String getFirstName() {
@@ -57,6 +60,10 @@ public class Client {
         return clientLoans;
     }
 
+    public Set<Card> getCards() {
+        return cards;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -69,6 +76,10 @@ public class Client {
         this.email = email;
     }
 
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
     public void addAccount(Account account){
         account.setClient(this);
         this.accounts.add(account);
@@ -79,6 +90,11 @@ public class Client {
         this.clientLoans.add(clientLoan);
     }
 
+    public void addCard(Card card){
+        card.setClient(this);
+        this.cards.add(card);
+    }
+
     public List<Loan> getLoans() {
         return clientLoans.stream().map(clientLoan -> clientLoan.getLoan()).collect(Collectors.toList());
     }
@@ -86,7 +102,7 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + ID +
+                "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastsName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
