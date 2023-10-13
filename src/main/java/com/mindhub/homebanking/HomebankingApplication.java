@@ -59,13 +59,13 @@ public class HomebankingApplication {
 			accountOne.addTransaction(transactionFour);
 			transactionRepository.save(transactionFour);
 
-			Loan loanMortgage = new Loan("Hipotecario", 500000.00, List.of(12, 24, 36, 48, 60));
+			Loan loanMortgage = new Loan("Mortgage", 500000.00, List.of(12, 24, 36, 48, 60));
 			loanRepository.save(loanMortgage);
 
 			Loan loanPersonal = new Loan("Personal", 100000.00, List.of(6, 12, 24));
 			loanRepository.save(loanPersonal);
 
-			Loan loanAuto = new Loan("Automotriz", 300000.00, List.of(6, 12, 24, 36));
+			Loan loanAuto = new Loan("Auto", 300000.00, List.of(6, 12, 24, 36));
 			loanRepository.save(loanAuto);
 
 			ClientLoan clientLoanOne = new ClientLoan(400000.00, 60);

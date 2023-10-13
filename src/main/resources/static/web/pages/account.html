@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FINOVATE - Accounts</title>
+        <title>FINOVATE - Account Details</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -15,9 +15,7 @@
         <link rel="stylesheet" href="../css/styles.css">
     </head>
     <body>
-
-
-        <div id="app" class="account-app d-flex flex-column">
+        <div id="app" class="first-color-bg d-flex flex-column">
             <header v-cloack>
                 <div class="header-contain d-flex flex-column align-items-center justify-content-center">
                   <div class="bg-contain"></div>
@@ -45,11 +43,11 @@
                               id="navbarNav"
                           >
                               <ul class="navbar-nav mt-3 mt-md-0">
-                                  <li class="nav-item link link-active">
+                                  <li class="nav-item link" >
                                       <a
                                           class="nav-link text-white ms-3 ms-md-0"
                                           aria-current="page"
-                                          href="#"
+                                          href="./accounts.html"
                                           >Accounts</a
                                       >
                                   </li>
@@ -72,47 +70,68 @@
                           </div>
                       </div>
                   </nav>
-                  <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Accounts</h2>
+                  <h2 class="title-header mb-0 fw-semibold user-select-none">Account Details</h2>
                 </div>
             </header>
             <main class="flex-grow-1 mb-3" v-cloack>
-                <section>
-                    <div class="container mt-5">
-                        <div class="title text-center mb-4">
-                            <h2>Hello, {{client.firstName}}</h2>
-                            <p class="">These are their accounts:</p>
-                        </div>
-                        <div class="d-flex flex-wrap gap-4 justify-content-center">
-                            <div v-for="account of client.accounts">
-                                <div class="premium-card text-center">
-                                    <a :href="`./account.html?id=${account.id}`" role="button" >
-                                        <i class="bi bi-box-arrow-in-up-right btn-details"></i>
-                                    </a>
-                                    <p class="card-title mt-3">Account number:
-                                        <span class="ms-2">{{account.number}}</span></p>
-                                    <p class="card-info">Amount: ${{account.balance.toLocaleString()}}</p>
-                                    <p class="card-info">Creation date: {{account.creationDate}}</p>
-                                  </div>
-                            </div>
-                            <div class="container">
-                                <div class="row">
-                                  <div class="col-12 col-md-8 offset-md-2">
-                                    
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-                    </div>
-                </section>
+                <div class="container separation ps-md-0 pe-md-0">
+                  <div class="row justify-content-center ms-3 me-3 me-md-0 ms-md-0 gap-md-5">
+                      <div class="col-12 col-md-3 card-details-account">
+                        <i class="bi bi-person-fill"></i>
+                        <p>Melba</p>
+                      </div>
+                      <div class="col-12 col-md-3 card-details-account">
+                        <i class="bi bi-cash-stack"></i>
+                        <p>Balance: ${{account.balance.toLocaleString()}}</p>
+                      </div>
+                      <div class="col-12 col-md-3 card-details-account">
+                        <i class="bi bi-credit-card-fill"></i>
+                        <p>Number: {{account.number}}</p>
+                      </div>
+                      <div class="col-12 col-md-3 card-details-account">
+                        <i class="bi bi-calendar2-week-fill"></i>
+                        <p>Creation date: {{account.creationDate}}</p>
+                      </div>
+                  </div>
+                  <section class="col-12">
+                      <h4 class="third-color-bg text-white text-center mb-0 p-3 user-select-none">Transection Log</h4>
+                      <div class="table-responsive second-color-bg p-4 mb-3">
+                        <table class="table table-bordered table-primary table-striped text-center mb-0">
+                          <thead>
+                            <tr class="">
+                              <th scope="col">Type</th>
+                              <th scope="col">Amount</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Description</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table-group-divider">
+                            <tr v-for="transaction of transactions">
+                              <td :class="{'debit': transaction.type === 'DEBIT', 'credit': transaction.type === 'CREDIT'}" class="fw-bold">{{transaction.type}}</td>
+                              <td>{{transaction.amount.toLocaleString()}}</td>
+                              <td>{{transaction.date.replace("T", " ")}}</td>
+                              <td>{{transaction.description}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </section>
+                </div>
+                
             </main>
+
             <div v-if="loading" class="loader-container">
-              <div class="loader"></div>
+                <div class="loader"></div>
             </div>
+
             <footer class="d-flex justify-content-center align-items-center">
-                <p class="m-0 text-center user-select-none">Copyright &copy; 2023 <span class="color-text-footer">FINOVATE</span> All Rights Reserved</p>
+                <p class="m-0 text-center user-select-none">
+                    Copyright &copy; 2023
+                    <span class="color-text-footer">FINOVATE</span> All
+                    Rights Reserved
+                </p>
             </footer>
         </div>
-
 
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -121,6 +140,6 @@
         ></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="../js/accounts.js"></script>
+        <script src="../js/Account.js"></script>
     </body>
 </html>
