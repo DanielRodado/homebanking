@@ -21,7 +21,7 @@ createApp({
             axios("http://localhost:8080/api/clients/1")
                 .then(({ data }) => {
                     this.client = data;
-                    setTimeout(() => this.loading = false, 200);
+                    this.loading = false;
                 })
                 .catch((error) => console.log(error));
         },

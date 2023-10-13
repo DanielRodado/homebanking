@@ -9,6 +9,11 @@
     font-family: "Nunito", sans-serif !important;
 }
 
+.app {
+    min-height: 100vh;
+    background-color: var(--first-color);
+}
+
 .logo {
     width: 8rem;
 }
@@ -92,10 +97,6 @@
     font-size: 1.875rem;
     color: #fff;
     z-index: 1000;
-}
-
-.account-app {
-    min-height: 100vh;
 }
 
 .header-nav {
