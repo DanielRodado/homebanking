@@ -8,10 +8,6 @@ createApp({
         };
     },
 
-    mounted() {
-        
-    },
-
     created() {
         this.getClients();
     },
