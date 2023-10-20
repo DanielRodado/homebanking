@@ -2,10 +2,12 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +32,8 @@ public class HomebankingApplication {
 			String formattedDateTime = dateTime.format(formatter);
 			LocalDateTime formattedLocalDateTime = LocalDateTime.parse(formattedDateTime, formatter);
 
-			Client clientOne = new Client("Melba", "Morel", "melbamorel@gmail.com");
+			Client clientOne = new Client("Melba", "Morel",
+					"melbamorel@gmail.com", passwordEncoder.encode("pass123"));
 			clientRepository.save(clientOne);
 
 			Account accountOne = new Account("VIN001", date, 5000.00);
@@ -92,7 +95,8 @@ public class HomebankingApplication {
 
 
 			// Segundoo cliente
-			Client clientTwo = new Client("Daniel", "Rodado", "d4nielrodado@gmail.com");
+			Client clientTwo = new Client("Daniel", "Rodado",
+					"d4nielrodado@gmail.com", passwordEncoder.encode("pass123"));
 			clientRepository.save(clientTwo);
 
 			Account accountOneClientTwo = new Account("VIN003", date, 200.00);
@@ -117,5 +121,6 @@ public class HomebankingApplication {
 			cardRepository.save(cardOneClientTwo);
 		};
 	}
-
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 }

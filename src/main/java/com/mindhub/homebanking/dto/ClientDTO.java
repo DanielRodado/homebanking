@@ -23,7 +23,6 @@ public class ClientDTO {
         this.loans =
                 client.getClientLoans().stream().map(clientLoan -> new ClientLoanDTO(clientLoan)).collect(Collectors.toList());
         this.cards = client.getCards().stream().map(card -> new CardDTO(card)).collect(Collectors.toList());
-
     }
 
     public Long getID() {
