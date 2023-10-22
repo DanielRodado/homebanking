@@ -33,7 +33,7 @@ public class HomebankingApplication {
 			LocalDateTime formattedLocalDateTime = LocalDateTime.parse(formattedDateTime, formatter);
 
 			Client clientOne = new Client("Melba", "Morel",
-					"melbamorel@gmail.com", passwordEncoder.encode("pass123"));
+					"melbamorel@gmail.com", passwordEncoder.encode("pass123"), false);
 			clientRepository.save(clientOne);
 
 			Account accountOne = new Account("VIN001", date, 5000.00);
@@ -96,7 +96,7 @@ public class HomebankingApplication {
 
 			// Segundoo cliente
 			Client clientTwo = new Client("Daniel", "Rodado",
-					"d4nielrodado@gmail.com", passwordEncoder.encode("pass123"));
+					"d4nielrodado@gmail.com", passwordEncoder.encode("pass123"), false);
 			clientRepository.save(clientTwo);
 
 			Account accountOneClientTwo = new Account("VIN003", date, 200.00);
@@ -119,6 +119,11 @@ public class HomebankingApplication {
 					"003", date, date.plusYears(5), CardType.SILVER, TransactionType.CREDIT);
 			clientTwo.addCard(cardOneClientTwo);
 			cardRepository.save(cardOneClientTwo);
+
+			// Client three (admin)
+			Client clientAdmin = new Client("Admin", "Admin",
+					"admin@admin.com", passwordEncoder.encode("admin123"), true);
+			clientRepository.save(clientAdmin);
 		};
 	}
 	@Autowired
