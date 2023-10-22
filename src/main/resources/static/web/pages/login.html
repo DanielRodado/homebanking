@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="app">
+            <form>
+                <fieldset>
+                    <label for="userEmail">Email</label>
+                    <input type="email" name="email" id="userEmail" v-model="inputEmail">
+                </fieldset>
+                <fieldset>
+                    <label for="password">Email</label>
+                    <input type="password" name="password" id="password" v-model="inputPassword">
+                </fieldset>
+                <button type="button" @click="login">Sign In</button>
+            </form>
+        </div>
+        
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="../js/login.js"></script>
+    </body>
+</html>
