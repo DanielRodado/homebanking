@@ -14,7 +14,7 @@ createApp({
 
     methods: {
         getClients() {
-            axios("http://localhost:8080/api/clients/1")
+            axios("/api/clients/currents")
                 .then(({ data }) => {
                     this.client = data;
                     this.loading = false;

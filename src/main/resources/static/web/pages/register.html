@@ -9,6 +9,14 @@
         <div id="app">
             <form>
                 <fieldset>
+                    <label for="userName">Name</label>
+                    <input type="text" name="name" id="userName" v-model="inputName">
+                </fieldset>
+                <fieldset>
+                    <label for="userLastName">Last name</label>
+                    <input type="text" name="last-name" id="userLastName" v-model="inputLastName">
+                </fieldset>
+                <fieldset>
                     <label for="userEmail">Email</label>
                     <input type="email" name="email" id="userEmail" v-model="inputEmail">
                 </fieldset>
@@ -16,12 +24,11 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" v-model="inputPassword">
                 </fieldset>
-                <button type="button" @click="login">Sign In</button>
+                <button type="button" @click="register">Sign In</button>
             </form>
-            <a href="./register.html" style="text-decoration: none;">Register</a>
         </div>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="../js/login.js"></script>
+        <script src="../js/register.js"></script>
     </body>
 </html>
