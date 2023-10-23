@@ -26,7 +26,28 @@ createApp({
                     console.log(response);
                     location.pathname = "/web/pages/accounts.html";
                 })
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    console.log(error);
+                    if (this.inputEmail = "" || this.inputPassword === "") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error...",
+                            text: "Fill in all fields",
+                            color: "#fff",
+                            background: "#1c2754",
+                            confirmButtonColor: "#17acc9",
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid user",
+                            text: "This user is not registered",
+                            color: "#fff",
+                            background: "#1c2754",
+                            confirmButtonColor: "#17acc9",
+                        });
+                    }
+                });
         },
         register() {
             axios
@@ -50,11 +71,31 @@ createApp({
                 })
                 .catch((error) => {
                     console.error("Error registering user:", error);
+                    if (
+                        this.inputNameRegister === "" ||
+                        this.inputLastNameRegister === "" ||
+                        this.inputEmailRegister === "" ||
+                        this.inputPasswordRegister === ""
+                    ) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error...",
+                            text: "Fill in all fields",
+                            color: "#fff",
+                            background: "#1c2754",
+                            confirmButtonColor: "#17acc9",
+                        });
+                    } else if (error.response.status === 403) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid e-mail address",
+                            text: "This e-mail address is already registered",
+                            color: "#fff",
+                            background: "#1c2754",
+                            confirmButtonColor: "#17acc9",
+                        });
+                    }
                 });
         },
-
-        logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
-        }
     },
 }).mount("#app");

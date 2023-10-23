@@ -42,6 +42,13 @@ createApp({
             else if (card.color === "TITANIUM")
                 return {'background': 'linear-gradient(to right, #708090 0%, #4d555f 100%)'};
         },
+        logout() {
+            axios.post("/api/logout")
+                .then(() => {
+                    console.log("signed out!!!");
+                    location.pathname = "web/pages/login.html";
+                });
+        }
     },
 }).mount("#app");
 

@@ -3,8 +3,8 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            client: {},
             account: [],
-            transactions: [],
             loading: true,
             id: 0,
         };
@@ -19,14 +19,21 @@ createApp({
 
     methods: {
         getAccount() {
-            axios(`http://localhost:8080/api/accounts/${this.id}`)
+            axios("/api/clients/currents")
                 .then(( {data} ) => {
-                    this.account = data;
-                    this.transactions = data.transactions;
-                    this.transactions.sort((a,b) => b.id - a.id);
+                    this.client = data;
+                    this.account = this.client.accounts.find(account => account.id == this.id);
+                    this.account.transactions.sort((a,b) => b.id - a.id);
                     this.loading = false;
                 })
                 .catch((error) => console.log(error));
+        },
+        logout() {
+            axios.post("/api/logout")
+                .then(() => {
+                    console.log("signed out!!!");
+                    location.href = "http://localhost:8080/web/pages/login.html";
+                });
         }
 
     },

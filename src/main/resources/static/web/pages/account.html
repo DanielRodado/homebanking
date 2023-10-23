@@ -22,7 +22,8 @@
                   <nav class="navbar navbar-expand-md header-nav w-100">
                       <div class="container-fluid container--mod">
                           <a class="navbar-brand text-white fs-4" href="#"
-                              ><img src="../assets/logo-page.png" class="logo" alt="logo">
+                              ><img src="../assets/logo-page.png" class="logo d-none d-sm-inline-block" alt="logo">
+                              <img src="../assets/logo-favicon.png" class="logo-sm d-sm-none" alt="logo">
                               <h1 class="d-none">FINOVATE</h1>
                               </a>
                           <input 
@@ -68,6 +69,10 @@
                                       >
                                   </li>
                               </ul>
+                              <button class="Btn--logout ms-1 ms-md-0" @click="logout">
+                                  <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+                                  <div class="text--logout">Logout</div>
+                            </button>
                           </div>
                       </div>
                   </nav>
@@ -79,7 +84,7 @@
                   <div class="row justify-content-center ms-3 me-3 me-md-0 ms-md-0 gap-md-5">
                       <div class="col-12 col-md-3 card-details-account">
                         <i class="bi bi-person-fill"></i>
-                        <p>Melba</p>
+                        <p>{{client.firstName}}</p>
                       </div>
                       <div class="col-12 col-md-3 card-details-account">
                         <i class="bi bi-cash-stack"></i>
@@ -95,8 +100,9 @@
                       </div>
                   </div>
                   <section class="col-12">
-                      <h4 class="third-color-bg text-white text-center mb-0 p-3 user-select-none">Transection Log</h4>
-                      <div class="table-responsive second-color-bg p-4 mb-3">
+                      <h4 v-if="account.transactions.length === 0" class="third-color-bg text-white text-center mb-0 p-3 user-select-none">No transactions</h4>
+                      <h4 v-else class="third-color-bg text-white text-center mb-0 p-3 user-select-none">Transection Log</h4>
+                      <div v-if="account.transactions.length > 0" class="table-responsive second-color-bg p-4 mb-3">
                         <table class="table table-bordered table-primary table-striped text-center mb-0">
                           <thead>
                             <tr class="">
@@ -107,7 +113,7 @@
                             </tr>
                           </thead>
                           <tbody class="table-group-divider">
-                            <tr v-for="transaction of transactions">
+                            <tr v-for="transaction of account.transactions">
                               <td :class="{'debit': transaction.type === 'DEBIT', 'credit': transaction.type === 'CREDIT'}" class="fw-bold">{{transaction.type}}</td>
                               <td>{{transaction.amount.toLocaleString()}}</td>
                               <td>{{transaction.date.replace("T", " ")}}</td>

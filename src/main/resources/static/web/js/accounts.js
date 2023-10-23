@@ -21,6 +21,13 @@ createApp({
                 })
                 .catch((error) => console.log(error));
         },
+        logout() {
+            axios.post("/api/logout")
+                .then(() => {
+                    console.log("signed out!!!");
+                    location.pathname = "web/pages/login.html";
+                });
+        }
     },
 }).mount("#app");
 
