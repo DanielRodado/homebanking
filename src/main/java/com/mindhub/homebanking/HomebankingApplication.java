@@ -36,7 +36,7 @@ public class HomebankingApplication {
 					"melbamorel@gmail.com", passwordEncoder.encode("pass123"), false);
 			clientRepository.save(clientOne);
 
-			Account accountOne = new Account("VIN001", date, 5000.00);
+			Account accountOne = new Account("VIN-001", date, 5000.00);
 			clientOne.addAccount(accountOne);
 			accountRepository.save(accountOne);
 
@@ -48,7 +48,7 @@ public class HomebankingApplication {
             accountOne.addTransaction(transactionTwo);
             transactionRepository.save(transactionTwo);
 
-			Account accountTwo = new Account("VIN002", date.plusDays(1), 7000.00);
+			Account accountTwo = new Account("VIN-002", date.plusDays(1), 7000.00);
 			clientOne.addAccount(accountTwo);
 			accountRepository.save(accountTwo);
 
@@ -99,7 +99,7 @@ public class HomebankingApplication {
 					"d4nielrodado@gmail.com", passwordEncoder.encode("pass123"), false);
 			clientRepository.save(clientTwo);
 
-			Account accountOneClientTwo = new Account("VIN003", date, 200.00);
+			Account accountOneClientTwo = new Account("VIN-003", date, 200.00);
 			clientTwo.addAccount(accountOneClientTwo);
 			accountRepository.save(accountOneClientTwo);
 

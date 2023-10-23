@@ -1,7 +1,9 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.ClientDTO;
+import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,23 @@ public class ClientController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    public String generateRamdonNumber() {
+        return "VIN-" + (int) ((Math.random() * (99999999)));
+    }
+
+    public String validateNumber() {
+        String accountNumber = generateRamdonNumber();
+
+        while(accountRepository.existsByNumber(accountNumber)) {
+            accountNumber = generateRamdonNumber();
+        }
+
+        return accountNumber;
+    }
 
     @RequestMapping("/clients")
     public List<ClientDTO> getAllClients() {
@@ -47,6 +67,11 @@ public class ClientController {
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password), false);
         clientRepository.save(client);
+
+        Account account = new Account(validateNumber(), LocalDate.now(), 0.00);
+        client.addAccount(account);
+        accountRepository.save(account);
+
         return new ResponseEntity<>("Client created successfully", HttpStatus.CREATED);
     }
 
