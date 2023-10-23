@@ -14,8 +14,8 @@ public class Card {
     private Long id;
     private String cardHolder, number, cvv;
     private LocalDate fromDate, thruDate;
-    private CardType color;
-    private TransactionType type;
+    private CardColor color;
+    private CardType type;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;
@@ -23,7 +23,8 @@ public class Card {
     public Card() {
     }
 
-    public Card(String cardHolder, String number, String cvv, LocalDate fromDate, LocalDate thruDate, CardType color, TransactionType type) {
+    public Card(String cardHolder, String number, String cvv, LocalDate fromDate, LocalDate thruDate, CardColor color,
+                CardType type) {
         this.cardHolder = cardHolder;
         this.number = number;
         this.cvv = cvv;
@@ -57,11 +58,11 @@ public class Card {
         return thruDate;
     }
 
-    public CardType getColor() {
+    public CardColor getColor() {
         return color;
     }
 
-    public TransactionType getType() {
+    public CardType getType() {
         return type;
     }
 
@@ -89,11 +90,11 @@ public class Card {
         this.thruDate = thruDate;
     }
 
-    public void setColor(CardType color) {
+    public void setColor(CardColor color) {
         this.color = color;
     }
 
-    public void setType(TransactionType type) {
+    public void setType(CardType type) {
         this.type = type;
     }
 

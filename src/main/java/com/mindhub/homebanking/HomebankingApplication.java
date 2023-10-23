@@ -84,12 +84,12 @@ public class HomebankingApplication {
 			clientLoanRepository.save(clientLoanTwo);
 
 			Card cardOneClientOne = new Card(clientOne.getFullName(), "0000-0000-0001",
-					"001", date, date.plusYears(5), CardType.GOLD, TransactionType.DEBIT);
+					"001", date, date.plusYears(5), CardColor.GOLD, CardType.DEBIT);
 			clientOne.addCard(cardOneClientOne);
 			cardRepository.save(cardOneClientOne);
 
 			Card cardTwoClientOne = new Card(clientOne.getFullName(), "0000-0000-0002",
-					"002", date, date.plusYears(5), CardType.TITANIUM, TransactionType.CREDIT);
+					"002", date, date.plusYears(5), CardColor.TITANIUM, CardType.CREDIT);
 			clientOne.addCard(cardTwoClientOne);
 			cardRepository.save(cardTwoClientOne);
 
@@ -116,7 +116,7 @@ public class HomebankingApplication {
 			clientLoanRepository.save(clientLoanTwoClientTwo);
 
 			Card cardOneClientTwo = new Card(clientTwo.getFullName(), "0000-0000-0003",
-					"003", date, date.plusYears(5), CardType.SILVER, TransactionType.CREDIT);
+					"003", date, date.plusYears(5), CardColor.SILVER, CardType.CREDIT);
 			clientTwo.addCard(cardOneClientTwo);
 			cardRepository.save(cardOneClientTwo);
 

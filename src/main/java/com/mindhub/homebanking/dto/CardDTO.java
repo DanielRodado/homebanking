@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.dto;
 
 import com.mindhub.homebanking.models.Card;
+import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
 import com.mindhub.homebanking.models.TransactionType;
 
@@ -10,8 +11,8 @@ public class CardDTO {
     private Long id;
     private String cardHolder, number, cvv;
     private LocalDate fromDate, thruDate;
-    private CardType color;
-    private TransactionType type;
+    private CardColor color;
+    private CardType type;
 
     public CardDTO() {
     }
@@ -50,11 +51,11 @@ public class CardDTO {
         return thruDate;
     }
 
-    public CardType getColor() {
+    public CardColor getColor() {
         return color;
     }
 
-    public TransactionType getType() {
+    public CardType getType() {
         return type;
     }
 

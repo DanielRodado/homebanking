@@ -57,12 +57,18 @@ public class ClientController {
     public ResponseEntity<Object> newClient(
             @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
 
-        if (firstName.isEmpty() ||  lastName.isEmpty() ||  email.isEmpty() || password.isEmpty()) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+        if (firstName.isEmpty() ||  firstName.isBlank()) {
+            return new ResponseEntity<>("The name is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
+        }if (lastName.isEmpty() ||  lastName.isBlank()) {
+            return new ResponseEntity<>("The last name is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
+        }if (email.isEmpty() ||  email.isBlank()) {
+            return new ResponseEntity<>("The email is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
+        }if (password.isEmpty() ||  password.isBlank()) {
+            return new ResponseEntity<>( "The password is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
         }
 
         if (clientRepository.findByEmail(email) != null) {
-            return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The e-mail address you entered is already registered.", HttpStatus.FORBIDDEN);
         }
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password), false);
