@@ -44,7 +44,7 @@ createApp({
                             text: "This user is not registered",
                             color: "#fff",
                             background: "#1c2754",
-                            confirmButtonColor: "#17acc9",
+                            confirmButtonColor: "#17acc9"
                         });
                     }
                 });
@@ -70,32 +70,20 @@ createApp({
                         .catch((error) => console.log(error));
                 })
                 .catch((error) => {
-                    console.error("Error registering user:", error);
-                    if (
-                        this.inputNameRegister === "" ||
-                        this.inputLastNameRegister === "" ||
-                        this.inputEmailRegister === "" ||
-                        this.inputPasswordRegister === ""
-                    ) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error...",
-                            text: "Fill in all fields",
-                            color: "#fff",
-                            background: "#1c2754",
-                            confirmButtonColor: "#17acc9",
-                        });
-                    } else if (error.response.status === 403) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Invalid e-mail address",
-                            text: "This e-mail address is already registered",
-                            color: "#fff",
-                            background: "#1c2754",
-                            confirmButtonColor: "#17acc9",
-                        });
+                        console.error("Error registering user:", error);
+                        this.messageError(error.response.data);
                     }
-                });
+                );
         },
+        messageError(message) {
+            Swal.fire({
+                icon: "error",
+                title: "An error has occurred",
+                text: message,
+                color: "#fff",
+                background: "#1c2754",
+                confirmButtonColor: "#17acc9"
+            });
+        }
     },
 }).mount("#app");
