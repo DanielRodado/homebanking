@@ -2,24 +2,183 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FINOVATE - Login</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        />
+        <link
+            rel="shortcut icon"
+            href="../assets/logo-favicon.png"
+            type="image/x-icon"
+        />
+        <link rel="stylesheet" href="../css/styles.css" />
     </head>
     <body>
         <div id="app">
-            <form>
+            <!-- <form>
                 <fieldset>
                     <label for="userEmail">Email</label>
-                    <input type="email" name="email" id="userEmail" v-model="inputEmail">
+                    <input
+                        type="email"
+                        name="email"
+                        id="userEmail"
+                        v-model="inputEmail"
+                    />
                 </fieldset>
                 <fieldset>
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" v-model="inputPassword">
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        v-model="inputPassword"
+                    />
                 </fieldset>
                 <button type="button" @click="login">Sign In</button>
-            </form>
-            <a href="./register.html" style="text-decoration: none;">Register</a>
+            </form> -->
+            <div class="login-sec">
+                <div class="bg-contain"></div>
+                <div class="section">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-12 text-center align-self-center py-5">
+                                <div class="section pt-5 pt-sm-2 text-center">
+                                    <h6 class="mb-0 pb-3">
+                                        <span class="type-login pe-4">Log In </span><span class="type-login ps-4">Sign Up</span>
+                                    </h6>
+                                    <input
+                                        class="checkbox"
+                                        type="checkbox"
+                                        id="reg-log"
+                                        name="reg-log"
+                                    />
+                                    <label for="reg-log" class="label-select">
+                                        <span class="ball-select">
+                                            <i class="bi bi-arrow-up-left text-white"></i>
+                                        </span>
+                                    </label>
+                                    <div class="card-login-3d-wrap mx-auto">
+                                        <div class="card-login-3d-wrapper">
+                                            <div class="card-login-front">
+                                                <div class="center-wrap">
+                                                    <div
+                                                        class="section text-center"
+                                                    >
+                                                        <h4 class="mb-4 pb-3 text-white">
+                                                            Log In
+                                                        </h4>
+                                                        <div class="form-group">
+                                                            <input
+                                                                type="email"
+                                                                name="UserEmail"
+                                                                class="form-style"
+                                                                placeholder="Your Email"
+                                                                id="email"
+                                                                v-model="inputEmail"
+                                                            />
+                                                        </div>
+                                                        <div
+                                                            class="form-group mt-2"
+                                                        >
+                                                            <input
+                                                                type="password"
+                                                                name="UserPassword"
+                                                                class="form-style"
+                                                                placeholder="Your Password"
+                                                                id="password"
+                                                                v-model="inputPassword"
+                                                            />
+                                                            <i
+                                                                class="input-icon uil uil-lock-alt"
+                                                            ></i>
+                                                        </div>
+                                                        <button type="button" class="btn--login mt-4" @click="login">Login</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-login-back">
+                                                <div class="center-wrap">
+                                                    <div
+                                                        class="section text-center"
+                                                    >
+                                                        <h4 class="mb-4 pb-3 text-white">
+                                                            Sign Up
+                                                        </h4>
+                                                        <div class="form-group">
+                                                            <input
+                                                                type="text"
+                                                                name="UserFirstName"
+                                                                class="form-style"
+                                                                placeholder="Your Name"
+                                                                id="firstName"
+                                                                v-model="inputNameRegister"
+                                                            />
+                                                            <i
+                                                                class="input-icon uil uil-user"
+                                                            ></i>
+                                                        </div>
+                                                        <div
+                                                            class="form-group mt-2"
+                                                        >
+                                                            <input
+                                                                type="text"
+                                                                name="UserLastName"
+                                                                class="form-style"
+                                                                placeholder="Your Last Name"
+                                                                id="lastName"
+                                                                v-model="inputLastNameRegister"
+                                                            />
+                                                            <i
+                                                                class="input-icon uil uil-at"
+                                                            ></i>
+                                                        </div>
+                                                        <div
+                                                            class="form-group mt-2"
+                                                        >
+                                                            <input
+                                                                type="email"
+                                                                name="UserEmail"
+                                                                class="form-style"
+                                                                placeholder="Your Email"
+                                                                id="email"
+                                                                v-model="inputEmailRegister"
+                                                            />
+                                                            <input
+                                                                type="password"
+                                                                name="UserPassword"
+                                                                class="form-style mt-2"
+                                                                placeholder="Your Password"
+                                                                id="password"
+                                                                v-model="inputPasswordRegister"
+                                                            />
+                                                        </div>
+                                                        <button type="button" class="btn--login mt-4" @click="register">Register</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="../js/login.js"></script>
