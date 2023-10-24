@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.Authentication;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,15 +27,15 @@ public class AccountController {
     @Autowired
     private ClientRepository clientRepository;
 
-    public String generateRamdonNumber() {
+    public String generateRandomNumber() {
         return "VIN-" + (int) ((Math.random() * (99999999)));
     }
 
     public String validateNumber() {
-        String accountNumber = generateRamdonNumber();
+        String accountNumber = generateRandomNumber();
 
         while(accountRepository.existsByNumber(accountNumber)) {
-            accountNumber = generateRamdonNumber();
+            accountNumber = generateRandomNumber();
         }
 
         return accountNumber;

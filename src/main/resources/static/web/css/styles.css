@@ -107,13 +107,13 @@
     display: block;
 }
 
-[type="checkbox"]:checked,
-[type="checkbox"]:not(:checked) {
+.checkbox--login:checked,
+.checkbox--login:not(:checked) {
     position: absolute;
     left: -9999px;
 }
-.checkbox:checked + .label-select,
-.checkbox:not(:checked) + .label-select {
+.checkbox--login:checked + .label-select,
+.checkbox--login:not(:checked) + .label-select {
     position: relative;
     display: block;
     text-align: center;
@@ -125,8 +125,8 @@
     cursor: pointer;
     background-color: #ffeba7;
 }
-.checkbox:checked + .label-select > .ball-select,
-.checkbox:not(:checked) + .label-select > .ball-select {
+.checkbox--login:checked + .label-select > .ball-select,
+.checkbox--login:not(:checked) + .label-select > .ball-select {
     position: absolute;
     display: block;
     width: 2.25rem;
@@ -143,7 +143,7 @@
     transition: all 0.5s ease;
 }
 
-.checkbox:checked + .label-select > .ball-select {
+.checkbox--login:checked + .label-select > .ball-select {
     transform: translateX(44px) rotate(-270deg);
 }
 
@@ -190,7 +190,7 @@
 .card-login-back {
     transform: rotateY(180deg);
 }
-.checkbox:checked ~ .card-login-3d-wrap .card-login-3d-wrapper {
+.checkbox--login:checked ~ .card-login-3d-wrap .card-login-3d-wrapper {
     transform: rotateY(180deg);
 }
 .center-wrap {

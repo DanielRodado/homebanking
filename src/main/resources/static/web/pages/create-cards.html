@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FINOVATE - Create Card</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="shortcut icon" href="../assets/logo-favicon.png" type="image/x-icon">
+        <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/styles.css">
+    </head>
+    <body>
+
+        <div id="app">
+            <form>
+                <fieldset>
+                    <label for="creditCard">Credit</label>
+                    <input type="radio" name="cardtype" id="creditCard" value="CREDIT" v-model="cardType">
+                    <br>
+                    <label for="debitCard">Debit</label>
+                    <input type="radio" name="cardtype" id="debitCard" value="DEBIT" v-model="cardType">
+                </fieldset>
+                <fieldset>
+                    <label for="gold">GOLD</label>
+                    <input type="radio" name="cardColor" id="gold" value="GOLD" v-model="cardColor">
+                    <br>
+                    <label for="silver">SILVER</label>
+                    <input type="radio" name="cardColor" id="silver" value="SILVER" v-model="cardColor">
+                    <br>
+                    <label for="titanium">TITANIUM</label>
+                    <input type="radio" name="cardColor" id="titanium" value="TITANIUM" v-model="cardColor">
+                </fieldset>
+                <button type="button" class="btn btn-success" @click="createCard">Create Card</button>
+            </form>
+        </div>
+
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        <script src="../js/create-cards.js"></script>
+    </body>
+</html>
