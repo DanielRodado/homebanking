@@ -54,8 +54,8 @@ public class CardController {
     }
 
     @PostMapping("/clients/currents/cards")
-    public ResponseEntity<Object> newClient(@RequestParam String cardColor, @RequestParam String cardType,
-                                            Authentication authentication) {
+    public ResponseEntity<Object> newCard(@RequestParam String cardColor, @RequestParam String cardType,
+                                          Authentication authentication) {
 
         if (cardType.isEmpty()) {
             return new ResponseEntity<>("You must choose a card type.", HttpStatus.FORBIDDEN);
