@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,45 +31,51 @@ public class CardController {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-    public String validateCardNumber() {
-        String cardNumber = "";
-        while(cardRepository.existsByNumber(cardNumber) || cardNumber.isEmpty()) {
-            for (int i = 0; i <= 3; i++) {
-                cardNumber = generateRandomNumber(0, 999) + "-";
+    public String generateNumberCard() {
+        StringBuilder cardNumber;
+        do {
+            cardNumber = new StringBuilder();
+            for (int i = 0; i < 16; i++) {
+                cardNumber.append(generateRandomNumber(0, 9));
+                if ((i + 1) % 4 == 0 && i != 15) cardNumber.append("-");
             }
-        }
-        return cardNumber;
+        } while (cardRepository.existsByNumber(cardNumber.toString()));
+        return cardNumber.toString();
     }
-    public String validateCardCvv() {
-        Integer cardNumber = generateRandomNumber(100, 999);
-
-        while(cardRepository.existsByCvv(cardNumber.toString())) {
-            cardNumber = generateRandomNumber(100, 999);
-        }
-
+    public String generateCvvCard() {
+        StringBuilder cardNumber;
+        do {
+            cardNumber = new StringBuilder();
+            for (byte i = 0; i <= 2; i++) {
+                cardNumber.append(generateRandomNumber(0, 9));
+            }
+        } while (cardRepository.existsByCvv(cardNumber.toString()));
         return cardNumber.toString();
     }
 
-    @RequestMapping("/clients/currents/cards")
-    public ResponseEntity<Object> newClient(@RequestParam CardColor cardColor, @RequestParam CardType cardType,
+    @PostMapping("/clients/currents/cards")
+    public ResponseEntity<Object> newClient(@RequestParam String cardColor, @RequestParam String cardType,
                                             Authentication authentication) {
 
-        if (cardColor.toString().isEmpty()) {
+        if (cardType.isEmpty()) {
             return new ResponseEntity<>("You must choose a card type.", HttpStatus.FORBIDDEN);
         }
-        if (cardType.toString().isEmpty()) {
+
+        if (cardColor.isEmpty()) {
             return new ResponseEntity<>("You must choose a card color.", HttpStatus.FORBIDDEN);
         }
 
-        if (cardRepository.countByType(cardType) > 3) {
+        Client client = clientRepository.findByEmail(authentication.getName());
+
+        int numberOfCardType =  // card.getType() == cardType
+                (int) client.getCards().stream().filter(card -> card.getType().equals(CardType.valueOf(cardType))).count();
+
+        if (numberOfCardType == 3) {
             return new ResponseEntity<>("You cannot have more than three cards of the same type.", HttpStatus.FORBIDDEN);
         }
 
-        Client client = clientRepository.findByEmail(authentication.getName());
-        clientRepository.save(client);
-
-        Card card = new Card(client.getFullName(), validateCardNumber(), validateCardCvv(),
-                LocalDate.now(), LocalDate.now().plusYears(5), cardColor, cardType);
+        Card card = new Card(client.getFullName(), generateNumberCard(), generateCvvCard(),
+                LocalDate.now(), LocalDate.now().plusYears(5), CardColor.valueOf(cardColor), CardType.valueOf(cardType));
 
         client.addCard(card);
         cardRepository.save(card);

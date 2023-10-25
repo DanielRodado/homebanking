@@ -29,18 +29,20 @@ public class ClientController {
     @Autowired
     private AccountRepository accountRepository;
 
-    public String generateRamdonNumber() {
-        return "VIN-" + (int) ((Math.random() * (99999999)));
+    public int generateRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 
-    public String validateNumber() {
-        String accountNumber = generateRamdonNumber();
+    public String generateAccountNumber() {
+        int quantityOfNumbers = generateRandomNumber(1, 8);
+        StringBuilder accountNumber = new StringBuilder();
+        do {
+            for (byte i = 0; i <= quantityOfNumbers; i++) {
+                accountNumber.append(generateRandomNumber(0, 9));
+            }
+        } while (accountRepository.existsByNumber("VIN-" + accountNumber));
 
-        while(accountRepository.existsByNumber(accountNumber)) {
-            accountNumber = generateRamdonNumber();
-        }
-
-        return accountNumber;
+        return "VIN-" + accountNumber;
     }
 
     @RequestMapping("/clients")
@@ -74,7 +76,7 @@ public class ClientController {
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password), false);
         clientRepository.save(client);
 
-        Account account = new Account(validateNumber(), LocalDate.now(), 0.00);
+        Account account = new Account(generateAccountNumber(), LocalDate.now(), 0.00);
         client.addAccount(account);
         accountRepository.save(account);
 

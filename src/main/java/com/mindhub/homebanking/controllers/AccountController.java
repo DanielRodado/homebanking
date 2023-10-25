@@ -27,18 +27,20 @@ public class AccountController {
     @Autowired
     private ClientRepository clientRepository;
 
-    public String generateRandomNumber() {
-        return "VIN-" + (int) ((Math.random() * (99999999)));
+    public int generateRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 
-    public String validateNumber() {
-        String accountNumber = generateRandomNumber();
+    public String generateAccountNumber() {
+        int quantityOfNumbers = generateRandomNumber(3, 8);
+        StringBuilder accountNumber = new StringBuilder();
+        do {
+            for (byte i = 0; i <= quantityOfNumbers; i++) {
+                accountNumber.append(generateRandomNumber(0, 9));
+            }
+        } while (accountRepository.existsByNumber("VIN-" + accountNumber));
 
-        while(accountRepository.existsByNumber(accountNumber)) {
-            accountNumber = generateRandomNumber();
-        }
-
-        return accountNumber;
+        return "VIN-" + accountNumber;
     }
 
     @RequestMapping("/accounts")
@@ -60,7 +62,7 @@ public class AccountController {
             return new ResponseEntity<>("Cannot create any more accounts for this client", HttpStatus.FORBIDDEN);
         }
 
-        Account account = new Account(validateNumber(), LocalDate.now(), 0.00);
+        Account account = new Account(generateAccountNumber(), LocalDate.now(), 0.00);
         client.addAccount(account);
 
         accountRepository.save(account);
