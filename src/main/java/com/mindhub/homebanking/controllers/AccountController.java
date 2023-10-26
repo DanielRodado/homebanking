@@ -8,10 +8,7 @@ import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 
 import java.time.LocalDate;
@@ -68,5 +65,11 @@ public class AccountController {
         accountRepository.save(account);
         clientRepository.save(client);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping("/clients/current/accounts")
+    public Set<AccountDTO> getAccountClientCurrent(Authentication authentication) {
+        return clientRepository.findByEmail(authentication.getName())
+                .getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
     }
 }

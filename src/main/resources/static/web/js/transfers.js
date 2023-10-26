@@ -3,18 +3,25 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            cardType: "",
-            cardColor: "",
+            accounts: [],
+            optionTransaction: "myAccounts"
         };
     },
 
     created() {},
 
     methods: {
+        getData() {
+            axios("/api/clients/currents/accounts")
+                .then(({ data }) => {
+                    this.accounts = data;
+                })
+                .catch((error) => console.log(error));
+        },
         createCard() {
             axios
                 .post(
-                    "/api/clients/current/cards",
+                    "/api/clients/currents/cards",
                     `cardColor=${this.cardColor}&cardType=${this.cardType}`
                 )
                 .then(() => {

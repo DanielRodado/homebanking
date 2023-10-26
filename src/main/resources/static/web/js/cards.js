@@ -17,7 +17,7 @@ createApp({
 
     methods: {
         getClients() {
-            axios("/api/clients/currents")
+            axios("/api/clients/current")
                 .then(({ data }) => {
                     this.cards = data.cards;
                     this.cardsFiltered = data.cards;

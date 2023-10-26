@@ -5,6 +5,7 @@
     --four-color: hwb(233 3% 80%);
 }
 
+
 #app {
     font-family: "Nunito", sans-serif !important;
 }
@@ -370,11 +371,11 @@
 }
 
 .debit {
-    color: hwb(120 0% 45%) !important;
+    color: hwb(0 0% 15%) !important;
 }
 
 .credit {
-    color: hwb(0 0% 15%) !important;
+    color: hwb(120 0% 45%) !important;
 }
 
 .first-color-bg {

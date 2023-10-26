@@ -53,7 +53,7 @@ public class CardController {
         return cardNumber.toString();
     }
 
-    @PostMapping("/clients/currents/cards")
+    @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> newCard(@RequestParam String cardColor, @RequestParam String cardType,
                                           Authentication authentication) {
 

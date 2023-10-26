@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FINOVATE - Transfers</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="shortcut icon" href="../assets/logo-favicon.png" type="image/x-icon">
+        <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/styles.css">
+    </head>
+    <body>
+
+        <div id="app">
+            <form>
+                <fieldset class="d-flex gap-3">
+                    <div>
+                        <label for="creditCard">My accounts</label>
+                        <input type="radio" name="option1" id="own" value="myAccounts" v-model="optionTransaction" checked>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="debitCard">Others</label>
+                        <input type="radio" name="option2" id="Others" value="others" v-model="optionTransaction">
+                    </div>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <fieldset>
+                        <label for="accountFrom">From Account</label>
+                        <select name="accountFrom" id="accountFrom">
+                            <option value=""></option>
+                        </select>
+                    </fieldset>
+                    <br>
+                    <fieldset>
+                        <label for="ToAccounts">To Account</label>
+                        <input type="text" id="ToAccounts">
+                    </fieldset>
+                    <br>
+                    <fieldset>
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount">
+                    </fieldset>
+                    <br>
+                    <fieldset>
+                        <label for="description">Description</label>
+                        <input type="text" id="description">
+                    </fieldset>
+                </fieldset>
+                <button type="button" class="btn btn-success" @click="createCard">Transfer</button>
+            </form>
+        </div>
+
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        <script src="../js/transfers.js"></script>
+    </body>
+</html>

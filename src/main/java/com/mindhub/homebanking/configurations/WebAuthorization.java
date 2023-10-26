@@ -20,14 +20,13 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
        http.authorizeRequests() // Autoriza peticiones
-               .antMatchers(HttpMethod.POST, "/api/clients","/api/clients/current/**").permitAll()
+               .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
                .antMatchers("/web/index.html", "/web/pages/login.html", "/web/pages/register.html",
-                       "/web/css/**", "/web/js/**", "/web/assets/**", "/api/clients/currents").permitAll()
-               .antMatchers("/h2-console/**", "/rest/**", "/api/clients/", "/api/clients/{id}",
+                       "/web/css/**", "/web/js/**", "/web/assets/**", "/api/clients/current").permitAll()
+               .antMatchers("/h2-console/**", "/rest/**", "/api/clients", "/api/clients/{id}",
                                               "/api/accounts", "/api/accounts/**","/web/pages/manager.html").hasAuthority("ADMIN")
-               .antMatchers(HttpMethod.GET, "/api/clients/current/**").hasAuthority("ADMIN")
-               .antMatchers(HttpMethod.POST,"/api/clients/currents/cards").authenticated()
-               .antMatchers("/web/pages/**").authenticated()
+               .antMatchers(HttpMethod.POST,"/api/clients/current/**").authenticated()
+               .antMatchers("/web/pages/**", "/api/clients/current/**").authenticated()
                .anyRequest().denyAll();
 
 

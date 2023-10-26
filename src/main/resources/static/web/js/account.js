@@ -19,7 +19,7 @@ createApp({
 
     methods: {
         getAccount() {
-            axios("/api/clients/currents")
+            axios("/api/clients/current")
                 .then(( {data} ) => {
                     this.client = data;
                     this.account = this.client.accounts.find(account => account.id == this.id);
