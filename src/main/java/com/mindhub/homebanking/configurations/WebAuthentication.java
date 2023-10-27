@@ -20,11 +20,13 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     ClientRepository clientRepository;
 
     @Override
-    public void init(AuthenticationManagerBuilder auth) throws Exception {
+    public void init(AuthenticationManagerBuilder auth) throws Exception { // Durante el proceso de cofiguración se
+        // ejecuta el método init que nos permite configurar los detalles de autenticación del usuario
 
         auth.userDetailsService(userNameEmail -> {
             Client client = clientRepository.findByEmail(userNameEmail);
-            if (client != null) {
+            if (client != null) { // Durante el proceso de autenticación, Spring Security utiliza este objeto para construir un
+                                  // objeto de tipo Authentication
                 return new User(client.getEmail(), client.getPassword(),
                         (client.getAdmin()) ? AuthorityUtils.createAuthorityList("ADMIN")
                                             : AuthorityUtils.createAuthorityList("CLIENT"));

@@ -84,7 +84,7 @@ public class ClientController {
     }
 
     @RequestMapping("/clients/current")
-    public ClientDTO getClientCurrent(Authentication authentication){
-        return new ClientDTO(clientRepository.findByEmail(authentication.getName()));
+    public ClientDTO getClientCurrent(Authentication currentClient){
+        return new ClientDTO(clientRepository.findByEmail(currentClient.getName()));
     }
 }

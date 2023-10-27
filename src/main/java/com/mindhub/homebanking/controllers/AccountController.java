@@ -51,9 +51,9 @@ public class AccountController {
     }
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> newAccount(Authentication authentication) {
+    public ResponseEntity<Object> newAccount(Authentication currentClient) {
 
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientRepository.findByEmail(currentClient.getName());
 
         if (client.getAccounts().size() >= 3) {
             return new ResponseEntity<>("Cannot create any more accounts for this client", HttpStatus.FORBIDDEN);

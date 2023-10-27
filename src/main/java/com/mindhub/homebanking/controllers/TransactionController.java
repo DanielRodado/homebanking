@@ -36,9 +36,9 @@ public class TransactionController {
     @PostMapping("/clients/current/transactions")
     public ResponseEntity<Object> newCard(@RequestParam Double amount, @RequestParam String description,
                                           @RequestParam String numberOfAccountFrom,
-                                          @RequestParam String numberOfAccountTo, Authentication authentication) {
+                                          @RequestParam String numberOfAccountTo, Authentication currentClient) {
 
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientRepository.findByEmail(currentClient.getName());
         Account accountFrom = accountRepository.findByNumber(numberOfAccountFrom);
         Account accountTo = accountRepository.findByNumber(numberOfAccountTo);
 

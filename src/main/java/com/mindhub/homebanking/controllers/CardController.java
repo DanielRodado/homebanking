@@ -55,7 +55,7 @@ public class CardController {
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> newCard(@RequestParam String cardColor, @RequestParam String cardType,
-                                          Authentication authentication) {
+                                          Authentication currentClient) {
 
         if (cardType.isEmpty()) {
             return new ResponseEntity<>("You must choose a card type.", HttpStatus.FORBIDDEN);
@@ -65,7 +65,7 @@ public class CardController {
             return new ResponseEntity<>("You must choose a card color.", HttpStatus.FORBIDDEN);
         }
 
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientRepository.findByEmail(currentClient.getName());
 
         int numberOfCardType =  // card.getType() == cardType
                 (int) client.getCards().stream().filter(card -> card.getType().equals(CardType.valueOf(cardType))).count();
