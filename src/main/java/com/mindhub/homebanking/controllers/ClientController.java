@@ -34,10 +34,11 @@ public class ClientController {
     }
 
     public String generateAccountNumber() {
-        int quantityOfNumbers = generateRandomNumber(1, 8);
-        StringBuilder accountNumber = new StringBuilder();
+        int quantityOfNumbers = generateRandomNumber(3, 8);
+        StringBuilder accountNumber;
         do {
-            for (byte i = 0; i <= quantityOfNumbers; i++) {
+            accountNumber = new StringBuilder();
+            for (byte i = 0; i < quantityOfNumbers; i++) {
                 accountNumber.append(generateRandomNumber(0, 9));
             }
         } while (accountRepository.existsByNumber("VIN-" + accountNumber));
