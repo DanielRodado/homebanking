@@ -90,8 +90,8 @@
                     <div class="container">
                         <div class="title text-center mb-4">
                             <h2>Hello, {{client.firstName}}</h2>
-                            <p v-if="client.loans.length === 0" class="mb-5">You do not have accounts</p>
-                            <p v-else-if="client.loans.length === 1">These are their accounts:</p>
+                            <p v-if="client.accounts.length === 0" class="mb-5">You do not have accounts</p>
+                            <p v-else-if="client.accounts.length === 1">These are their accounts:</p>
                             <p v-else>These are their accounts:</p>
                         </div>
                         <button v-if="client.accounts.length < 3" type="button" class="btn btn-primary" @click="addAccount">Add Account</button>
