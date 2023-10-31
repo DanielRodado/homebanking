@@ -18,43 +18,51 @@
     <body>
 
         <div id="app">
+            {{filterAccounts}}
+            {{changeValueAccountTo}}
             <form>
                 <fieldset class="d-flex gap-3">
                     <div>
                         <label for="creditCard">My accounts</label>
-                        <input type="radio" name="option1" id="own" value="myAccounts" v-model="optionTransaction" checked>
+                        <input type="radio" name="option1" id="own" value="myAccounts" v-model="optionTransaction">
                     </div>
                     <br>
                     <div>
                         <label for="debitCard">Others</label>
-                        <input type="radio" name="option2" id="Others" value="others" v-model="optionTransaction">
+                        <input type="radio" name="option2" id="Others" value="others" v-model="optionTransaction" checked>
                     </div>
                 </fieldset>
                 <br>
                 <fieldset>
                     <fieldset>
                         <label for="accountFrom">From Account</label>
-                        <select name="accountFrom" id="accountFrom">
-                            <option value=""></option>
+                        <select name="accountFrom" id="accountFrom" v-model="selectedAccountFrom">
+                            <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
+                        </select>
+                    </fieldset>
+                    <br>
+                    <fieldset v-if="optionTransaction === 'others'">
+                        <label for="ToAccounts">To Account</label>
+                        <input type="text" id="ToAccounts" v-model="selectedAccountTo">
+                    </fieldset>
+                    <fieldset v-else>
+                        <label for="ToAccounts">To Account</label>
+                        <select name="ToAccounts" id="ToAccounts" v-model="selectedAccountTo">
+                            <option v-for="account of myAccountsTo" :value="account.number">{{account.number}}</option>
                         </select>
                     </fieldset>
                     <br>
                     <fieldset>
-                        <label for="ToAccounts">To Account</label>
-                        <input type="text" id="ToAccounts">
-                    </fieldset>
-                    <br>
-                    <fieldset>
                         <label for="amount">Amount</label>
-                        <input type="number" id="amount">
+                        <input type="number" id="amount" v-model="amount">
                     </fieldset>
                     <br>
                     <fieldset>
                         <label for="description">Description</label>
-                        <input type="text" id="description">
+                        <input type="text" id="description" v-model="description">
                     </fieldset>
                 </fieldset>
-                <button type="button" class="btn btn-success" @click="createCard">Transfer</button>
+                <button type="button" class="btn btn-success" @click="postTransfer">Transfer</button>
             </form>
         </div>
 
