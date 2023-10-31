@@ -124,6 +124,10 @@ public class HomebankingApplication {
 			Client clientAdmin = new Client("Admin", "Admin",
 					"admin@admin.com", passwordEncoder.encode("admin123"), true);
 			clientRepository.save(clientAdmin);
+
+			Account accountClientAdmin= new Account("VIN-009", date, 32000.00);
+			clientAdmin.addAccount(accountClientAdmin);
+			accountRepository.save(accountClientAdmin);
 		};
 	}
 	@Autowired
