@@ -43,31 +43,29 @@ public class CardController {
         return cardNumber.toString();
     }
     public String generateCvvCard() {
-        StringBuilder cardNumber;
-        do {
-            cardNumber = new StringBuilder();
-            for (byte i = 0; i <= 2; i++) {
-                cardNumber.append(generateRandomNumber(0, 9));
-            }
-        } while (cardRepository.existsByCvv(cardNumber.toString()));
+        StringBuilder cardNumber = new StringBuilder();
+        for (byte i = 0; i <= 2; i++) {
+            cardNumber.append(generateRandomNumber(0, 9));
+        }
         return cardNumber.toString();
     }
 
     @PostMapping("/clients/current/cards")
-    public ResponseEntity<Object> newCard(@RequestParam String cardColor, @RequestParam String cardType,
+    public ResponseEntity<String> newCard(@RequestParam String cardColor, @RequestParam String cardType,
                                           Authentication currentClient) {
 
-        if (cardType.isEmpty()) {
+        if (cardType.isBlank() || !cardType.equals("DEBIT") && !cardType.equals("CREDIT")) {
             return new ResponseEntity<>("You must choose a card type.", HttpStatus.FORBIDDEN);
         }
 
-        if (cardColor.isEmpty()) {
+        if (cardColor.isBlank() || !cardColor.equals("GOLD") && !cardColor.equals("TITANIUM") &&
+                !cardColor.equals("SILVER")) {
             return new ResponseEntity<>("You must choose a card color.", HttpStatus.FORBIDDEN);
         }
 
         Client client = clientRepository.findByEmail(currentClient.getName());
 
-        int numberOfCardType =  // card.getType() == cardType
+        int numberOfCardType =
                 (int) client.getCards().stream().filter(card -> card.getType().equals(CardType.valueOf(cardType))).count();
 
         if (numberOfCardType == 3) {

@@ -57,20 +57,20 @@ public class ClientController {
 
     // Register
     @PostMapping("/clients")
-    public ResponseEntity<Object> newClient(
+    public ResponseEntity<String> newClient( //String
             @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
 
-        if (firstName.isEmpty() ||  firstName.isBlank()) {
+        if (firstName.isBlank()) {
             return new ResponseEntity<>("The name is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
-        }if (lastName.isEmpty() ||  lastName.isBlank()) {
+        }if (lastName.isBlank()) {
             return new ResponseEntity<>("The last name is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
-        }if (email.isEmpty() ||  email.isBlank()) {
+        }if (email.isBlank()) {
             return new ResponseEntity<>("The email is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
-        }if (password.isEmpty() ||  password.isBlank()) {
+        }if (password.isBlank()) {
             return new ResponseEntity<>( "The password is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
         }
 
-        if (clientRepository.findByEmail(email) != null) {
+        if (!clientRepository.existsByEmail(email)) {
             return new ResponseEntity<>("The e-mail address you entered is already registered.", HttpStatus.FORBIDDEN);
         }
 
