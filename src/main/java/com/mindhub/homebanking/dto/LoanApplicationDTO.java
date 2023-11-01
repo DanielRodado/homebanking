@@ -1,16 +1,13 @@
 package com.mindhub.homebanking.dto;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-
 public class LoanApplicationDTO {
 
     private Long idLoan;
-    private int amount;
+    private Double amount;
     private int payments;
     private String numberAccountTo;
 
-    public LoanApplicationDTO(Long idLoan, int amount, int payments, String numberAccountTo) {
+    public LoanApplicationDTO(Long idLoan, Double amount, int payments, String numberAccountTo) {
         this.idLoan = idLoan;
         this.amount = amount;
         this.payments = payments;
@@ -21,7 +18,7 @@ public class LoanApplicationDTO {
         return idLoan;
     }
 
-    public int getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
