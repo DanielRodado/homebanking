@@ -70,7 +70,7 @@ public class ClientController {
             return new ResponseEntity<>( "The password is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
         }
 
-        if (!clientRepository.existsByEmail(email)) {
+        if (clientRepository.existsByEmail(email)) {
             return new ResponseEntity<>("The e-mail address you entered is already registered.", HttpStatus.FORBIDDEN);
         }
 

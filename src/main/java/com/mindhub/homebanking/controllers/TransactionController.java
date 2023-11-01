@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,12 @@ public class TransactionController {
     @Autowired
     TransactionRepository transactionRepository;
 
+    public LocalDateTime formattedLocalDateTime(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = dateTime.format(formatter);
+        return LocalDateTime.parse(formattedDateTime, formatter);
+    }
+
     @Transactional
     @PostMapping("/clients/current/transactions")
     public ResponseEntity<Object> newCard(@RequestParam Double amount, @RequestParam String description,
@@ -46,16 +53,16 @@ public class TransactionController {
         Account accountTo = accountRepository.findByNumber(numberOfAccountTo);
 
         // Verificar que los parámetros no estén vacíos
-        if (numberOfAccountFrom.isEmpty() || numberOfAccountFrom.isBlank())
+        if (numberOfAccountFrom.isBlank())
             return new ResponseEntity<>("AA source account is required.", HttpStatus.FORBIDDEN);
 
-        if (numberOfAccountTo.isEmpty() || numberOfAccountTo.isBlank())
+        if (numberOfAccountTo.isBlank())
             return new ResponseEntity<>("A target account is required.", HttpStatus.FORBIDDEN);
 
         if (amount <= 0)
             return new ResponseEntity<>("A transaction cannot be made with an amount less than or equal to 0", HttpStatus.FORBIDDEN);
 
-        if (description.isEmpty() || description.isBlank())
+        if (description.isBlank())
             return new ResponseEntity<>("Fill in the description field.", HttpStatus.FORBIDDEN);
 
         if (description.length() > 100)
@@ -85,10 +92,10 @@ public class TransactionController {
         // Se instancian las transacciones con sus datos
         Transaction transactionFrom = new Transaction(TransactionType.DEBIT, -amount,
                 description + " To " + numberOfAccountTo,
-                LocalDateTime.now());
+                formattedLocalDateTime(LocalDateTime.now()));
         Transaction transactionTo = new Transaction(TransactionType.CREDIT, amount,
                 description + " To " + numberOfAccountFrom,
-                LocalDateTime.now());
+                formattedLocalDateTime(LocalDateTime.now()));
 
         accountFrom.addTransaction(transactionFrom);
         accountTo.addTransaction(transactionTo);
