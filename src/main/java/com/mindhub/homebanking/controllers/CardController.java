@@ -4,8 +4,8 @@ import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repositories.CardRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.CardService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +22,10 @@ import java.time.LocalDate;
 public class CardController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
     @Autowired
-    private CardRepository cardRepository;
+    private CardService cardService;
 
     public int generateRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
@@ -39,7 +39,7 @@ public class CardController {
                 cardNumber.append(generateRandomNumber(0, 9));
                 if ((i + 1) % 4 == 0 && i != 15) cardNumber.append("-");
             }
-        } while (cardRepository.existsByNumber(cardNumber.toString()));
+        } while (cardService.existsCardByNumber(cardNumber.toString()));
         return cardNumber.toString();
     }
     public String generateCvvCard() {
@@ -54,32 +54,29 @@ public class CardController {
     public ResponseEntity<String> newCard(@RequestParam String cardColor, @RequestParam String cardType,
                                           Authentication currentClient) {
 
-        if (cardType.isBlank() || !cardType.equals("DEBIT") && !cardType.equals("CREDIT")) {
+        if (cardType.isBlank() || !(cardType.equals("DEBIT") || cardType.equals("CREDIT"))) {
             return new ResponseEntity<>("You must choose a card type.", HttpStatus.FORBIDDEN);
         }
 
-        if (cardColor.isBlank() || !cardColor.equals("GOLD") && !cardColor.equals("TITANIUM") &&
-                !cardColor.equals("SILVER")) {
+        if (cardColor.isBlank() || !(cardColor.equals("GOLD") || cardColor.equals("TITANIUM") || cardColor.equals(
+                "SILVER"))) {
             return new ResponseEntity<>("You must choose a card color.", HttpStatus.FORBIDDEN);
         }
 
-        Client client = clientRepository.findByEmail(currentClient.getName());
+        Client client = clientService.getClientByEmail(currentClient.getName());
 
-        int numberOfCardType =
-                (int) client.getCards().stream().filter(card -> card.getType().equals(CardType.valueOf(cardType))).count();
-
-        if (numberOfCardType == 3) {
-            return new ResponseEntity<>("You cannot have more than three cards of the same type.", HttpStatus.FORBIDDEN);
+        if (cardService.existsCardByClientAndTypeAndColor(client, cardType, cardColor)) {
+            return new ResponseEntity<>("You may not have more than one card of type " + cardType + " and color " + cardColor,
+                    HttpStatus.FORBIDDEN);
         }
 
         Card card = new Card(client.getFullName(), generateNumberCard(), generateCvvCard(),
                 LocalDate.now(), LocalDate.now().plusYears(5), CardColor.valueOf(cardColor), CardType.valueOf(cardType));
 
         client.addCard(card);
-        cardRepository.save(card);
-        clientRepository.save(client);
+        cardService.saveCard(card);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Created card!",HttpStatus.CREATED);
     }
 
 }

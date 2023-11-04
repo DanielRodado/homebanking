@@ -3,8 +3,8 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,21 +13,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
 public class ClientController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     public int generateRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
@@ -41,23 +40,23 @@ public class ClientController {
             for (byte i = 0; i < quantityOfNumbers; i++) {
                 accountNumber.append(generateRandomNumber(0, 9));
             }
-        } while (accountRepository.existsByNumber("VIN-" + accountNumber));
+        } while (accountService.existsAccountByNumber("VIN-" + accountNumber));
 
         return "VIN-" + accountNumber;
     }
 
     @RequestMapping("/clients")
-    public List<ClientDTO> getAllClients() {
-        return clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
+    public Set<ClientDTO> getAllClients() {
+        return clientService.getAllClientsDTO();
     }
     @RequestMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id) {
-        return clientRepository.findById(id).map(ClientDTO::new).orElse(null);
+        return clientService.getClientDTOById(id);
     }
 
     // Register
     @PostMapping("/clients")
-    public ResponseEntity<String> newClient( //String
+    public ResponseEntity<String> newClient(
             @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
 
         if (firstName.isBlank()) {
@@ -70,22 +69,21 @@ public class ClientController {
             return new ResponseEntity<>( "The password is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
         }
 
-        if (clientRepository.existsByEmail(email)) {
+        if (clientService.existsClientByEmail(email)) {
             return new ResponseEntity<>("The e-mail address you entered is already registered.", HttpStatus.FORBIDDEN);
         }
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password), false);
-        clientRepository.save(client);
 
         Account account = new Account(generateAccountNumber(), LocalDate.now(), 0.00);
         client.addAccount(account);
-        accountRepository.save(account);
+        accountService.saveAccount(account);
 
         return new ResponseEntity<>("Client created successfully", HttpStatus.CREATED);
     }
 
     @RequestMapping("/clients/current")
     public ClientDTO getClientCurrent(Authentication currentClient){
-        return new ClientDTO(clientRepository.findByEmail(currentClient.getName()));
+        return new ClientDTO(clientService.getClientByEmail(currentClient.getName()));
     }
 }

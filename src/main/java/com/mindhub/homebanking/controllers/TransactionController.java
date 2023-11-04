@@ -1,13 +1,12 @@
 package com.mindhub.homebanking.controllers;
 
-import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,21 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
 
     @Autowired
-    ClientRepository clientRepository;
+    private ClientService clientService;
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountService accountService;
 
     @Autowired
-    TransactionRepository transactionRepository;
+    private TransactionService transactionService;
 
     public LocalDateTime formattedLocalDateTime(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -47,10 +44,6 @@ public class TransactionController {
     public ResponseEntity<Object> newCard(@RequestParam Double amount, @RequestParam String description,
                                           @RequestParam String numberOfAccountFrom,
                                           @RequestParam String numberOfAccountTo, Authentication currentClient) {
-
-        Client client = clientRepository.findByEmail(currentClient.getName());
-        Account accountFrom = accountRepository.findByNumber(numberOfAccountFrom);
-        Account accountTo = accountRepository.findByNumber(numberOfAccountTo);
 
         // Verificar que los parámetros no estén vacíos
         if (numberOfAccountFrom.isBlank())
@@ -74,41 +67,47 @@ public class TransactionController {
             return new ResponseEntity<>("A transaction cannot be made to the same account.", HttpStatus.FORBIDDEN);
 
         // Verifica que exista la cuenta de origen
-        if (!accountRepository.existsByNumber(numberOfAccountFrom))
+        if (!accountService.existsAccountByNumber(numberOfAccountFrom))
             return new ResponseEntity<>("The source account number does not exist.", HttpStatus.FORBIDDEN);
 
+        Client client = clientService.getClientByEmail(currentClient.getName());
+
         // Verifica que la cuenta de origen pertenezca al cliente autenticado
-        if (!client.getAccounts().contains(accountFrom))
+        if (!accountService.existsAccountByClientAndNumber(client, numberOfAccountFrom))
             return new ResponseEntity<>("The account of origin does not belong to you.", HttpStatus.FORBIDDEN);
 
         // Verifica que exista la cuenta de destino
-        if (!accountRepository.existsByNumber(numberOfAccountTo))
+        if (!accountService.existsAccountByNumber(numberOfAccountTo))
             return new ResponseEntity<>("The destination account number does not exist.", HttpStatus.FORBIDDEN);
+
+        Account accountFrom = accountService.getAccountByNumber(numberOfAccountFrom);
 
         // Verifica que la cuenta de origen tenga el monto disponible.
         if (accountFrom.getBalance() < amount)
             return new ResponseEntity<>("Your account does not have enough amount to perform the transaction.", HttpStatus.FORBIDDEN);
+
+        Account accountTo = accountService.getAccountByNumber(numberOfAccountTo);
 
         // Se instancian las transacciones con sus datos
         Transaction transactionFrom = new Transaction(TransactionType.DEBIT, -amount,
                 description + " To " + numberOfAccountTo,
                 formattedLocalDateTime(LocalDateTime.now()));
         Transaction transactionTo = new Transaction(TransactionType.CREDIT, amount,
-                description + " To " + numberOfAccountFrom,
+                description + " From " + numberOfAccountFrom,
                 formattedLocalDateTime(LocalDateTime.now()));
 
         accountFrom.addTransaction(transactionFrom);
         accountTo.addTransaction(transactionTo);
 
-        transactionRepository.save(transactionFrom);
-        transactionRepository.save(transactionTo);
+        transactionService.saveTransaction(transactionFrom);
+        transactionService.saveTransaction(transactionTo);
 
         // Se le resta al balance de la cuenta de origen y se le suma a la cuenta de destino
         accountFrom.setBalance(accountFrom.getBalance() - amount);
         accountTo.setBalance(amount + accountTo.getBalance());
 
-        /*accountRepository.save(accountFrom);
-        accountRepository.save(accountTo);*/
+        accountService.saveAccount(accountFrom);
+        accountService.saveAccount(accountTo);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

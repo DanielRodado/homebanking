@@ -7,12 +7,11 @@ public class LoanApplicationDTO {
     private int payments;
     private String numberAccountTo;
 
-    public LoanApplicationDTO(Long idLoan, Double amount, int payments, String numberAccountTo) {
-        this.idLoan = idLoan;
-        this.amount = amount;
-        this.payments = payments;
-        this.numberAccountTo = numberAccountTo;
+    public LoanApplicationDTO() {
     }
+
+    /*public LoanApplicationDTO(LoanApplicationDTO loanApplicationDTO) {
+    }*/
 
     public Long getIdLoan() {
         return idLoan;
