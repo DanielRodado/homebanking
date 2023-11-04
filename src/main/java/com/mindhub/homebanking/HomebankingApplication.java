@@ -40,11 +40,13 @@ public class HomebankingApplication {
 			clientOne.addAccount(accountOne);
 			accountRepository.save(accountOne);
 
-			Transaction transactionOne = new Transaction(TransactionType.DEBIT, 8000.00, "My first transaction", formattedLocalDateTime);
+			Transaction transactionOne = new Transaction(TransactionType.DEBIT, -8000.00, "My first transaction",
+					formattedLocalDateTime);
 			accountOne.addTransaction(transactionOne);
 			transactionRepository.save(transactionOne);
 
-            Transaction transactionTwo = new Transaction(TransactionType.DEBIT, 32500.00, "Second transaction", formattedLocalDateTime);
+            Transaction transactionTwo = new Transaction(TransactionType.DEBIT, -32500.00, "Second transaction",
+					formattedLocalDateTime);
             accountOne.addTransaction(transactionTwo);
             transactionRepository.save(transactionTwo);
 
@@ -52,12 +54,12 @@ public class HomebankingApplication {
 			clientOne.addAccount(accountTwo);
 			accountRepository.save(accountTwo);
 
-            Transaction transactionThree = new Transaction(TransactionType.CREDIT, -2000.00, "Payment per transaction",
+            Transaction transactionThree = new Transaction(TransactionType.CREDIT, 2000.00, "Payment per transaction",
                     formattedLocalDateTime);
             accountTwo.addTransaction(transactionThree);
             transactionRepository.save(transactionThree);
 
-			Transaction transactionFour = new Transaction(TransactionType.CREDIT, -2000.00, "Payment of school fees",
+			Transaction transactionFour = new Transaction(TransactionType.CREDIT, 2000.00, "Payment of school fees",
 					formattedLocalDateTime);
 			accountOne.addTransaction(transactionFour);
 			transactionRepository.save(transactionFour);
