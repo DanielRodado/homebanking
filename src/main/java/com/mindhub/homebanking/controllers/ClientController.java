@@ -74,6 +74,7 @@ public class ClientController {
         }
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password), false);
+        clientService.saveClient(client);
 
         Account account = new Account(generateAccountNumber(), LocalDate.now(), 0.00);
         client.addAccount(account);
