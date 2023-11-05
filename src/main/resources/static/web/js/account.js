@@ -32,7 +32,8 @@ createApp({
             axios.post("/api/logout")
                 .then(() => {
                     console.log("signed out!!!");
-                    location.href = "http://localhost:8080/web/pages/login.html";
+                    localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated = false));
+                    location.pathname = "web/pages/login.html";
                 });
         }
 

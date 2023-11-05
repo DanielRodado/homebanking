@@ -15,8 +15,157 @@
         <link rel="stylesheet" href="./css/styles.css">
     </head>
     <body>
-        <h1 class="debit">Este es el index</h1>
-        <a href="./pages/login.html" style="text-decoration: none;">Este es el login :)</a>
+        <div id="app" class="app flex-column">
+            <header>
+                  <nav class="navbar header-nav-index w-100">
+                      <div class="container-fluid container--mod ps-xl-5 pe-xl-5 justify-content-lg-around">
+                            <button @click="manageAccess" type="button"
+                            class="d-flex flex-column align-items-center pt-2 flex-md-row gap-md-3 justify-content-center">
+                                <i :class="{'bi bi-person-fill-add': isAuthenticated === false, 'bi bi-box-arrow-left': isAuthenticated === true }" class="login-logo"></i>
+                                <p class="text-login mb-0" v-if="isAuthenticated">Logout</p>
+                                <p class="text-login mb-0" v-else>Login</p>
+                            </button>
+                          <a class="navbar-brand text-white fs-4" href="#"
+                              ><img src="./assets/logo-page.png" class="logo d-none d-sm-inline-block" alt="logo">
+                              <img src="./assets/logo-favicon.png" class="logo-sm d-sm-none" alt="logo">
+                              <h1 class="d-none">FINOVATE</h1>
+                              </a
+                          >
+                          <input
+                                v-if="isAuthenticated"
+                                id="checkbox"
+                                type="checkbox"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav"
+                                aria-controls="navbarNav"
+                                aria-expanded="false"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                                :disabled="!isAuthenticated"
+                            >
+                          <input 
+                                v-else
+                                id="checkbox"
+                                type="checkbox"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav"
+                                aria-controls="navbarNav"
+                                aria-expanded="false"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                                :disabled="!isAuthenticated"
+                            >
+                          <label :class="{'no-drop': isAuthenticated === false}" class="toggle d-md-flex" for="checkbox">
+                             <div id="bar1" class="bars"></div>
+                             <div id="bar2" class="bars"></div>
+                             <div id="bar3" class="bars"></div>
+                          </label>
+                          <div
+                          v-if="isAuthenticated"
+                              class="collapse navbar-collapse justify-content-end"
+                              id="navbarNav"
+                          >
+                              <ul class="navbar-nav mt-3 mt-md-0">
+                                  <li class="nav-item link">
+                                      <a
+                                          :class="{'disabled user-select-none': isAuthenticated === false }"
+                                          class="nav-link text-white ms-3 ms-md-0"
+                                          aria-current="page"
+                                          href="./pages/accounts.html"
+                                          >Accounts</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a  
+                                        class="nav-link text-white ms-3 ms-md-0"
+                                        :class="{'disabled user-select-none': isAuthenticated === false }"
+                                        href="./cards.html"
+                                          >Cards</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a 
+                                        class="nav-link text-white ms-3 ms-md-0"
+                                        :class="{'disabled user-select-none': isAuthenticated === false }"
+                                        href="./transfers.html"
+                                          >Trasaction</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a 
+                                        class="nav-link text-white ms-3 ms-md-0"
+                                        :class="{'disabled user-select-none': isAuthenticated === false }"
+                                        href="./pages/loans.html"
+                                          >Loan</a
+                                      >
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </nav>
+            </header>
+            <main class="flex-grow-1">
+                <div class="position-relative first-color-bg customized-padding">
+                    <div class="container container--services">
+                        <div class="row">
+                            <div class="service-information d-flex flex-column flex-md-row p-3">
+                                <div class="col-12 col-md-4 pe-3 ps-3">
+                                    <div class="information-by-service text-center text-white">
+                                        <div class="icon-ball">
+                                            <i class="bi bi-person-plus icon-services"></i>
+                                        </div>
+                                        <div class="text-information-service">
+                                            <h4 class="mb-0">Create Account</h4>
+                                            <p class="text-info-services mb-0 text-center">
+                                                Join our financial community in just a few easy steps.
+                                                Create your account easily, without hassle. Discover
+                                                a world of banking services designed to simplify your life.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 pe-3 ps-3">
+                                    <div class="information-by-service text-center text-white">
+                                        <div class="icon-ball">
+                                            <i class="bi bi-bank icon-services"></i>
+                                        </div>
+                                        <div class="text-information-service">
+                                            <h4 class="mb-0">Attach bank accounts</h4>
+                                            <p class="text-info-services mb-0 text-center">
+                                                Explore bank accounts today. Easy opening,
+                                                exceptional benefits. Your path to smart
+                                                financial management starts here.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 pe-3 ps-3">
+                                    <div class="information-by-service text-center text-white">
+                                        <div class="icon-ball">
+                                            <i class="bi bi-cash-stack icon-services"></i>
+                                        </div>
+                                        <div class="text-information-service">
+                                            <h4 class="mb-0">Send money</h4>
+                                            <p class="text-info-services mb-0 text-center">
+                                                Send money quickly and securely. Our transactions
+                                                are easy to make, giving you total control over your
+                                                finances. Simplify your transfers with us.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </main>
+            <footer class="d-flex justify-content-center align-items-center">
+                <p class="m-0 text-center user-select-none">Copyright &copy; 2023 <span class="color-text-footer">FINOVATE</span> All Rights Reserved</p>
+            </footer>
+        </div>
         
 
         <script
@@ -26,5 +175,6 @@
         ></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="./js/login.js"></script>
     </body>
 </html>

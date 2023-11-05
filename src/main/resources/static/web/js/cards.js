@@ -46,6 +46,7 @@ createApp({
             axios.post("/api/logout")
                 .then(() => {
                     console.log("signed out!!!");
+                    localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated = false));
                     location.pathname = "web/pages/login.html";
                 });
         }

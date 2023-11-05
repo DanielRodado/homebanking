@@ -33,6 +33,14 @@ createApp({
                     this.messageError(error.response.data);
                 });
         },
+        logout() {
+            axios.post("/api/logout")
+                .then(() => {
+                    console.log("signed out!!!");
+                    localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated = false));
+                    location.pathname = "web/pages/login.html";
+                });
+        },
         messageError(message) {
             Swal.fire({
                 icon: "error",

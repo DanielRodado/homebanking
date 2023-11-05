@@ -10,10 +10,15 @@ createApp({
             inputLastNameRegister: "",
             inputEmailRegister: "",
             inputPasswordRegister: "",
+
+            isAuthenticated: false,
+            isAuthenticatedVefified: false
         };
     },
 
-    created() {},
+    created() {
+        this.isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated")) || false;
+    },
 
     methods: {
         login() {
@@ -24,6 +29,7 @@ createApp({
                 )
                 .then((response) => {
                     console.log(response);
+                    this.saveAuthenticationInLocalStorage();
                     location.pathname = "/web/pages/accounts.html";
                 })
                 .catch((error) => {
@@ -57,7 +63,6 @@ createApp({
                 )
                 .then(() => {
                     console.log("User registered");
-
                     axios
                         .post(
                             "/api/login",
@@ -65,6 +70,7 @@ createApp({
                         )
                         .then((response) => {
                             console.log(response);
+                            this.saveAuthenticationInLocalStorage();
                             location.pathname = "/web/pages/accounts.html";
                         })
                         .catch((error) => console.log(error));
@@ -74,6 +80,20 @@ createApp({
                         this.messageError(error.response.data);
                     }
                 );
+        },
+        logout() {
+            axios.post("/api/logout")
+                .then(() => {
+                    console.log("signed out!!!");
+                    localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated = false));
+                });
+        },
+        manageAccess() {
+            if(this.isAuthenticated) this.logout();
+            else location.pathname = "web/pages/login.html";
+        },
+        saveAuthenticationInLocalStorage() {
+            localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated = true));
         },
         messageError(message) {
             Swal.fire({

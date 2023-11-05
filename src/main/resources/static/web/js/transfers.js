@@ -63,6 +63,14 @@ createApp({
     },
 
     computed: {
+        logout() {
+            axios.post("/api/logout")
+                .then(() => {
+                    console.log("signed out!!!");
+                    localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated = false));
+                    location.pathname = "web/pages/login.html";
+                });
+        },
         filterAccounts() {
             this.myAccountsTo = this.accounts.filter(
                 (account) => account.number !== this.selectedAccountFrom
