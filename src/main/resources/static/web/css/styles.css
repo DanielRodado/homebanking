@@ -474,7 +474,7 @@ p::selection {
     padding: 0 0.75rem;
 }
 
-.container--mod:first-of-type button {
+.container--mod:first-of-type button:not(.Btn--logout) {
     border: none;
     background-color: transparent;
     color: #fff;
@@ -483,20 +483,19 @@ p::selection {
 .container--mod:first-of-type button:hover {
     color: var(--third-color) !important;
 }
-
-.header-contain-index {
-    height: 100vh;
+.header-contain {
+    height: 55vh;
     position: relative;
-    background: url(../assets/image-login.jpg);
+    background: url(../assets/header-image-account-v2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
 }
 
-.header-contain {
-    height: 55vh;
+.header-contain-create-card {
+    height: 68vh;
     position: relative;
-    background: url(../assets/header-image-account-v2.jpg);
+    background: url(../assets/header-image-account.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -604,7 +603,6 @@ p::selection {
     transition: 0.5s;
 }
 
-
 .information-by-service:hover .icon-ball::after {
     width: 2.5rem;
     height: 2.5rem;
@@ -626,7 +624,7 @@ p::selection {
 
 .text-info-services {
     font-size: 0.78rem;
-    color: #DDE1E2 !important;
+    color: #dde1e2 !important;
 }
 
 /* Index */
@@ -691,6 +689,8 @@ footer {
     padding: 1.5rem;
     margin-bottom: 1.875rem;
     color: #fff;
+    width: 80%;
+    max-width: 21rem;
 }
 
 .card-title {
@@ -757,7 +757,7 @@ footer {
 }
 .page {
     position: relative;
-    max-width: 980px;
+    max-width: 73.125rem;
     margin: 0 auto;
     padding: 0 20px 40px;
 }
@@ -1258,11 +1258,11 @@ footer {
 /* CARDS */
 
 .card--cards {
-    width: 500px;
-    height: 300px;
+    width: 31.25rem;
+    height: 15.313rem;
     color: #fff;
     cursor: pointer;
-    perspective: 1000px;
+    perspective: 62.5rem;
 }
 
 .card-inner {
@@ -1277,7 +1277,6 @@ footer {
 .back {
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(45deg, #0045c7, #ff2c7d);
     position: absolute;
     top: 0;
     left: 0;
@@ -1297,7 +1296,7 @@ footer {
 .map-img {
     width: 100%;
     position: absolute;
-    top: 30%;
+    top: 20%;
     left: 0;
     opacity: 0.3;
     z-index: -1;
@@ -1309,14 +1308,14 @@ footer {
 }
 
 .card-no {
-    font-size: 1.2rem;
-    margin-top: 3.75rem;
+    font-size: 1.075rem;
+    margin-top: 0.75rem;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .card-holder {
-    font-size: 0.8rem;
+    font-size: 0.65rem;
     margin-top: 0.8rem;
 }
 
@@ -1376,9 +1375,164 @@ footer {
 
 /* CARDS */
 
-@media only screen and (min-width: 480px) {
+/* CREATE CARD */
 
-    .container--services {
+.container--created-card {
+    width: 18.75rem;
+    margin: auto;
+    border-radius: 1rem;
+}
+
+.card--create-card {
+    width: auto;
+    height: 15.313rem;
+    color: #fff;
+    cursor: pointer;
+    perspective: 62.5rem;
+}
+
+.card--create-card:hover .card-inner {
+    transform: rotateY(-180deg);
+}
+
+.radio-input-create-card {
+    display: flex;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.radio-input-create-card input[type="radio"] {
+    display: none;
+}
+
+.radio-input-create-card label {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: var(--second-color);
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.radio-input-create-card label:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    transition: all 0.3s ease-in-out;
+}
+
+.radio-input-create-card input[type="radio"]:checked + label:before {
+    background-color: green;
+    top: 0;
+}
+
+.radio-input-create-card input[type="radio"]:checked + label {
+    background-color: var(--third-color);
+    color: #fff;
+    border-color: var(--five-color);
+    animation: radio-translate-create-card 0.5s ease-in-out;
+}
+
+@keyframes radio-translate-create-card {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* CREATE CARD */
+
+/* TRANSFER */
+
+.container--transfer {
+    width: 17.25rem;
+    margin: auto;
+}
+
+.radio-button-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .radio-button {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .radio-button__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .radio-button__label {
+    display: inline-block;
+    padding-left: 1.875rem;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 0.938rem;
+    color: #f2f2f2;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+  
+  .radio-button__custom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    border: 2px solid #555;
+    transition: all 0.3s ease;
+  }
+  
+  .radio-button__input:checked + .radio-button__label .radio-button__custom {
+    background-color: var(--third-color);
+    border-color: transparent;
+    transform: scale(0.8);
+    box-shadow: 0 0 1.25rem #4c8bf580;
+  }
+  
+  .radio-button__input:checked + .radio-button__label {
+    color: #4c8bf5;
+  }
+  
+  .radio-button__label:hover .radio-button__custom {
+    transform: scale(1.2);
+    border-color: #4c8bf5;
+    box-shadow: 0 0 1.25rem #4c8bf580;
+  }  
+
+/* TRANSFER */
+
+@media only screen and (min-width: 480px) {
+    .container--services,
+    .container--created-card,
+    .container--transfer {
         width: 28.125rem;
     }
 
@@ -1391,7 +1545,7 @@ footer {
     }
 
     .map-img {
-        top: 22%;
+        top: 8%;
     }
 
     .img-card {
@@ -1400,13 +1554,12 @@ footer {
     }
 
     .card-no {
-        font-size: 1.4rem;
-        margin-top: 3.2rem;
-        gap: 1.3rem;
+        font-size: 1.25rem;
+        gap: 0.85rem;
     }
 
     .card-holder {
-        font-size: 1rem;
+        font-size: 0.75rem;
     }
 
     .name {
@@ -1426,10 +1579,16 @@ footer {
     .signature {
         margin-top: 1.35rem;
     }
+
+    .radio-button-container {
+        display: flex;
+        flex-direction: row !important;
+        justify-content: start;
+        gap: 1.5rem;
+    }
 }
 
 @media only screen and (min-width: 576px) {
-    
     .contain-banner {
         min-height: 19rem;
         max-height: 19rem;
@@ -1441,6 +1600,7 @@ footer {
 
     .premium-card {
         padding: 1.65rem;
+        max-width: 23rem;
     }
 
     .card-title {
@@ -1453,8 +1613,12 @@ footer {
         margin-bottom: 0.938rem;
     }
 
+    .card--cards {
+        height: 17.313rem;
+    }
+
     .map-img {
-        top: 11%;
+        top: 2%;
     }
 
     .img-card {
@@ -1464,12 +1628,12 @@ footer {
 
     .card-no {
         font-size: 1.55rem;
-        margin-top: 2.7rem;
+        margin-top: 1.7rem;
         gap: 1.4rem;
     }
 
     .card-holder {
-        font-size: 1.075rem;
+        font-size: 0.825rem;
     }
 
     .name {
@@ -1500,18 +1664,22 @@ footer {
     .img-banner-1 {
         height: auto;
     }
-    
 }
 
 @media only screen and (min-width: 768px) {
-
     .contain-banner {
         min-height: 17rem;
         max-height: 17rem;
     }
-    
-    .container--services {
+
+    .container--services,
+    .container--created-card {
         width: 46.875rem;
+    }
+
+    .card--create-card {
+        width: 31.25rem;
+        margin: auto;
     }
 
     .service-information {
@@ -1567,6 +1735,7 @@ footer {
 
     .premium-card {
         padding: 1.875rem;
+        max-width: 26rem;
     }
 
     .card-title {
@@ -1579,8 +1748,8 @@ footer {
         margin-bottom: 0.938rem;
     }
 
-    .map-img {
-        top: 5%;
+    .card--cards {
+        height: 17.525rem;
     }
 
     .img-card {
@@ -1589,17 +1758,17 @@ footer {
     }
 
     .card-no {
-        margin-top: 2.9rem;
+        margin-top: 2rem;
         font-size: 1.7rem;
-        gap: 1.6rem;
+        gap: 1.525rem;
     }
 
     .card-holder {
-        font-size: 1.125rem;
+        font-size: 0.9rem;
     }
 
     .name {
-        font-size: 0.995rem;
+        font-size: 1.1rem;
     }
 
     .card-cvv p {
@@ -1614,7 +1783,6 @@ footer {
 }
 
 @media only screen and (min-width: 992px) {
-
     .contain-banner {
         min-height: 13rem;
         max-height: 13rem;
@@ -1626,7 +1794,6 @@ footer {
         background-position: center right;
         background-size: cover;
     } */
-     
 
     .container--services {
         width: 60.625rem;
@@ -1672,6 +1839,10 @@ footer {
         font-size: 2.375rem;
     }
 
+    .card--cards {
+        height: 18.75rem;
+    }
+
     .map-img {
         top: 2%;
     }
@@ -1688,7 +1859,7 @@ footer {
     }
 
     .card-holder {
-        font-size: 0.75rem;
+        font-size: 0.925rem;
     }
 
     .name {
@@ -1711,9 +1882,8 @@ footer {
 }
 
 @media only screen and (min-width: 1200px) {
-
-    .container--services {
+    .container--services,
+    .container--created-card {
         width: 73.125rem;
     }
-
 }

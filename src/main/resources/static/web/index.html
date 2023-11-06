@@ -17,44 +17,43 @@
     <body>
         <div id="app" class="app flex-column">
             <header>
-                  <nav class="navbar header-nav-index w-100">
-                      <div class="container-fluid container--mod ps-xl-5 pe-xl-5 justify-content-lg-around">
-                            <button @click="manageAccess" type="button"
-                            class="d-flex flex-column align-items-center pt-2 flex-md-row gap-md-3 justify-content-center">
-                                <i :class="{'bi bi-person-fill-add': isAuthenticated === false, 'bi bi-box-arrow-left': isAuthenticated === true }" class="login-logo"></i>
-                                <p class="text-login mb-0" v-if="isAuthenticated">Logout</p>
-                                <p class="text-login mb-0" v-else>Login</p>
-                            </button>
-                          <a class="navbar-brand text-white fs-4" href="#"
+                <nav class="navbar header-nav-index w-100">
+                    <div class="container-fluid container--mod ps-xl-5 pe-xl-5 justify-content-lg-around">
+                        <button @click="manageAccess" type="button"
+                        class="d-flex flex-column align-items-center pt-2 flex-md-row gap-md-3 justify-content-center">
+                            <i :class="{'bi bi-person-fill-add': isAuthenticated === false, 'bi bi-box-arrow-left': isAuthenticated === true }" class="login-logo"></i>
+                            <p class="text-login mb-0" v-if="isAuthenticated">Logout</p>
+                            <p class="text-login mb-0" v-else>Login</p>
+                        </button>
+                        <div class="navbar-brand text-white fs-4"
                               ><img src="./assets/logo-page.png" class="logo d-none d-sm-inline-block" alt="logo">
                               <img src="./assets/logo-favicon.png" class="logo-sm d-sm-none" alt="logo">
                               <h1 class="d-none">FINOVATE</h1>
-                              </a
-                          >
-                          <input
-                                v-if="isAuthenticated"
-                                id="checkbox"
-                                type="checkbox"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#navbarNav"
-                                aria-controls="navbarNav"
-                                aria-expanded="false"
-                                aria-expanded="false"
-                                aria-label="Toggle navigation"
-                                :disabled="!isAuthenticated"
-                            >
-                          <input 
-                                v-else
-                                id="checkbox"
-                                type="checkbox"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#navbarNav"
-                                aria-controls="navbarNav"
-                                aria-expanded="false"
-                                aria-expanded="false"
-                                aria-label="Toggle navigation"
-                                :disabled="!isAuthenticated"
-                            >
+                        </div>
+                        <input
+                            v-if="isAuthenticated"
+                            id="checkbox"
+                            type="checkbox"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav"
+                            aria-controls="navbarNav"
+                            aria-expanded="false"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                            :disabled="!isAuthenticated"
+                        >
+                        <input 
+                            v-else
+                            id="checkbox"
+                            type="checkbox"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav"
+                            aria-controls="navbarNav"
+                            aria-expanded="false"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                            :disabled="!isAuthenticated"
+                        >
                           <label :class="{'no-drop': isAuthenticated === false}" class="toggle d-md-flex" for="checkbox">
                              <div id="bar1" class="bars"></div>
                              <div id="bar2" class="bars"></div>

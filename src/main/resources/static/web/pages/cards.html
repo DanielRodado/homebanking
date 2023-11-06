@@ -18,7 +18,7 @@
 
 
         <div id="app" class="app flex-column">
-            <header v-cloack>
+            <header>
                 <div class="header-contain d-flex flex-column align-items-center justify-content-center">
                   <div class="bg-contain"></div>
                   <nav class="navbar navbar-expand-md header-nav w-100">
@@ -67,7 +67,7 @@
                                       >
                                   </li>
                                   <li class="nav-item link">
-                                      <a class="nav-link text-white ms-3 ms-md-0" href="#"
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="./loans.html"
                                           >Loan</a
                                       >
                                   </li>
@@ -84,8 +84,8 @@
                   <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Accounts</h2>
                 </div>
             </header>
-            <main class="flex-grow-1 separation" v-cloack>
-                <a role="button" class="btn btn-secondary" href="./create-cards.html">Create cards</a>
+            <main class="flex-grow-1 separation position-relative">
+                <a role="button" class="btn btn-secondary position-absolute top-0 ms-3 mt-5" href="./create-cards.html">Create cards</a>
                 <div class="page">		
                     <div class="pcss3t pcss3t-effect-scale pcss3t-theme-1">
                         <input type="radio" name="pcss3t"  id="tab1" class="tab-content-first" value="DEBIT" v-model="valueCard" @change="filterCards">

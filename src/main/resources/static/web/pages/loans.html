@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FINOVATE - Accounts</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FINOVATE - Transfers</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -16,11 +16,10 @@
         <link rel="stylesheet" href="../css/styles.css">
     </head>
     <body>
-
-
-        <div id="app" class="app flex-column">
+        <div id="app" class="app d-flex flex-column">
+            {{changeValuePayments}}
             <header>
-                <div class="header-contain d-flex flex-column align-items-center justify-content-center">
+                <div class="header-contain-create-card d-flex flex-column align-items-center justify-content-center">
                   <div class="bg-contain"></div>
                   <nav class="navbar navbar-expand-md header-nav w-100">
                       <div class="container-fluid container--mod">
@@ -49,11 +48,11 @@
                               id="navbarNav"
                           >
                               <ul class="navbar-nav mt-3 mt-md-0">
-                                  <li class="nav-item link link-active">
+                                  <li class="nav-item link">
                                       <a
                                           class="nav-link text-white ms-3 ms-md-0"
                                           aria-current="page"
-                                          href="#"
+                                          href="./accounts.html"
                                           >Accounts</a
                                       >
                                   </li>
@@ -67,8 +66,8 @@
                                           >Trasaction</a
                                       >
                                   </li>
-                                  <li class="nav-item link">
-                                      <a class="nav-link text-white ms-3 ms-md-0" href="./loans.html"
+                                  <li class="nav-item link link-active">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="#"
                                           >Loan</a
                                       >
                                   </li>
@@ -82,62 +81,47 @@
                           </div>
                       </div>
                   </nav>
-                  <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Accounts</h2>
+                  <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Loans</h2>
                 </div>
             </header>
             <main class="flex-grow-1">
-                <section class="first-color-bg pt-5 position-relative">
-                    <button v-if="client.accounts.length < 3" type="button" class="btn btn-primary ms-3 ms-md-5 mb-5 mb-md-0" @click="addAccount">Add Account</button>
-                    <div class="container">
-                        <div class="title text-center mb-4">
-                            <h2>Hello, {{client.firstName}}</h2>
-                            <p v-if="client.accounts.length === 0" class="mb-5">You do not have accounts</p>
-                            <p v-else-if="client.accounts.length === 1">These are their accounts:</p>
-                            <p v-else>These are their accounts:</p>
-                        </div>
-                        <div class="d-flex flex-wrap gap-4 justify-content-center">
-                            <div v-for="account of client.accounts" class="premium-card text-center">
-                                <a :href="`./account.html?id=${account.id}`" role="button" >
-                                    <i class="bi bi-box-arrow-in-up-right btn-details"></i>
-                                </a>
-                                <p class="card-title mt-3">Account number:
-                                    <span class="ms-md-2">{{account.number}}</span></p>
-                                <p class="card-info">Amount: ${{account.balance.toLocaleString()}}</p>
-                                <p class="card-info">Creation date: {{account.creationDate}}</p>
-                            </div>
-                        </div>
+                <section class="first-color-bg pt-5 pb-5">
+                    <div class="container container--transfer four-color-bg pb-3 rounded-4">
+                        <form class="d-flex flex-column p-1 pt-2 p-md-3">
+                            <fieldset>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="accountFrom">Type of loan</label>
+                                    <select class="form-select" name="accountFrom" id="accountFrom" v-model="loanId">
+                                        <option v-for="loan of loans" :value="loan.id">{{loan.name}}</option>
+                                    </select>
+                                </fieldset>
+                                <br>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="payments">Payments</label>
+                                    <select class="form-select" name="payments" id="payments" v-model="paymentsTo">
+                                        <option v-for="payment of paymentsOfLoan" :value="payment">{{payment}}</option>
+                                    </select>
+                                </fieldset>
+                                <br>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="ToAccounts">To Account</label>
+                                    <select class="form-select" name="ToAccounts" id="ToAccounts" v-model="selectedAccountTo">
+                                        <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
+                                    </select>
+                                </fieldset>
+                                <br>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="amount">Amount</label>
+                                    <input type="number" class="form-control" id="amount" v-model="amount">
+                                </fieldset>
+                            </fieldset>
+                            <button type="button" class="btn btn-primary mt-4" @click="sendLoan()">Apply for a loan</button>
+                        </form>
                     </div>
-                </section>
-                <section class="four-color-bg section-table-loans">
-                    <div class="container pt-5 pb-5">
-                        <h4 v-if="client.loans.length === 0" class="third-color-bg text-white text-center mb-0 p-3 user-select-none">No loan records</h4>
-                        <div v-else>
-                            <h4 class="third-color-bg text-white text-center mb-0 p-3 user-select-none">Loans Log</h4>
-                            <div class="table-responsive second-color-bg mb-0">
-                                <table class="table table-bordered table-primary table-striped text-center mb-0">
-                                  <thead>
-                                    <tr class="">
-                                      <th scope="col">Name</th>
-                                      <th scope="col">Amount</th>
-                                      <th scope="col">Payments</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="table-group-divider fw-">
-                                    <tr v-for="loan of client.loans">
-                                        <th>{{loan.name}}</th>
-                                        <th>{{loan.amount.toLocaleString()}}</th>
-                                        <th>{{loan.payments}}</th>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </section>
             </main>
             <div v-if="loading" class="loader-container">
-              <div class="loader"></div>
+                <div class="loader"></div>
             </div>
             <footer class="d-flex justify-content-center align-items-center">
                 <p class="m-0 text-center user-select-none">Copyright &copy; 2023 <span class="color-text-footer">FINOVATE</span> All Rights Reserved</p>
@@ -153,6 +137,6 @@
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-        <script src="../js/accounts.js"></script>
+        <script src="../js/loans.js"></script>
     </body>
 </html>

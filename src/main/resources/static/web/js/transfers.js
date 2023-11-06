@@ -11,6 +11,8 @@ createApp({
 
             amount: null,
             description: "",
+
+            loading: true
         };
     },
 
@@ -30,6 +32,8 @@ createApp({
                     this.myAccountsTo = this.accounts.filter(
                         (account) => account.number !== this.selectedAccountFrom
                     );
+
+                    this.loading = false;
                 })
                 .catch((error) => console.log(error));
         },
@@ -60,9 +64,6 @@ createApp({
                 confirmButtonColor: "#17acc9",
             });
         },
-    },
-
-    computed: {
         logout() {
             axios.post("/api/logout")
                 .then(() => {
@@ -71,17 +72,21 @@ createApp({
                     location.pathname = "web/pages/login.html";
                 });
         },
+    },
+
+    computed: {
         filterAccounts() {
-            this.myAccountsTo = this.accounts.filter(
-                (account) => account.number !== this.selectedAccountFrom
-            );
-            this.selectedAccountTo = this.myAccountsTo[0].number;
+            if (this.optionTransaction === "myAccounts") {
+                this.myAccountsTo = this.accounts.filter(
+                    (account) => account.number !== this.selectedAccountFrom
+                );
+                this.selectedAccountTo = this.myAccountsTo[0].number;
+            }
         },
         changeValueAccountTo() {
             this.selectedAccountTo =
                 this.optionTransaction === "others"
-                    ? ""
-                    : this.myAccountsTo[0].number;
+                    ? "" : this.myAccountsTo[0].number;
         },
     },
 }).mount("#app");

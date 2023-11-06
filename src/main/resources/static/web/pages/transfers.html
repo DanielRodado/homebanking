@@ -16,54 +16,137 @@
         <link rel="stylesheet" href="../css/styles.css">
     </head>
     <body>
-
-        <div id="app">
+        <div id="app" class="app d-flex flex-column">
             {{filterAccounts}}
             {{changeValueAccountTo}}
-            <form>
-                <fieldset class="d-flex gap-3">
-                    <div>
-                        <label for="creditCard">My accounts</label>
-                        <input type="radio" name="option1" id="own" value="myAccounts" v-model="optionTransaction">
+            <header>
+                <div class="header-contain-create-card d-flex flex-column align-items-center justify-content-center">
+                  <div class="bg-contain"></div>
+                  <nav class="navbar navbar-expand-md header-nav w-100">
+                      <div class="container-fluid container--mod">
+                          <a class="navbar-brand text-white fs-4" href="../index.html"
+                              ><img src="../assets/logo-page.png" class="logo d-none d-sm-inline-block" alt="logo">
+                              <img src="../assets/logo-favicon.png" class="logo-sm d-sm-none" alt="logo">
+                              <h1 class="d-none">FINOVATE</h1>
+                              </a
+                          >
+                          <input 
+                                id="checkbox"
+                                type="checkbox"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav"
+                                aria-controls="navbarNav"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                            >
+                          <label class="toggle" for="checkbox">
+                             <div id="bar1" class="bars"></div>
+                             <div id="bar2" class="bars"></div>
+                             <div id="bar3" class="bars"></div>
+                          </label>
+                          <div
+                              class="collapse navbar-collapse justify-content-end"
+                              id="navbarNav"
+                          >
+                              <ul class="navbar-nav mt-3 mt-md-0">
+                                  <li class="nav-item link">
+                                      <a
+                                          class="nav-link text-white ms-3 ms-md-0"
+                                          aria-current="page"
+                                          href="./accounts.html"
+                                          >Accounts</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="./cards.html"
+                                          >Cards</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link link-active">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="#"
+                                          >Trasaction</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="./loans.html"
+                                          >Loan</a
+                                      >
+                                  </li>
+                              </ul>
+                              <div class="container-Btn-logout pt-2 pt-md-0 ms-md-2">
+                                  <button class="Btn--logout ms-1 ms-md-0" @click="logout">
+                                      <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+                                      <div class="text--logout">Logout</div>
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </nav>
+                  <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Transfer</h2>
+                </div>
+            </header>
+            <main class="flex-grow-1">
+                <section class="first-color-bg pt-5 pb-5">
+                    <div class="container container--transfer four-color-bg pb-3 rounded-4">
+                        <form class="d-flex flex-column p-1 p-md-3">
+                            <fieldset class="p-2">
+                                <div class="radio-button-container flex-column flex-md-row align-items-start">
+                                    <div class="radio-button">
+                                        <input type="radio" class="radio-button__input" name="optionTransaction" id="own" value="myAccounts" v-model="optionTransaction">
+                                        <label class="radio-button__label" for="own">
+                                        <span class="radio-button__custom"></span>
+                                        My accounts
+                                        </label>
+                                    </div>
+                                    <div class="radio-button">
+                                        <input type="radio" class="radio-button__input" name="optionTransaction" id="Others" value="others" v-model="optionTransaction" checked>
+                                        <label class="radio-button__label" for="Others">
+                                        <span class="radio-button__custom"></span>
+                                        Others
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="accountFrom">From Account</label>
+                                    <select class="form-select" name="accountFrom" id="accountFrom" v-model="selectedAccountFrom">
+                                        <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
+                                    </select>
+                                </fieldset>
+                                <br>
+                                <fieldset v-if="optionTransaction === 'others'">
+                                    <label class="text-white fw-bolder" for="ToAccounts">To Account</label>
+                                    <input type="text" class="form-control" id="ToAccounts" v-model="selectedAccountTo">
+                                </fieldset>
+                                <fieldset v-else>
+                                    <label class="text-white fw-bolder" for="ToAccounts">To Account</label>
+                                    <select class="form-select" name="ToAccounts" id="ToAccounts" v-model="selectedAccountTo">
+                                        <option v-for="account of myAccountsTo" :value="account.number">{{account.number}}</option>
+                                    </select>
+                                </fieldset>
+                                <br>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="amount">Amount</label>
+                                    <input type="number" class="form-control" id="amount" v-model="amount">
+                                </fieldset>
+                                <br>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="description">Description</label>
+                                    <input type="text" class="form-control" id="description" v-model="description">
+                                </fieldset>
+                            </fieldset>
+                            <button type="button" class="btn btn-primary mt-4" @click="postTransfer">Transfer</button>
+                        </form>
                     </div>
-                    <br>
-                    <div>
-                        <label for="debitCard">Others</label>
-                        <input type="radio" name="option2" id="Others" value="others" v-model="optionTransaction" checked>
-                    </div>
-                </fieldset>
-                <br>
-                <fieldset>
-                    <fieldset>
-                        <label for="accountFrom">From Account</label>
-                        <select name="accountFrom" id="accountFrom" v-model="selectedAccountFrom">
-                            <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
-                        </select>
-                    </fieldset>
-                    <br>
-                    <fieldset v-if="optionTransaction === 'others'">
-                        <label for="ToAccounts">To Account</label>
-                        <input type="text" id="ToAccounts" v-model="selectedAccountTo">
-                    </fieldset>
-                    <fieldset v-else>
-                        <label for="ToAccounts">To Account</label>
-                        <select name="ToAccounts" id="ToAccounts" v-model="selectedAccountTo">
-                            <option v-for="account of myAccountsTo" :value="account.number">{{account.number}}</option>
-                        </select>
-                    </fieldset>
-                    <br>
-                    <fieldset>
-                        <label for="amount">Amount</label>
-                        <input type="number" id="amount" v-model="amount">
-                    </fieldset>
-                    <br>
-                    <fieldset>
-                        <label for="description">Description</label>
-                        <input type="text" id="description" v-model="description">
-                    </fieldset>
-                </fieldset>
-                <button type="button" class="btn btn-success" @click="postTransfer">Transfer</button>
-            </form>
+                </section>
+            </main>
+            <div v-if="loading" class="loader-container">
+                <div class="loader"></div>
+            </div>
+            <footer class="d-flex justify-content-center align-items-center">
+                <p class="m-0 text-center user-select-none">Copyright &copy; 2023 <span class="color-text-footer">FINOVATE</span> All Rights Reserved</p>
+            </footer>
         </div>
 
 

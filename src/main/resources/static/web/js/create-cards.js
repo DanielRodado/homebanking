@@ -3,12 +3,27 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            cardType: "",
+            cardType: "Type",
             cardColor: "",
+            userName: "",
+            date: new Date,
+            loading: true
         };
     },
 
-    created() {},
+    created() {
+        axios("/api/clients/current")
+            .then(({ data }) => {
+                this.userName = data.cards[0].cardHolder;
+                this.loading = false;
+            })
+            .catch((error) => console.log(error));
+
+        const dates = new Date;
+        dates.setFullYear(dates.getFullYear() + 5)
+        dates.get
+        this.date = `${dates.getFullYear().toString()}-${(new Date().getMonth() + 1).toString()}-${dates.getDate()}`;
+    },
 
     methods: {
         createCard() {
@@ -27,19 +42,39 @@ createApp({
                         background: "#1c2754",
                         confirmButtonColor: "#17acc9",
                     });
+                    location.pathname = "/web/pages/cards.html";
                 })
                 .catch((error) => {
                     console.error("Error:", error);
                     this.messageError(error.response.data);
                 });
         },
+        colorCards() {
+            if (this.cardColor === "GOLD")
+                return {
+                    background:
+                        "linear-gradient(to right, #ffd700 0%, #e5aa00 100%)",
+                };
+            else if (this.cardColor === "SILVER")
+                return {
+                    background:
+                        "linear-gradient(to right, #c0c0c0 0%, #a6a6a6 100%)",
+                };
+            else if (this.cardColor === "TITANIUM")
+                return {
+                    background:
+                        "linear-gradient(to right, #708090 0%, #4d555f 100%)",
+                };
+        },
         logout() {
-            axios.post("/api/logout")
-                .then(() => {
-                    console.log("signed out!!!");
-                    localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated = false));
-                    location.pathname = "web/pages/login.html";
-                });
+            axios.post("/api/logout").then(() => {
+                console.log("signed out!!!");
+                localStorage.setItem(
+                    "isAuthenticated",
+                    JSON.stringify((this.isAuthenticated = false))
+                );
+                location.pathname = "web/pages/login.html";
+            });
         },
         messageError(message) {
             Swal.fire({
