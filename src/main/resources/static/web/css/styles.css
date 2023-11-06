@@ -3,6 +3,7 @@
     --second-color: hwb(228 11% 67%);
     --third-color: hwb(190 9% 21%);
     --four-color: hwb(233 3% 80%);
+    --five-color: hwb(208 0% 50%);
 }
 
 ::selection {
@@ -390,6 +391,10 @@ p::selection {
     color: hwb(120 0% 45%) !important;
 }
 
+.third-color-text {
+    color: var(--third-color) !important;
+}
+
 .first-color-bg {
     background-color: var(--first-color) !important;
 }
@@ -400,6 +405,10 @@ p::selection {
 
 .four-color-bg {
     background-color: var(--four-color) !important;
+}
+
+.five-color-bg {
+    background-color: var(--five-color) !important;
 }
 
 .third-color-bg {
@@ -438,6 +447,24 @@ p::selection {
 }
 
 /* ------ */
+
+.img-banner-1 {
+    height: 12.2rem;
+    object-fit: cover;
+}
+
+.contain-banner {
+    padding: 0.75rem 1rem 1.5rem;
+    min-height: 22rem;
+    max-height: 22rem;
+}
+
+.text-banner {
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 2rem;
+    text-align: left;
+}
 
 .container--mod {
     width: 22rem;
@@ -1402,6 +1429,12 @@ footer {
 }
 
 @media only screen and (min-width: 576px) {
+    
+    .contain-banner {
+        min-height: 19rem;
+        max-height: 19rem;
+    }
+
     .logo {
         width: 10rem;
     }
@@ -1463,10 +1496,20 @@ footer {
         font-size: 1.18rem;
         padding: 0.55rem 0.875rem;
     }
+
+    .img-banner-1 {
+        height: auto;
+    }
+    
 }
 
 @media only screen and (min-width: 768px) {
 
+    .contain-banner {
+        min-height: 17rem;
+        max-height: 17rem;
+    }
+    
     .container--services {
         width: 46.875rem;
     }
@@ -1571,6 +1614,19 @@ footer {
 }
 
 @media only screen and (min-width: 992px) {
+
+    .contain-banner {
+        min-height: 13rem;
+        max-height: 13rem;
+    }
+
+    /* .c-base {
+        width: 100%;
+        position: relative;
+        background-position: center right;
+        background-size: cover;
+    } */
+     
 
     .container--services {
         width: 60.625rem;
