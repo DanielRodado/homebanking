@@ -26,7 +26,7 @@ public class HomebankingApplication {
 									  TransactionRepository transactionRepository, LoanRepository loanRepository,
 									  ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return args ->  {
-			LocalDate date = LocalDate.now();
+			/*LocalDate date = LocalDate.now();
 			LocalDateTime dateTime = LocalDateTime.now();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String formattedDateTime = dateTime.format(formatter);
@@ -129,7 +129,7 @@ public class HomebankingApplication {
 
 			Account accountClientAdmin= new Account("VIN-009", date, 32000.00);
 			clientAdmin.addAccount(accountClientAdmin);
-			accountRepository.save(accountClientAdmin);
+			accountRepository.save(accountClientAdmin);*/
 		};
 	}
 	@Autowired
