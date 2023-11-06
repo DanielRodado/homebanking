@@ -91,13 +91,13 @@
                         <form class="d-flex flex-column p-1 p-md-3">
                             <fieldset class="p-2">
                                 <div class="radio-button-container flex-column flex-md-row align-items-start">
-                                    <div class="radio-button">
+                                    <div class="radio-button" v-if="accounts.length > 1">
                                         <input type="radio" class="radio-button__input" name="optionTransaction" id="own" value="myAccounts" v-model="optionTransaction">
                                         <label class="radio-button__label" for="own">
                                         <span class="radio-button__custom"></span>
                                         My accounts
                                         </label>
-                                    </div>
+                                    </div v->
                                     <div class="radio-button">
                                         <input type="radio" class="radio-button__input" name="optionTransaction" id="Others" value="others" v-model="optionTransaction" checked>
                                         <label class="radio-button__label" for="Others">
@@ -110,7 +110,9 @@
                             <fieldset>
                                 <fieldset>
                                     <label class="text-white fw-bolder" for="accountFrom">From Account</label>
-                                    <select class="form-select" name="accountFrom" id="accountFrom" v-model="selectedAccountFrom">
+                                    <select class="form-select" name="accountFrom" id="accountFrom"
+                                            :disabled="accounts.length === 1"
+                                            v-model="selectedAccountFrom">
                                         <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
                                     </select>
                                 </fieldset>
@@ -121,7 +123,9 @@
                                 </fieldset>
                                 <fieldset v-else>
                                     <label class="text-white fw-bolder" for="ToAccounts">To Account</label>
-                                    <select class="form-select" name="ToAccounts" id="ToAccounts" v-model="selectedAccountTo">
+                                    <select class="form-select" name="ToAccounts" id="ToAccounts"
+                                            :disabled="accounts.length === 2"
+                                            v-model="selectedAccountTo">
                                         <option v-for="account of myAccountsTo" :value="account.number">{{account.number}}</option>
                                     </select>
                                 </fieldset>

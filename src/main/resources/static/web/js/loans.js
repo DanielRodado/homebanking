@@ -126,8 +126,7 @@ createApp({
 
     computed: {
         changeValuePayments() {
-            this.paymentsOfLoan = this.paymentsOfLoan =
-                this.loans[this.loanId - 1].payments;
+            this.paymentsOfLoan = this.loans[this.loanId - 1].payments;
             this.paymentsTo = this.paymentsOfLoan[0];
             console.log(this.loanId);
         },

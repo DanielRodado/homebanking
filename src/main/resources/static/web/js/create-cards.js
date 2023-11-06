@@ -14,7 +14,7 @@ createApp({
     created() {
         axios("/api/clients/current")
             .then(({ data }) => {
-                this.userName = data.cards[0].cardHolder;
+                this.userName = data.firstName + " " + data.lastName;
                 this.loading = false;
             })
             .catch((error) => console.log(error));
