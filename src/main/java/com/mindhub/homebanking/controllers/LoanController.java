@@ -99,7 +99,7 @@ public class LoanController {
         return new ResponseEntity<>("Loan created successfully", HttpStatus.CREATED);
     }
 
-    @RequestMapping("/loans")
+    @GetMapping("/loans")
     public Set<LoanDTO> getAllLoans() {
         return loanService.getAllLoansDTO();
     }

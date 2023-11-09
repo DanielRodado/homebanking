@@ -45,11 +45,11 @@ public class ClientController {
         return "VIN-" + accountNumber;
     }
 
-    @RequestMapping("/clients")
+    @GetMapping("/clients")
     public Set<ClientDTO> getAllClients() {
         return clientService.getAllClientsDTO();
     }
-    @RequestMapping("/clients/{id}")
+    @GetMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id) {
         return clientService.getClientDTOById(id);
     }
@@ -83,7 +83,7 @@ public class ClientController {
         return new ResponseEntity<>("Client created successfully", HttpStatus.CREATED);
     }
 
-    @RequestMapping("/clients/current")
+    @GetMapping("/clients/current")
     public ClientDTO getClientCurrent(Authentication currentClient){
         return new ClientDTO(clientService.getClientByEmail(currentClient.getName()));
     }

@@ -40,12 +40,12 @@ public class AccountController {
         return "VIN-" + accountNumber;
     }
 
-    @RequestMapping("/accounts")
+    @GetMapping("/accounts")
     public Set<AccountDTO> getAllAccounts() {
         return accountService.getAllAccountsDTO();
     }
 
-    @RequestMapping("/accounts/{id}")
+    @GetMapping("/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id) {
         return accountService.getAccountDTOById(id);
     }
@@ -66,7 +66,7 @@ public class AccountController {
         return new ResponseEntity<>("Account created!", HttpStatus.CREATED);
     }
 
-    @RequestMapping("/clients/current/accounts")
+    @GetMapping("/clients/current/accounts")
     public Set<AccountDTO> getAccountClientCurrent(Authentication currentClient) {
         return accountService.getAllAccountsDTOByClient(clientService.getClientByEmail(currentClient.getName()));
     }
