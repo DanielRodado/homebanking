@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static com.mindhub.homebanking.utils.TransactionUtil.formattedLocalDateTime;
+
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
@@ -32,12 +34,6 @@ public class TransactionController {
 
     @Autowired
     private TransactionService transactionService;
-
-    public LocalDateTime formattedLocalDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = dateTime.format(formatter);
-        return LocalDateTime.parse(formattedDateTime, formatter);
-    }
 
     @Transactional
     @PostMapping("/clients/current/transactions")

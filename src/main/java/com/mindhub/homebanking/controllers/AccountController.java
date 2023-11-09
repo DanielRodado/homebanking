@@ -14,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import java.time.LocalDate;
 import java.util.Set;
 
+import static com.mindhub.homebanking.utils.AccountUtil.generateAccountNumber;
+
 @RestController
 @RequestMapping("/api")
 public class AccountController {
@@ -22,23 +24,6 @@ public class AccountController {
 
     @Autowired
     private ClientService clientService;
-
-    public int generateRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
-
-    public String generateAccountNumber() {
-        int quantityOfNumbers = generateRandomNumber(3, 8);
-        StringBuilder accountNumber;
-        do {
-            accountNumber = new StringBuilder();
-            for (byte i = 0; i <= quantityOfNumbers; i++) {
-                accountNumber.append(generateRandomNumber(0, 9));
-            }
-        } while (accountService.existsAccountByNumber("VIN-" + accountNumber));
-
-        return "VIN-" + accountNumber;
-    }
 
     @GetMapping("/accounts")
     public Set<AccountDTO> getAllAccounts() {
@@ -59,7 +44,12 @@ public class AccountController {
             return new ResponseEntity<>("Cannot create any more accounts for this client", HttpStatus.FORBIDDEN);
         }
 
-        Account account = new Account(generateAccountNumber(), LocalDate.now(), 0.00);
+        String accountNumber;
+        do {
+            accountNumber = generateAccountNumber();
+        } while (accountService.existsAccountByNumber("VIN-" + accountNumber));
+
+        Account account = new Account(accountNumber, LocalDate.now(), 0.00);
         client.addAccount(account);
         accountService.saveAccount(account);
 

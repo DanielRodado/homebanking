@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
+import static com.mindhub.homebanking.utils.TransactionUtil.formattedLocalDateTime;
+
 @RestController
 @RequestMapping("/api")
 public class LoanController {
@@ -34,13 +36,6 @@ public class LoanController {
     @Autowired
     private ClientLoanService clientLoanService;
 
-    public LocalDateTime formattedLocalDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = dateTime.format(formatter);
-        return LocalDateTime.parse(formattedDateTime, formatter);
-    }
-
-//  @RequestMapping(value="/loans", method=RequestMethod.POST)
     @PostMapping("/loans")
     @Transactional
     public ResponseEntity<String> addLoan(@RequestBody LoanApplicationDTO loanApplication, Authentication currentClient) {
