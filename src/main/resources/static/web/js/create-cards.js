@@ -6,8 +6,9 @@ createApp({
             cardType: "Type",
             cardColor: "",
             userName: "",
-            date: new Date,
-            loading: true
+            date: new Date(),
+            loading: true,
+            sendCard: false,
         };
     },
 
@@ -19,35 +20,52 @@ createApp({
             })
             .catch((error) => console.log(error));
 
-        const dates = new Date;
-        dates.setFullYear(dates.getFullYear() + 5)
-        dates.get
-        this.date = `${dates.getFullYear().toString()}-${(new Date().getMonth() + 1).toString()}-${dates.getDate()}`;
+        const dates = new Date();
+        dates.setFullYear(dates.getFullYear() + 5);
+        dates.get;
+        this.date = `${dates.getFullYear().toString()}-${(
+            new Date().getMonth() + 1
+        ).toString()}-${dates.getDate()}`;
     },
 
     methods: {
         createCard() {
-            axios
-                .post(
-                    "/api/clients/current/cards",
-                    `cardColor=${this.cardColor}&cardType=${this.cardType}`
-                )
-                .then(() => {
-                    console.log("Card created!");
+            Swal.fire({
+                title: "Are you sure?",
+                text: `You want to create a card of type ${this.cardType} and color ${this.cardColor}?`,
+                customClass: {
+                    popup: 'text-center'
+                },
+                icon: "warning",
+                showCancelButton: true,
+                color: "#fff",
+                background: "#1c2754",
+                confirmButtonColor: "#17acc9",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, create!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios
+                        .post(
+                            "/api/clients/current/cards",
+                            `cardColor=${this.cardColor}&cardType=${this.cardType}`
+                        )
+                        .then(() => {
+                            setTimeout(() => location.pathname = "/web/pages/cards.html", 1500);
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                            this.messageError(error.response.data);
+                        });
                     Swal.fire({
+                        title: "Created!",
+                        text: "Card successfully created.",
                         icon: "success",
-                        title: "Card created",
-                        text: "Card created",
                         color: "#fff",
                         background: "#1c2754",
-                        confirmButtonColor: "#17acc9",
                     });
-                    location.pathname = "/web/pages/cards.html";
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                    this.messageError(error.response.data);
-                });
+                }
+            });
         },
         colorCards() {
             if (this.cardColor === "GOLD")
@@ -85,6 +103,18 @@ createApp({
                 background: "#1c2754",
                 confirmButtonColor: "#17acc9",
             });
+        },
+    },
+
+    computed: {
+        send() {
+            this.sendCard =
+                this.cardType === "CREDIT" ||
+                (this.cardType === "DEBIT" && this.cardColor === "GOLD") ||
+                this.cardColor === "SILVER" ||
+                this.cardColor === "TITANIUM"
+                    ? true
+                    : false;
         },
     },
 }).mount("#app");

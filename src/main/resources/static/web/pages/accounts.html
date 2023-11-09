@@ -123,7 +123,7 @@
                                     </tr>
                                   </thead>
                                   <tbody class="table-group-divider fw-">
-                                    <tr v-for="loan of client.loans">
+                                    <tr v-for="loan of client.loans.sort((a, b) => b.id - a.id)">
                                         <th>{{loan.name}}</th>
                                         <th>{{loan.amount.toLocaleString()}}</th>
                                         <th>{{loan.payments}}</th>

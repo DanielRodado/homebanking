@@ -367,7 +367,7 @@ p::selection {
 }
 
 .no-drop {
-    cursor: no-drop;
+    cursor: no-drop !important;
 }
 
 .app {

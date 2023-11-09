@@ -17,7 +17,7 @@
     </head>
     <body>
         <div id="app" class="app d-flex flex-column">
-            {{changeValuePayments}}
+            {{changeValuePayments}} {{changeTypeLoan}} {{maxAmount}}
             <header>
                 <div class="header-contain-create-card d-flex flex-column align-items-center justify-content-center">
                   <div class="bg-contain"></div>
@@ -88,32 +88,31 @@
                 <section class="first-color-bg pt-5 pb-5">
                     <div class="container container--transfer four-color-bg pb-3 rounded-4">
                         <form class="d-flex flex-column p-1 pt-2 p-md-3">
-                            <fieldset>
+                            <fieldset class="d-flex flex-column gap-3">
                                 <fieldset>
                                     <label class="text-white fw-bolder" for="accountFrom">Type of loan</label>
                                     <select class="form-select" name="accountFrom" id="accountFrom" v-model="loanId">
                                         <option v-for="loan of loans" :value="loan.id">{{loan.name}}</option>
                                     </select>
+                                    <p class="text-warning small text-center user-select-none mb-0 mt-2 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{LoanById.maxAmount.toLocaleString()}}</p>
                                 </fieldset>
-                                <br>
                                 <fieldset>
                                     <label class="text-white fw-bolder" for="payments">Payments</label>
                                     <select class="form-select" name="payments" id="payments" v-model="paymentsTo">
                                         <option v-for="payment of paymentsOfLoan" :value="payment">{{payment}}</option>
                                     </select>
                                 </fieldset>
-                                <br>
                                 <fieldset>
                                     <label class="text-white fw-bolder" for="ToAccounts">To Account</label>
                                     <select class="form-select" name="ToAccounts" id="ToAccounts" v-model="selectedAccountTo">
                                         <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
                                     </select>
                                 </fieldset>
-                                <br>
                                 <fieldset>
                                     <label class="text-white fw-bolder" for="amount">Amount</label>
                                     <input type="number" class="form-control" id="amount" v-model="amount">
                                 </fieldset>
+                                <p v-if="amountIncrement" class="text-warning small text-center user-select-none mb-0 mt-1 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{LoanById.maxAmount.toLocaleString()}}</p>
                             </fieldset>
                             <button type="button" class="btn btn-primary mt-4" @click="sendLoan()">Apply for a loan</button>
                         </form>

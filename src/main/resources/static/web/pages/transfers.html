@@ -19,6 +19,7 @@
         <div id="app" class="app d-flex flex-column">
             {{filterAccounts}}
             {{changeValueAccountTo}}
+            {{changeAccount}}
             <header>
                 <div class="header-contain-create-card d-flex flex-column align-items-center justify-content-center">
                   <div class="bg-contain"></div>
@@ -113,7 +114,7 @@
                                     <select class="form-select" name="accountFrom" id="accountFrom"
                                             :disabled="accounts.length === 1"
                                             v-model="selectedAccountFrom">
-                                        <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
+                                        <option v-for="account of accounts" :value="account.number">{{account.number}} || {{account.balance.toLocaleString()}}</option>
                                     </select>
                                 </fieldset>
                                 <br>
@@ -126,13 +127,14 @@
                                     <select class="form-select" name="ToAccounts" id="ToAccounts"
                                             :disabled="accounts.length === 2"
                                             v-model="selectedAccountTo">
-                                        <option v-for="account of myAccountsTo" :value="account.number">{{account.number}}</option>
+                                        <option v-for="account of myAccountsTo" :value="account.number">{{account.number}} || {{account.balance.toLocaleString()}}</option>
                                     </select>
                                 </fieldset>
                                 <br>
                                 <fieldset>
                                     <label class="text-white fw-bolder" for="amount">Amount</label>
                                     <input type="number" class="form-control" id="amount" v-model="amount">
+                                    <p v-if="amount > accountFrom.balance" class="text-warning small text-center user-select-none mb-0 mt-2 text-start"><i class="bi bi-exclamation-triangle-fill"></i> BALANCE to account: {{accountFrom.balance.toLocaleString()}}</p>
                                 </fieldset>
                                 <br>
                                 <fieldset>
@@ -140,7 +142,10 @@
                                     <input type="text" class="form-control" id="description" v-model="description">
                                 </fieldset>
                             </fieldset>
-                            <button type="button" class="btn btn-primary mt-4" @click="postTransfer">Transfer</button>
+                            <button type="button" class="btn btn-primary mt-4" @click="postTransfer"
+                            :disabled="!(selectedAccountTo) || !(description.length > 0) ||
+                            !(accountFrom.balance > amount && amount > 0)"
+                            >Transfer</button>
                         </form>
                     </div>
                 </section>

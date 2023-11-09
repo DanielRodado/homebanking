@@ -18,6 +18,7 @@
     <body>
 
         <div id="app" class="app d-flex flex-column">
+            {{send}}
             <header>
                 <div class="header-contain-create-card d-flex flex-column align-items-center justify-content-center">
                   <div class="bg-contain"></div>
@@ -165,7 +166,7 @@
                                             </div>
                                         </div>
                                     </fieldset>
-                                    <button type="button" class="btn btn-primary m-md-auto" @click="createCard">Create card</button>
+                                    <button type="button" class="btn btn-primary m-md-auto" :class="{'no-drop': !sendCard}" @click="createCard" :disabled="!sendCard">Create card</button>
                                 </form>
                             </div>
                         </div>
