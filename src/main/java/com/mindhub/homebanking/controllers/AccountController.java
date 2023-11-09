@@ -55,7 +55,7 @@ public class AccountController {
 
         Client client = clientService.getClientByEmail(currentClient.getName());
 
-        if (accountService.countAccountsByClient(client) == 3) {
+        if (accountService.countAccountsByClient(client) >= 3) {
             return new ResponseEntity<>("Cannot create any more accounts for this client", HttpStatus.FORBIDDEN);
         }
 
