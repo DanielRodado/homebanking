@@ -3,7 +3,7 @@ package com.mindhub.homebanking.utils;
 import com.mindhub.homebanking.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class CardUtil {
+public final class CardUtil {
 
     public static int generateRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);

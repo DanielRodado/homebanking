@@ -2,7 +2,7 @@ package com.mindhub.homebanking.utils;
 
 import static com.mindhub.homebanking.utils.CardUtil.generateRandomNumber;
 
-public class AccountUtil {
+public final class AccountUtil {
 
     public static String generateAccountNumber() {
         int quantityOfNumbers = generateRandomNumber(3, 8);
