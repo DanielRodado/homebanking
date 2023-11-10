@@ -1,4 +1,4 @@
-package com.mindhub.homebanking.RepositoryTest;
+package com.mindhub.homebanking.repositoryTests;
 
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.ClientRepository;

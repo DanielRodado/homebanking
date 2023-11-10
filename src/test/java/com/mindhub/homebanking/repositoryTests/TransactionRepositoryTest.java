@@ -1,4 +1,4 @@
-package com.mindhub.homebanking.RepositoryTest;
+package com.mindhub.homebanking.repositoryTests;
 
 
 import com.mindhub.homebanking.models.Transaction;
@@ -32,9 +32,19 @@ public class TransactionRepositoryTest {
     public void existsTransactions() {
         assertThat(transactions, is(not(empty())));
     }
+
     @Test
     public void descriptionTransaction() {
-        assertThat(transactions, hasItem(hasProperty("description", startsWith("P"))));
+        assertThat(transactions, everyItem(hasProperty("description", is(not(empty())))));
+    }
+
+    @Test
+    public void verifiedTransactionCredit() {
+        for (Transaction transaction: transactions) {
+            if ("CREDIT".equals(transaction.getType().toString())) {
+                assertThat(transaction, hasProperty("amount", greaterThan(0.0)));
+            }
+        }
     }
 
 }

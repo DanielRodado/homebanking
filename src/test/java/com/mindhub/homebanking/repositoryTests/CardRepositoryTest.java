@@ -1,7 +1,7 @@
-package com.mindhub.homebanking.RepositoryTest;
+package com.mindhub.homebanking.repositoryTests;
 
-import com.mindhub.homebanking.models.Loan;
-import com.mindhub.homebanking.repositories.LoanRepository;
+import com.mindhub.homebanking.models.Card;
+import com.mindhub.homebanking.repositories.CardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,26 +15,26 @@ import static org.hamcrest.Matchers.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class LoanRepositoryTest {
+public class CardRepositoryTest {
 
     @Autowired
-    private LoanRepository loanRepository;
+    private CardRepository cardRepository;
 
-    private List<Loan> loans;
+    private List<Card> cards;
 
     @BeforeEach
-    public void getAllLoans() {
-        loans = loanRepository.findAll();
+    public void getAllCards() {
+        cards = cardRepository.findAll();
     }
 
     @Test
-    public void existsLoans(){
-        assertThat(loans, is(not(empty())));
+    public void existsCards() {
+        assertThat(cards, is(not(empty())));
     }
 
     @Test
-    public void atLeastOneLoans(){
-        assertThat(loans, hasSize(equalTo(3)));
+    public void quantityCardsThanZero() {
+        assertThat(cards, hasSize(greaterThan(5)));
     }
 
 }

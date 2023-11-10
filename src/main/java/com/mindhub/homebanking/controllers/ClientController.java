@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Set;
 
+import static com.mindhub.homebanking.utils.AccountUtil.generateAccountNumber;
+
 @RestController
 @RequestMapping("/api")
 public class ClientController {
@@ -27,23 +29,6 @@ public class ClientController {
 
     @Autowired
     private AccountService accountService;
-
-    public int generateRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
-
-    public String generateAccountNumber() {
-        int quantityOfNumbers = generateRandomNumber(3, 8);
-        StringBuilder accountNumber;
-        do {
-            accountNumber = new StringBuilder();
-            for (byte i = 0; i < quantityOfNumbers; i++) {
-                accountNumber.append(generateRandomNumber(0, 9));
-            }
-        } while (accountService.existsAccountByNumber("VIN-" + accountNumber));
-
-        return "VIN-" + accountNumber;
-    }
 
     @GetMapping("/clients")
     public Set<ClientDTO> getAllClients() {
@@ -76,7 +61,12 @@ public class ClientController {
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password), false);
         clientService.saveClient(client);
 
-        Account account = new Account(generateAccountNumber(), LocalDate.now(), 0.00);
+        String accountNumber;
+        do {
+            accountNumber = generateAccountNumber();
+        } while (accountService.existsAccountByNumber("VIN-" + accountNumber));
+
+        Account account = new Account(accountNumber, LocalDate.now(), 0.00);
         client.addAccount(account);
         accountService.saveAccount(account);
 
