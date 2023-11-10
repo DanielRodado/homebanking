@@ -94,7 +94,7 @@
                                     <select class="form-select" name="accountFrom" id="accountFrom" v-model="loanId">
                                         <option v-for="loan of loans" :value="loan.id">{{loan.name}}</option>
                                     </select>
-                                    <p class="text-warning small text-center user-select-none mb-0 mt-2 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{LoanById.maxAmount.toLocaleString()}}</p>
+                                    <p class="text-warning small text-center user-select-none mb-0 mt-2 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{loanById.maxAmount.toLocaleString()}}</p>
                                 </fieldset>
                                 <fieldset>
                                     <label class="text-white fw-bolder" for="payments">Payments</label>
@@ -110,11 +110,18 @@
                                 </fieldset>
                                 <fieldset>
                                     <label class="text-white fw-bolder" for="amount">Amount</label>
-                                    <input type="number" class="form-control" id="amount" v-model="amount">
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="amount" v-model="amount">
+                                    </div>
                                 </fieldset>
-                                <p v-if="amountIncrement" class="text-warning small text-center user-select-none mb-0 mt-1 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{LoanById.maxAmount.toLocaleString()}}</p>
+                                <p v-if="amountIncrement" class="text-warning small text-center user-select-none mb-0 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{loanById.maxAmount.toLocaleString()}}</p>
                             </fieldset>
-                            <button type="button" class="btn btn-primary mt-4" @click="sendLoan()">Apply for a loan</button>
+                            <button type="button" class="btn btn-primary mt-4" @click="sendLoan()"
+                                :disabled="!(amount > 0 && amount <= loanById.maxAmount)"
+                                >
+                                Apply for a loan
+                            </button>
                         </form>
                     </div>
                 </section>

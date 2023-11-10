@@ -6,6 +6,20 @@
     --five-color: hwb(208 0% 50%);
 }
 
+* {
+    scroll-behavior: smooth !important;
+}
+
+::-webkit-scrollbar {
+    width: 0.750rem; 
+    background-color: var(--five-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--third-color);
+    border-radius: 6px;
+}
+
 ::selection {
     background-color: var(--third-color);
 }
@@ -757,7 +771,7 @@ footer {
 }
 .page {
     position: relative;
-    max-width: 73.125rem;
+    max-width: 74.1rem;
     margin: 0 auto;
     padding: 0 20px 40px;
 }
@@ -1471,22 +1485,22 @@ footer {
 .radio-button-container {
     display: flex;
     align-items: center;
-  }
-  
-  .radio-button {
+}
+
+.radio-button {
     display: inline-block;
     position: relative;
     cursor: pointer;
-  }
-  
-  .radio-button__input {
+}
+
+.radio-button__input {
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  .radio-button__label {
+}
+
+.radio-button__label {
     display: inline-block;
     padding-left: 1.875rem;
     margin-bottom: 10px;
@@ -1497,9 +1511,9 @@ footer {
     cursor: pointer;
     text-transform: uppercase;
     transition: all 0.3s ease;
-  }
-  
-  .radio-button__custom {
+}
+
+.radio-button__custom {
     position: absolute;
     top: 0;
     left: 0;
@@ -1508,24 +1522,24 @@ footer {
     border-radius: 50%;
     border: 2px solid #555;
     transition: all 0.3s ease;
-  }
-  
-  .radio-button__input:checked + .radio-button__label .radio-button__custom {
+}
+
+.radio-button__input:checked + .radio-button__label .radio-button__custom {
     background-color: var(--third-color);
     border-color: transparent;
     transform: scale(0.8);
     box-shadow: 0 0 1.25rem #4c8bf580;
-  }
-  
-  .radio-button__input:checked + .radio-button__label {
+}
+
+.radio-button__input:checked + .radio-button__label {
     color: #4c8bf5;
-  }
-  
-  .radio-button__label:hover .radio-button__custom {
+}
+
+.radio-button__label:hover .radio-button__custom {
     transform: scale(1.2);
     border-color: #4c8bf5;
     box-shadow: 0 0 1.25rem #4c8bf580;
-  }  
+}
 
 /* TRANSFER */
 

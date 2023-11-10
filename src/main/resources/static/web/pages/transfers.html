@@ -114,7 +114,8 @@
                                     <select class="form-select" name="accountFrom" id="accountFrom"
                                             :disabled="accounts.length === 1"
                                             v-model="selectedAccountFrom">
-                                        <option v-for="account of accounts" :value="account.number">{{account.number}} || {{account.balance.toLocaleString()}}</option>
+                                        <option v-for="account of accounts"
+                                                :value="account.number">{{account.number}} || ${{account.balance.toLocaleString()}}</option>
                                     </select>
                                 </fieldset>
                                 <br>
@@ -127,13 +128,17 @@
                                     <select class="form-select" name="ToAccounts" id="ToAccounts"
                                             :disabled="accounts.length === 2"
                                             v-model="selectedAccountTo">
-                                        <option v-for="account of myAccountsTo" :value="account.number">{{account.number}} || {{account.balance.toLocaleString()}}</option>
+                                        <option v-for="account of myAccountsTo"
+                                                :value="account.number">{{account.number}} || ${{account.balance.toLocaleString()}}</option>
                                     </select>
                                 </fieldset>
                                 <br>
                                 <fieldset>
                                     <label class="text-white fw-bolder" for="amount">Amount</label>
-                                    <input type="number" class="form-control" id="amount" v-model="amount">
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="amount" v-model="amount">
+                                    </div>
                                     <p v-if="amount > accountFrom.balance" class="text-warning small text-center user-select-none mb-0 mt-2 text-start"><i class="bi bi-exclamation-triangle-fill"></i> BALANCE to account: {{accountFrom.balance.toLocaleString()}}</p>
                                 </fieldset>
                                 <br>

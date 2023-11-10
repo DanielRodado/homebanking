@@ -4,7 +4,7 @@ createApp({
     data() {
         return {
             loans: [],
-            LoanById: {},
+            loanById: {},
             loanId: 0,
             paymentsOfLoan: [],
             paymentsTo: 0,
@@ -31,7 +31,7 @@ createApp({
                     this.loanId = this.loans[0].id;
 
                     this.paymentsOfLoan = this.loans[0].payments;
-                    this.LoanById = this.loans[0];
+                    this.loanById = this.loans[0];
 
                     this.loading = false;
                 })
@@ -115,16 +115,16 @@ createApp({
 
     computed: {
         changeTypeLoan() {
-            this.LoanById = this.loans.find((loan) => loan.id == this.loanId);
+            this.loanById = this.loans.find((loan) => loan.id == this.loanId);
         },
         maxAmount() {
-            this.amount >  this.LoanById.maxAmount ? this.amountIncrement = true : this.amountIncrement = false
+            this.amount >  this.loanById.maxAmount ? this.amountIncrement = true : this.amountIncrement = false
         },
         changeValuePayments() {
             this.paymentsOfLoan = this.loans.find(
                 (loan) => loan.id == this.loanId
             ).payments;
             this.paymentsTo = this.paymentsOfLoan[0];
-        },
+        }
     },
 }).mount("#app");
