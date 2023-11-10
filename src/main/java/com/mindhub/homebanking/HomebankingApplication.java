@@ -132,6 +132,6 @@ public class HomebankingApplication {
 			accountRepository.save(accountClientAdmin);*/
 		};
 	}
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	/*@Autowired
+	private PasswordEncoder passwordEncoder;*/
 }
