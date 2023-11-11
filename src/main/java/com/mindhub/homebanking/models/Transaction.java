@@ -18,6 +18,8 @@ public class Transaction {
     private String description;
     private LocalDateTime date;
 
+    private Boolean isDeleted = false;
+
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
@@ -52,6 +54,10 @@ public class Transaction {
         return date;
     }
 
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
     public Account getAccount() {
         return account;
     }
@@ -70,6 +76,10 @@ public class Transaction {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     public void setAccount(Account account) {

@@ -25,7 +25,11 @@ public interface AccountService {
 
     Account getAccountByNumber(String number);
 
+    void deletedAccountById(Long id);
+
     byte countAccountsByClient(Client client);
+
+    boolean existsAccountById(Long id);
 
     boolean existsAccountByNumber(String number);
 

@@ -54,8 +54,20 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void deletedAccountById(Long id) {
+        Account account = getAccountById(id);
+        account.setDeleted(true);
+        saveAccount(account);
+    }
+
+    @Override
     public byte countAccountsByClient(Client client) {
         return accountRepository.countByClient(client);
+    }
+
+    @Override
+    public boolean existsAccountById(Long id) {
+        return accountRepository.existsById(id);
     }
 
     @Override

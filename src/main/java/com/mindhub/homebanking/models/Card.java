@@ -16,6 +16,7 @@ public class Card {
     private LocalDate fromDate, thruDate;
     private CardColor color;
     private CardType type;
+    private Boolean isDeleted = false;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;
@@ -66,6 +67,10 @@ public class Card {
         return type;
     }
 
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -96,6 +101,10 @@ public class Card {
 
     public void setType(CardType type) {
         this.type = type;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     public void setClient(Client client) {

@@ -16,6 +16,16 @@ public class CardServiceImpl implements CardService {
     private CardRepository cardRepository;
 
     @Override
+    public Card getCardById(Long id) {
+        return cardRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public boolean existsCardById(Long id) {
+        return cardRepository.existsById(id);
+    }
+
+    @Override
     public boolean existsCardByNumber(String number) {
         return cardRepository.existsByNumber(number);
     }
@@ -23,6 +33,13 @@ public class CardServiceImpl implements CardService {
     @Override
     public boolean existsCardByClientAndTypeAndColor(Client client, String type, String color) {
         return cardRepository.existsByClientAndTypeAndColor(client, CardType.valueOf(type), CardColor.valueOf(color));
+    }
+
+    @Override
+    public void deletedCardById(Long id) {
+        Card card = getCardById(id);
+        card.setDeleted(true);
+        saveCard(card);
     }
 
     @Override

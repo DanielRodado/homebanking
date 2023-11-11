@@ -64,4 +64,15 @@ public class CardController {
         return new ResponseEntity<>("Created card!",HttpStatus.CREATED);
     }
 
+    @PostMapping("/clients/current/cards/deleted")
+    public ResponseEntity<String> deletedCard(@RequestParam Long id) {
+
+        if (!cardService.existsCardById(id)) {
+            return new ResponseEntity<>("This card does not exist", HttpStatus.FORBIDDEN);
+        }
+
+        cardService.deletedCardById(id);
+        return new ResponseEntity<>("Card deleted!", HttpStatus.OK);
+    }
+
 }

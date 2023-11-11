@@ -5,6 +5,7 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,9 @@ public class AccountController {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private TransactionService transactionService;
 
     @GetMapping("/accounts")
     public Set<AccountDTO> getAllAccounts() {
@@ -54,6 +58,19 @@ public class AccountController {
         accountService.saveAccount(account);
 
         return new ResponseEntity<>("Account created!", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/clients/current/accounts/deleted")
+    public ResponseEntity<String> deletedAccount(@RequestParam Long id) {
+
+        if (!accountService.existsAccountById(id)) {
+            return new ResponseEntity<>("This account does not exist.", HttpStatus.FORBIDDEN);
+        }
+
+        accountService.deletedAccountById(id);
+        transactionService.deletedTransactions(accountService.getAccountById(id));
+
+        return new ResponseEntity<>("Account deleted!", HttpStatus.OK);
     }
 
     @GetMapping("/clients/current/accounts")

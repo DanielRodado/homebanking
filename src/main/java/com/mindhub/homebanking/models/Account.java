@@ -21,6 +21,8 @@ public class Account {
 
     private Double balance;
 
+    private Boolean isDeleted = false;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
@@ -57,6 +59,10 @@ public class Account {
         return balance;
     }
 
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
     public Set<Transaction> getTransactions() {
         return transactions;
     }
@@ -75,6 +81,10 @@ public class Account {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     public void setTransactions(Set<Transaction> transactions) {
