@@ -76,7 +76,8 @@ public class LoanController {
             return new ResponseEntity<>("The destination account entered does not belong to you, enter one that belongs to you", HttpStatus.FORBIDDEN);
         }
 
-        ClientLoan clientLoan = new ClientLoan(loanApplication.getAmount()*1.2, loanApplication.getPayments());
+        ClientLoan clientLoan = new ClientLoan(loanApplication.getAmount()*(loan.getInterestRate()/12),
+                loanApplication.getPayments());
         loan.addClientLoan(clientLoan);
         client.addClientLoan(clientLoan);
         clientLoanService.saveClientLoan(clientLoan);
