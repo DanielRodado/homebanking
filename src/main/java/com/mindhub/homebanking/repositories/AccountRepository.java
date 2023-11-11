@@ -11,7 +11,7 @@ import java.util.Set;
 public interface AccountRepository extends JpaRepository<Account, Long> {
     boolean existsByNumber(String number);
     Account findByNumber(String number);
-    byte countByClient(Client client);
+    byte countByClientAndIsDeleted(Client client, Boolean isDeleted);
     Set<Account> findByClient(Client client);
     boolean existsByClientAndNumber(Client client, String number);
 }

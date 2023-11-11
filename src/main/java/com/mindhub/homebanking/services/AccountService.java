@@ -27,7 +27,7 @@ public interface AccountService {
 
     void deletedAccountById(Long id);
 
-    byte countAccountsByClient(Client client);
+    byte countAccountsByClientAndIsDeleted(Client client, Boolean isDeleted);
 
     boolean existsAccountById(Long id);
 

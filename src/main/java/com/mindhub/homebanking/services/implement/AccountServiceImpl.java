@@ -61,8 +61,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public byte countAccountsByClient(Client client) {
-        return accountRepository.countByClient(client);
+    public byte countAccountsByClientAndIsDeleted(Client client, Boolean isDeleted) {
+        return accountRepository.countByClientAndIsDeleted(client, isDeleted);
     }
 
     @Override
