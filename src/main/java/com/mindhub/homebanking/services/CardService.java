@@ -11,7 +11,7 @@ public interface CardService {
 
     boolean existsCardByNumber(String number);
 
-    boolean existsCardByClientAndTypeAndColor(Client client, String type, String color);
+    boolean existsCardByClientAndTypeAndColorAndIsDeleted(Client client, String type, String color, Boolean isDeleted);
 
     void deletedCardById(Long id);
 

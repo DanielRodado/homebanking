@@ -45,7 +45,7 @@ public class CardController {
 
         Client client = clientService.getClientByEmail(currentClient.getName());
 
-        if (cardService.existsCardByClientAndTypeAndColor(client, cardType, cardColor)) {
+        if (cardService.existsCardByClientAndTypeAndColorAndIsDeleted(client, cardType, cardColor, false)) {
             return new ResponseEntity<>("You may not have more than one card of type " + cardType + " and color " + cardColor,
                     HttpStatus.FORBIDDEN);
         }

@@ -108,6 +108,7 @@
                             <tr class="">
                               <th scope="col">Type</th>
                               <th scope="col">Amount</th>
+                              <th scope="col">Current amount</th>
                               <th scope="col">Date</th>
                               <th scope="col">Description</th>
                             </tr>
@@ -115,7 +116,8 @@
                           <tbody class="table-group-divider">
                             <tr v-for="transaction of account.transactions">
                               <td :class="{'debit': transaction.type === 'DEBIT', 'credit': transaction.type === 'CREDIT'}" class="fw-bold">{{transaction.type}}</td>
-                              <td>{{transaction.amount.toLocaleString()}}</td>
+                              <td>${{transaction.amount.toLocaleString()}}</td>
+                              <td>${{transaction.balanceAccountBeforeTransaction}}</td>
                               <td>{{transaction.date.replace("T", " ")}}</td>
                               <td>{{transaction.description}}</td>
                             </tr>

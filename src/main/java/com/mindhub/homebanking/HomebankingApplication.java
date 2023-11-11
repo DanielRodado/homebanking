@@ -26,7 +26,7 @@ public class HomebankingApplication {
 									  TransactionRepository transactionRepository, LoanRepository loanRepository,
 									  ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return args ->  {
-			/*LocalDate date = LocalDate.now();
+			LocalDate date = LocalDate.now();
 			LocalDateTime dateTime = LocalDateTime.now();
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String formattedDateTime = dateTime.format(formatter);
@@ -40,7 +40,7 @@ public class HomebankingApplication {
 			clientOne.addAccount(accountOne);
 			accountRepository.save(accountOne);
 
-			Transaction transactionOne = new Transaction(TransactionType.DEBIT, -8000.00, "My first transaction",
+			/*Transaction transactionOne = new Transaction(TransactionType.DEBIT, -8000.00, "My first transaction",
 					formattedLocalDateTime);
 			accountOne.addTransaction(transactionOne);
 			transactionRepository.save(transactionOne);
@@ -48,13 +48,13 @@ public class HomebankingApplication {
             Transaction transactionTwo = new Transaction(TransactionType.DEBIT, -32500.00, "Second transaction",
 					formattedLocalDateTime);
             accountOne.addTransaction(transactionTwo);
-            transactionRepository.save(transactionTwo);
+            transactionRepository.save(transactionTwo);*/
 
 			Account accountTwo = new Account("VIN-002", date.plusDays(1), 7000.00);
 			clientOne.addAccount(accountTwo);
 			accountRepository.save(accountTwo);
 
-            Transaction transactionThree = new Transaction(TransactionType.CREDIT, 2000.00, "Payment per transaction",
+            /*Transaction transactionThree = new Transaction(TransactionType.CREDIT, 2000.00, "Payment per transaction",
                     formattedLocalDateTime);
             accountTwo.addTransaction(transactionThree);
             transactionRepository.save(transactionThree);
@@ -62,7 +62,7 @@ public class HomebankingApplication {
 			Transaction transactionFour = new Transaction(TransactionType.CREDIT, 2000.00, "Payment of school fees",
 					formattedLocalDateTime);
 			accountOne.addTransaction(transactionFour);
-			transactionRepository.save(transactionFour);
+			transactionRepository.save(transactionFour);*/
 
 			Loan loanMortgage = new Loan("Mortgage", 500000.00, List.of(12, 24, 36, 48, 60));
 			loanRepository.save(loanMortgage);
@@ -129,9 +129,9 @@ public class HomebankingApplication {
 
 			Account accountClientAdmin= new Account("VIN-009", date, 32000.00);
 			clientAdmin.addAccount(accountClientAdmin);
-			accountRepository.save(accountClientAdmin);*/
+			accountRepository.save(accountClientAdmin);
 		};
 	}
-	/*@Autowired
-	private PasswordEncoder passwordEncoder;*/
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 }

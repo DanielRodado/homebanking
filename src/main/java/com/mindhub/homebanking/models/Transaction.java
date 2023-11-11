@@ -18,6 +18,8 @@ public class Transaction {
     private String description;
     private LocalDateTime date;
 
+    private Double balanceAccountBeforeTransaction;
+
     private Boolean isDeleted = false;
 
     @ManyToOne
@@ -27,9 +29,10 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, Double amount, String description, LocalDateTime date) {
+    public Transaction(TransactionType type, Double amount, Double balanceAccountBeforeTransaction,String description, LocalDateTime date) {
         this.type = type;
         this.amount = amount;
+        this.balanceAccountBeforeTransaction = balanceAccountBeforeTransaction;
         this.description = description;
         this.date = date;
     }
@@ -54,6 +57,10 @@ public class Transaction {
         return date;
     }
 
+    public Double getBalanceAccountBeforeTransaction() {
+        return balanceAccountBeforeTransaction;
+    }
+
     public Boolean getDeleted() {
         return isDeleted;
     }
@@ -76,6 +83,10 @@ public class Transaction {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public void setBalanceAccountBeforeTransaction(Double balanceAccountBeforeTransaction) {
+        this.balanceAccountBeforeTransaction = balanceAccountBeforeTransaction;
     }
 
     public void setDeleted(Boolean deleted) {

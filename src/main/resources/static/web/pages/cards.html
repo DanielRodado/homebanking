@@ -108,18 +108,20 @@
                                                 <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="img-card">
                                                 <img src="https://i.ibb.co/WHZ3nRJ/visa.png" class="img-card">
                                             </div>
-                                            <div class="row--cards card-no">
+                                            <div class="row--cards card-no position-relative">
                                                 <p>{{card.number.replace("-", "").slice(0, 4)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(4, 8)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(9, 13)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(14, 18)}}</p>
+                                                <div v-if="dateNow > card.thruDate" class="expirated-line"></div>
                                             </div>
                                             <div class="row--cards card-holder">
                                                 <p>{{card.type}} CARD</p>
                                                 <p>VALID TILL</p>
                                             </div>
                                             <div class="row--cards name">
-                                                <p>{{card.cardHolder}}</p>
+                                                <p v-if="dateNow > card.thruDate" class="text-bg-danger">CARD EXPIRED</p>
+                                                <p v-else>{{card.cardHolder}}</p>
                                                 <p>{{card.thruDate}}</p>
                                             </div>
                                         </div>
@@ -154,18 +156,20 @@
                                                 <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="img-card">
                                                 <img src="https://i.ibb.co/WHZ3nRJ/visa.png" class="img-card">
                                             </div>
-                                            <div class="row--cards card-no">
+                                            <div class="row--cards card-no position-relative">
                                                 <p>{{card.number.replace("-", "").slice(0, 4)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(4, 8)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(9, 13)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(14, 18)}}</p>
+                                                <div v-if="dateNow > card.thruDate" class="expirated-line"></div>
                                             </div>
                                             <div class="row--cards card-holder">
                                                 <p>{{card.type}} CARD</p>
                                                 <p>VALID TILL</p>
                                             </div>
                                             <div class="row--cards name">
-                                                <p>{{card.cardHolder}}</p>
+                                                <p v-if="dateNow > card.thruDate" class="text-bg-danger">CARD EXPIRED</p>
+                                                <p v-else>{{card.cardHolder}}</p>
                                                 <p>{{card.thruDate}}</p>
                                             </div>
                                         </div>
@@ -200,18 +204,20 @@
                                                 <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="img-card">
                                                 <img src="https://i.ibb.co/WHZ3nRJ/visa.png" class="img-card">
                                             </div>
-                                            <div class="row--cards card-no">
+                                            <div class="row--cards card-no position-relative">
                                                 <p>{{card.number.replace("-", "").slice(0, 4)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(4, 8)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(9, 13)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(14, 18)}}</p>
+                                                <div v-if="dateNow > card.thruDate" class="expirated-line"></div>
                                             </div>
                                             <div class="row--cards card-holder">
                                                 <p>{{card.type}} CARD</p>
                                                 <p>VALID TILL</p>
                                             </div>
                                             <div class="row--cards name">
-                                                <p>{{card.cardHolder}}</p>
+                                                <p v-if="dateNow > card.thruDate" class="text-bg-danger">CARD EXPIRED</p>
+                                                <p v-else>{{card.cardHolder}}</p>
                                                 <p>{{card.thruDate}}</p>
                                             </div>
                                         </div>

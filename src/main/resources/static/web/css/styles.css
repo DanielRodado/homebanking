@@ -1082,6 +1082,15 @@ footer {
 
 /* CARDS */
 
+.expirated-line {
+    position: absolute;
+    top: 0.68rem;
+    background-color: #f00;
+    height: 0.12rem;
+    width: 12rem;
+}
+
+
 .mk-icon-sim,
 .mk-icon-visa,
 .mk-icon-world-map {
@@ -1585,6 +1594,11 @@ footer {
         padding: 0.372rem 0.75rem;
     }
 
+    .expirated-line {
+        top: 0.86rem;
+        width: 14.3rem;
+    }
+
     .card-text {
         margin-top: 1.35rem;
         font-size: 0.78rem;
@@ -1603,6 +1617,12 @@ footer {
 }
 
 @media only screen and (min-width: 576px) {
+
+    .expirated-line {
+        top: 1.1rem;
+        width: 18.3rem;
+    }
+
     .contain-banner {
         min-height: 19rem;
         max-height: 19rem;
@@ -1681,6 +1701,7 @@ footer {
 }
 
 @media only screen and (min-width: 768px) {
+
     .contain-banner {
         min-height: 17rem;
         max-height: 17rem;
@@ -1775,6 +1796,11 @@ footer {
         margin-top: 2rem;
         font-size: 1.7rem;
         gap: 1.525rem;
+    }
+
+    .expirated-line {
+        top: 1.18rem;
+        width: 20.3rem;
     }
 
     .card-holder {
@@ -1872,6 +1898,11 @@ footer {
         gap: 1.6rem;
     }
 
+    .expirated-line {
+        top: 1.34rem;
+        width: 22.3rem;    
+    }
+
     .card-holder {
         font-size: 0.925rem;
     }
@@ -1900,4 +1931,9 @@ footer {
     .container--created-card {
         width: 73.125rem;
     }
+
+    .expirated-line {
+        height: 0.22rem; 
+    }
+
 }

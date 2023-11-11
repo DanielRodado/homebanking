@@ -84,6 +84,7 @@ public class LoanController {
         Account account = accountService.getAccountByNumber(loanApplication.getNumberAccountTo());
 
         Transaction transaction = new Transaction(TransactionType.CREDIT, loanApplication.getAmount(),
+                account.getBalance() + loanApplication.getAmount(),
                 loan.getName() + " loan approved", formattedLocalDateTime(LocalDateTime.now()));
         account.addTransaction(transaction);
         transactionService.saveTransaction(transaction);

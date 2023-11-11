@@ -31,8 +31,10 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public boolean existsCardByClientAndTypeAndColor(Client client, String type, String color) {
-        return cardRepository.existsByClientAndTypeAndColor(client, CardType.valueOf(type), CardColor.valueOf(color));
+    public boolean existsCardByClientAndTypeAndColorAndIsDeleted(
+            Client client, String type, String color, Boolean isDeleted) {
+        return cardRepository.existsByClientAndTypeAndColorAndIsDeleted(
+                client, CardType.valueOf(type), CardColor.valueOf(color), isDeleted);
     }
 
     @Override

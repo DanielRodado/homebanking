@@ -37,7 +37,8 @@ public class TransactionController {
 
     @Transactional
     @PostMapping("/clients/current/transactions")
-    public ResponseEntity<Object> newCard(@RequestParam Double amount, @RequestParam String description,
+    public ResponseEntity<Object> newCard(@RequestParam Double amount,
+                                          @RequestParam String description,
                                           @RequestParam String numberOfAccountFrom,
                                           @RequestParam String numberOfAccountTo, Authentication currentClient) {
 
@@ -86,9 +87,9 @@ public class TransactionController {
 
         // Se instancian las transacciones con sus datos
         Transaction transactionFrom = new Transaction(TransactionType.DEBIT, -amount,
-                description + " To " + numberOfAccountTo,
+                accountFrom.getBalance()-amount, description + " To " + numberOfAccountTo,
                 formattedLocalDateTime(LocalDateTime.now()));
-        Transaction transactionTo = new Transaction(TransactionType.CREDIT, amount,
+        Transaction transactionTo = new Transaction(TransactionType.CREDIT, amount, accountTo.getBalance() + amount,
                 description + " From " + numberOfAccountFrom,
                 formattedLocalDateTime(LocalDateTime.now()));
 
