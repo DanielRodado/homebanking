@@ -21,6 +21,8 @@ public class Account {
 
     private Double balance;
 
+    private AccountType type;
+
     private Boolean isDeleted = false;
 
     @ManyToOne
@@ -33,10 +35,11 @@ public class Account {
     public Account() {
     }
 
-    public Account(String number, LocalDate creationDate, Double balance) {
+    public Account(String number, LocalDate creationDate, Double balance, AccountType type) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
+        this.type = type;
     }
 
     public Client getClient() {
@@ -57,6 +60,10 @@ public class Account {
 
     public Double getBalance() {
         return balance;
+    }
+
+    public AccountType getType() {
+        return type;
     }
 
     public Boolean getDeleted() {
@@ -81,6 +88,10 @@ public class Account {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
     }
 
     public void setDeleted(Boolean deleted) {

@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
@@ -40,7 +41,12 @@ public class AccountController {
     }
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> newAccount(Authentication currentClient) {
+    public ResponseEntity<Object> newAccount(@RequestParam String typeAccount, Authentication currentClient) {
+
+        if (typeAccount.isBlank() || !(typeAccount.equals("SAVINGS") || typeAccount.equals("CHECKINGS"))) {
+            return new ResponseEntity<>("To create an account you need to send the type of account you want to create.",
+                    HttpStatus.FORBIDDEN);
+        }
 
         Client client = clientService.getClientByEmail(currentClient.getName());
 
@@ -53,7 +59,7 @@ public class AccountController {
             accountNumber = generateAccountNumber();
         } while (accountService.existsAccountByNumber("VIN-" + accountNumber));
 
-        Account account = new Account(accountNumber, LocalDate.now(), 0.00);
+        Account account = new Account(accountNumber, LocalDate.now(), 0.00, AccountType.valueOf(typeAccount));
         client.addAccount(account);
         accountService.saveAccount(account);
 

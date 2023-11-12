@@ -87,7 +87,11 @@
             </header>
             <main class="flex-grow-1">
                 <section class="first-color-bg pt-5 position-relative">
-                    <button v-if="client.accounts.length < 3" type="button" class="btn btn-primary ms-3 ms-md-5 mb-5 mb-md-0" @click="addAccount">Add Account</button>
+                    <button v-if="client.accounts.length < 3" type="button" class="btn btn-primary ms-3 ms-md-5 mb-5 mb-md-0"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    >
+                        Add Account
+                    </button>
                     <div class="container">
                         <div class="title text-center mb-4">
                             <h2>Hello, {{client.firstName}}</h2>
@@ -104,6 +108,7 @@
                                     <span class="ms-md-2">{{account.number}}</span></p>
                                 <p class="card-info">Amount: ${{account.balance.toLocaleString()}}</p>
                                 <p class="card-info">Creation date: {{account.creationDate}}</p>
+                                <p class="type-of-account mb-0">Type: {{account.type}}</p>
                             </div>
                         </div>
                     </div>
@@ -135,6 +140,43 @@
                     </div>
                     
                 </section>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Select the account you want to create!</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="radio-inputs-create-account w-100">
+                                    <label>
+                                        <input class="radio-input-create-account" type="radio" name="typeOfAccount" value="SAVINGS" v-model="typeAccount">
+                                            <span class="radio-tile-create-acc">
+                                                <span class="radio-icon-create-acc">
+                                                    <i class="bi bi-credit-card-2-front-fill fs-5"></i>
+                                                </span>
+                                                <span class="radio-label-create-acc">SAVINGS</span>
+                                            </span>
+                                    </label>
+                                    <label>
+                                        <input checked="" class="radio-input-create-account" type="radio" name="typeOfAccount" value="CHECKINGS" v-model="typeAccount">
+                                        <span class="radio-tile-create-acc">
+                                            <span class="radio-icon-create-acc">
+                                                <i class="bi bi-credit-card-fill fs-5"></i>
+                                            </span>
+                                            <span class="radio-label-create-acc">CHECKINGS</span>
+                                        </span>
+                                    </label>
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" @click="addAccount">Crate Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
             <div v-if="loading" class="loader-container">
               <div class="loader"></div>

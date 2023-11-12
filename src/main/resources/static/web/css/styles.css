@@ -11,7 +11,7 @@
 }
 
 ::-webkit-scrollbar {
-    width: 0.750rem; 
+    width: 0.75rem;
     background-color: var(--five-color);
 }
 
@@ -643,6 +643,117 @@ p::selection {
 
 /* Index */
 
+.radio-inputs-create-account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 350px; */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.radio-inputs-create-account > * {
+    margin: 6px;
+}
+
+.radio-input-create-account:checked + .radio-tile-create-acc {
+    border-color: #2260ff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #2260ff;
+}
+
+.radio-input-create-account:checked + .radio-tile-create-acc:before {
+    transform: scale(1);
+    opacity: 1;
+    background-color: #2260ff;
+    border-color: #2260ff;
+}
+
+.radio-input-create-account:checked + .radio-tile-create-acc .radio-icon-create-acc svg {
+    fill: #2260ff;
+}
+
+.radio-input-create-account:checked + .radio-tile-create-acc .radio-label-create-acc {
+    color: #2260ff;
+}
+
+.radio-input-create-account:focus + .radio-tile-create-acc {
+    border-color: #2260ff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+}
+
+.radio-input-create-account:focus + .radio-tile-create-acc:before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.radio-tile-create-acc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    min-height: 80px;
+    border-radius: 0.5rem;
+    border: 2px solid #b5bfd9;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.15s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.radio-tile-create-acc:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 2px solid #b5bfd9;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 0.25rem;
+    left: 0.25rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.25s ease;
+}
+
+.radio-tile-create-acc:hover {
+    border-color: #2260ff;
+}
+
+.radio-tile-create-acc:hover:before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.radio-icon-create-acc svg {
+    width: 2rem;
+    height: 2rem;
+    fill: #494949;
+}
+
+.radio-label-create-acc {
+    color: #707070;
+    transition: 0.375s ease;
+    text-align: center;
+    font-size: 13px;
+}
+
+.radio-input-create-account {
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
 .card--mod {
     background-color: hwb(228 11% 67%) !important;
     width: 20rem !important;
@@ -716,6 +827,16 @@ footer {
 .card-info {
     font-size: 0.875rem;
     margin-bottom: 0.7rem;
+}
+
+.type-of-account {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    font-weight: bold;
+    font-size: 0.7rem;
+    color: var(--third-color);
+    user-select: none;
 }
 
 .btn-details {
@@ -1089,7 +1210,6 @@ footer {
     height: 0.12rem;
     width: 12rem;
 }
-
 
 .mk-icon-sim,
 .mk-icon-visa,
@@ -1617,7 +1737,6 @@ footer {
 }
 
 @media only screen and (min-width: 576px) {
-
     .expirated-line {
         top: 1.1rem;
         width: 18.3rem;
@@ -1645,6 +1764,10 @@ footer {
     .card-info {
         font-size: 0.95rem;
         margin-bottom: 0.938rem;
+    }
+
+    .type-of-account {
+        font-size: 0.76rem;
     }
 
     .card--cards {
@@ -1701,7 +1824,6 @@ footer {
 }
 
 @media only screen and (min-width: 768px) {
-
     .contain-banner {
         min-height: 17rem;
         max-height: 17rem;
@@ -1770,7 +1892,7 @@ footer {
 
     .premium-card {
         padding: 1.875rem;
-        max-width: 26rem;
+        max-width: 26.8rem;
     }
 
     .card-title {
@@ -1781,6 +1903,10 @@ footer {
     .card-info {
         font-size: 1.125rem;
         margin-bottom: 0.938rem;
+    }
+
+    .type-of-account {
+        font-size: 0.8rem;
     }
 
     .card--cards {
@@ -1900,7 +2026,7 @@ footer {
 
     .expirated-line {
         top: 1.34rem;
-        width: 22.3rem;    
+        width: 22.3rem;
     }
 
     .card-holder {
@@ -1933,7 +2059,6 @@ footer {
     }
 
     .expirated-line {
-        height: 0.22rem; 
+        height: 0.22rem;
     }
-
 }

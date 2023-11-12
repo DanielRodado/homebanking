@@ -5,6 +5,7 @@ createApp({
         return {
             client: {},
             loading: true,
+            typeAccount: ""
         };
     },
 
@@ -30,7 +31,7 @@ createApp({
                 });
         },
         addAccount() {
-            axios.post("/api/clients/current/accounts")
+            axios.post("/api/clients/current/accounts", `typeAccount=${this.typeAccount}`)
                 .then(() => {
                     this.getClients();
                 })
@@ -40,10 +41,3 @@ createApp({
         }
     },
 }).mount("#app");
-
-/* totalBalance() {
-      return this.accounts.reduce(
-        (total, account) => total + account.balance,
-        0
-      );
-    }, */
