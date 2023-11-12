@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Set;
 
 import static com.mindhub.homebanking.utils.TransactionUtil.formattedLocalDateTime;
@@ -94,6 +95,37 @@ public class LoanController {
         accountService.saveAccount(account);
 
         return new ResponseEntity<>("Loan created successfully", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/loans/create")
+    public ResponseEntity<String> createNewLoan(@RequestParam String nameOfLoan, @RequestParam Double maxAmount,
+                                                @RequestParam Double interestRate,
+                                                @RequestParam int payment) {
+
+        if (nameOfLoan.isBlank()) {
+            return new ResponseEntity<>("The loan name cannot be empty.", HttpStatus.FORBIDDEN);
+        }
+
+        if (loanService.existsLoanByName(nameOfLoan)) {
+            return new ResponseEntity<>("Loan name already exists, enter another name", HttpStatus.FORBIDDEN);
+        }
+
+        if (maxAmount <= 0) {
+            return new ResponseEntity<>("Maximum loan amount cannot be less than or equal to 0", HttpStatus.FORBIDDEN);
+        }
+
+        if (interestRate <= 0) {
+            return new ResponseEntity<>("The interest rate cannot be less than or equal to 0.", HttpStatus.FORBIDDEN);
+        }
+
+        if (payment <= 0) {
+            return new ResponseEntity<>("Loan payments cannot be less or equal to 0", HttpStatus.FORBIDDEN);
+        }
+
+        Loan loan = new Loan(nameOfLoan, maxAmount, interestRate, List.of(payment));
+        loanService.saveLoan(loan);
+
+        return new ResponseEntity<>("New loan created!", HttpStatus.CREATED);
     }
 
     @GetMapping("/loans")

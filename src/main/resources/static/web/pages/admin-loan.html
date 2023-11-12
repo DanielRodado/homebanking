@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>FINOVATE - Loan</title>
+        <title>FINOVATE - Create Loan</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -17,7 +17,6 @@
     </head>
     <body>
         <div id="app" class="app d-flex flex-column">
-            {{changeValuePayments}} {{changeTypeLoan}} {{maxAmount}}
             <header>
                 <div class="header-contain-create-card d-flex flex-column align-items-center justify-content-center">
                   <div class="bg-contain"></div>
@@ -81,7 +80,7 @@
                           </div>
                       </div>
                   </nav>
-                  <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Loans</h2>
+                  <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Create loan > Admin</h2>
                 </div>
             </header>
             <main class="flex-grow-1">
@@ -90,37 +89,30 @@
                         <form class="d-flex flex-column p-1 pt-2 p-md-3">
                             <fieldset class="d-flex flex-column gap-3">
                                 <fieldset>
-                                    <label class="text-white fw-bolder" for="accountFrom">Type of loan</label>
-                                    <select class="form-select" name="accountFrom" id="accountFrom" v-model="loanId">
-                                        <option v-for="loan of loans" :value="loan.id">{{loan.name}} || {{loan.interestRate}}%</option>
-                                    </select>
-                                    <p class="text-warning small text-center user-select-none mb-0 mt-2 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{loanById.maxAmount.toLocaleString()}}</p>
+                                    <label class="text-white fw-bolder" for="typeOfLoan">Name of loan</label>
+                                    <input type="text" class="form-control" id="typeOfLoan" v-model="typeOfLoan">
                                 </fieldset>
                                 <fieldset>
-                                    <label class="text-white fw-bolder" for="payments">Payments</label>
-                                    <select class="form-select" name="payments" id="payments" v-model="paymentsTo">
-                                        <option v-for="payment of paymentsOfLoan" :value="payment">{{payment}}</option>
-                                    </select>
-                                </fieldset>
-                                <fieldset>
-                                    <label class="text-white fw-bolder" for="ToAccounts">To Account</label>
-                                    <select class="form-select" name="ToAccounts" id="ToAccounts" v-model="selectedAccountTo">
-                                        <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
-                                    </select>
-                                </fieldset>
-                                <fieldset>
-                                    <label class="text-white fw-bolder" for="amount">Amount</label>
+                                    <label class="text-white fw-bolder" for="maxAmount">Max amount</label>
                                     <div class="input-group">
-                                        <span class="input-group-text">$</span>
-                                        <input type="number" class="form-control" id="amount" v-model="amount">
+                                        <span class="input-group-text four-color-bg fw-bold text-white">$</span>
+                                        <input type="number" class="form-control" id="maxAmount" v-model="maxAmount">
                                     </div>
                                 </fieldset>
-                                <p v-if="amountIncrement" class="text-warning small text-center user-select-none mb-0 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{loanById.maxAmount.toLocaleString()}}</p>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="maxAmount">Interest rate</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="maxAmount" v-model="interestRate">
+                                        <span class="input-group-text four-color-bg fw-bold text-white">%</span>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="typeOfLoan">Payments</label>
+                                    <input type="number" class="form-control" id="typeOfLoan" v-model="payments">
+                                </fieldset>
                             </fieldset>
-                            <button type="button" class="btn btn-primary mt-4" @click="sendLoan()"
-                                :disabled="!(amount > 0 && amount <= loanById.maxAmount)"
-                                >
-                                Apply for a loan
+                            <button type="button" class="btn btn-primary mt-4" @click="createLoan">
+                                Create loan
                             </button>
                         </form>
                     </div>
@@ -143,6 +135,6 @@
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-        <script src="../js/loans.js"></script>
+        <script src="../js/admin-loan.js"></script>
     </body>
 </html>
