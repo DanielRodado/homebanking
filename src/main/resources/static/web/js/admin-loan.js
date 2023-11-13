@@ -7,15 +7,24 @@ createApp({
             maxAmount: 0,
             interestRate: 0,
             payments: 0,
-            loading: true
+            loading: true,
+            isAdmin: null
         };
     },
 
     created() {
-        this.loading = false;
+        this.getClients();
     },
 
     methods: {
+        getClients() {
+            axios("/api/clients/current")
+                .then(({ data }) => {
+                    this.isAdmin = data.admin;
+                    this.loading = false;
+                })
+                .catch((error) => console.log(error));
+        },
         createNewLoan() {
             axios
                 .post("/api/loans/create", `nameOfLoan=${this.typeOfLoan}&maxAmount=${this.maxAmount}&interestRate=${this.interestRate}&payment=${this.payments}`)

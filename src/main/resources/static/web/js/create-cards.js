@@ -9,6 +9,7 @@ createApp({
             date: new Date(),
             loading: true,
             sendCard: false,
+            isAdmin: null
         };
     },
 
@@ -17,6 +18,7 @@ createApp({
             .then(({ data }) => {
                 this.userName = data.firstName + " " + data.lastName;
                 this.loading = false;
+                this.isAdmin = data.admin;
             })
             .catch((error) => console.log(error));
 
@@ -34,7 +36,7 @@ createApp({
                 title: "Are you sure?",
                 text: `You want to create a card of type ${this.cardType} and color ${this.cardColor}?`,
                 customClass: {
-                    popup: 'text-center'
+                    popup: "text-center",
                 },
                 icon: "warning",
                 showCancelButton: true,
@@ -51,7 +53,12 @@ createApp({
                             `cardColor=${this.cardColor}&cardType=${this.cardType}`
                         )
                         .then(() => {
-                            setTimeout(() => location.pathname = "/web/pages/cards.html", 1500);
+                            setTimeout(
+                                () =>
+                                    (location.pathname =
+                                        "/web/pages/cards.html"),
+                                1500
+                            );
                         })
                         .catch((error) => {
                             console.error("Error:", error);

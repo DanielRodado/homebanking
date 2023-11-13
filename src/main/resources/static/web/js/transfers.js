@@ -13,15 +13,24 @@ createApp({
             description: "",
             optionsNumber: { style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 },
 
-            loading: true,
+            isAdmin: null,
+            loading: true
         };
     },
 
     created() {
+        this.getClients();
         this.getData();
     },
 
     methods: {
+        getClients() {
+            axios("/api/clients/current")
+                .then(({ data }) => {
+                    this.isAdmin = data.admin;
+                })
+                .catch((error) => console.log(error));
+        },
         getData() {
             axios("/api/clients/current/accounts")
                 .then(({ data }) => {

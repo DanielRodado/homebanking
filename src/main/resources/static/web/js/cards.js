@@ -8,7 +8,8 @@ createApp({
             loading: true,
             cards: false,
             valueCard: "",
-            dateNow: null
+            dateNow: null,
+            isAdmin: null
         };
     },
 
@@ -22,6 +23,7 @@ createApp({
             axios("/api/clients/current")
                 .then(({ data }) => {
                     this.cards = data.cards;
+                    this.isAdmin = data.admin;
                     this.cardsFiltered = data.cards;
                     this.loading = false;
                 })

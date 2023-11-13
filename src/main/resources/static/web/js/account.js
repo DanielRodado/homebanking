@@ -6,7 +6,8 @@ createApp({
             client: {},
             account: [],
             loading: true,
-            id: 0,
+            isAdmin: null,
+            id: 0
         };
     },
 
@@ -22,6 +23,8 @@ createApp({
             axios("/api/clients/current")
                 .then(( {data} ) => {
                     this.client = data;
+                    this.isAdmin = data.admin;
+                    console.log(data);
                     this.account = this.client.accounts.find(account => account.id == this.id);
                     this.account.transactions.sort((a,b) => b.id - a.id);
                     this.loading = false;

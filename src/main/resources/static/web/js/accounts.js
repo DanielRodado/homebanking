@@ -5,7 +5,8 @@ createApp({
         return {
             client: {},
             loading: true,
-            typeAccount: ""
+            typeAccount: "",
+            isAdmin: null
         };
     },
 
@@ -18,6 +19,7 @@ createApp({
             axios("/api/clients/current")
                 .then(({ data }) => {
                     this.client = data;
+                    this.isAdmin = data.admin;
                     this.loading = false;
                 })
                 .catch((error) => console.log(error));

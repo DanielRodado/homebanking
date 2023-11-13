@@ -34,7 +34,7 @@ createApp({
                 })
                 .catch((error) => {
                     console.log(error);
-                    if (this.inputEmail = "" || this.inputPassword === "") {
+                    if (this.inputEmail === "" || this.inputPassword === "") {
                         Swal.fire({
                             icon: "error",
                             title: "Error...",
@@ -46,8 +46,8 @@ createApp({
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: "Invalid user",
-                            text: "This user is not registered",
+                            title: "Error logging in",
+                            text: "Incorrect email address or password",
                             color: "#fff",
                             background: "#1c2754",
                             confirmButtonColor: "#17acc9"

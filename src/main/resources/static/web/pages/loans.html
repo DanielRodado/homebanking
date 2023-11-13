@@ -71,6 +71,11 @@
                                           >Loan</a
                                       >
                                   </li>
+                                  <li v-if="isAdmin" class="nav-item link">
+                                    <a class="nav-link text-white ms-3 ms-md-0" href="./admin-loan.html"
+                                        >Create Loan</a
+                                    >
+                                </li>
                               </ul>
                               <div class="container-Btn-logout pt-2 pt-md-0 ms-md-2">
                                   <button class="Btn--logout ms-1 ms-md-0" @click="logout">

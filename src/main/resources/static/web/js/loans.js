@@ -14,15 +14,24 @@ createApp({
             amountIncrement: false,
 
             loading: true,
+            isAdmin: null
         };
     },
 
     created() {
+        this.getClients();
         this.getData();
         this.getAccounts();
     },
 
     methods: {
+        getClients() {
+            axios("/api/clients/current")
+                .then(({ data }) => {
+                    this.isAdmin = data.admin;
+                })
+                .catch((error) => console.log(error));
+        },
         getData() {
             axios("/api/loans")
                 .then(({ data }) => {
@@ -32,8 +41,6 @@ createApp({
 
                     this.paymentsOfLoan = this.loans[0].payments;
                     this.loanById = this.loans[0];
-
-                    this.loading = false;
                 })
                 .catch((error) => console.log(error));
         },
@@ -43,6 +50,8 @@ createApp({
                     this.accounts = data;
                     this.accounts.sort((a, b) => b.id - a.id);
                     this.selectedAccountTo = this.accounts[0].number;
+
+                    this.loading = false;
                 })
                 .catch((error) => console.log(error));
         },
