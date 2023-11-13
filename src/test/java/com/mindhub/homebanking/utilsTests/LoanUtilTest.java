@@ -6,13 +6,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDateTime;
 
-import static com.mindhub.homebanking.utils.TransactionUtil.formattedLocalDateTime;
+import static com.mindhub.homebanking.utils.LoanUtil.formattedLocalDateTime;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class TransactionUtilTest {
+public class LoanUtilTest {
 
     @Test
     public void localDateTimeTest() {

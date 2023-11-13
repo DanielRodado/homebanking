@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
-import static com.mindhub.homebanking.utils.TransactionUtil.formattedLocalDateTime;
+import static com.mindhub.homebanking.utils.LoanUtil.formattedLocalDateTime;
+import static com.mindhub.homebanking.utils.LoanUtil.formatterStringStartUpperEndLower;
 
 @RestController
 @RequestMapping("/api")
@@ -106,7 +106,7 @@ public class LoanController {
             return new ResponseEntity<>("The loan name cannot be empty.", HttpStatus.FORBIDDEN);
         }
 
-        if (loanService.existsLoanByName(nameOfLoan)) {
+        if (loanService.existsLoanByName(formatterStringStartUpperEndLower(nameOfLoan))) {
             return new ResponseEntity<>("Loan name already exists, enter another name", HttpStatus.FORBIDDEN);
         }
 
@@ -124,7 +124,7 @@ public class LoanController {
             }
         }
 
-        Loan loan = new Loan(nameOfLoan, maxAmount, interestRate, payments);
+        Loan loan = new Loan(formatterStringStartUpperEndLower(nameOfLoan), maxAmount, interestRate, payments);
         loanService.saveLoan(loan);
 
         return new ResponseEntity<>("New loan created!", HttpStatus.CREATED);

@@ -99,7 +99,7 @@ createApp({
                 });
             }
             else if (this.payments.every(payment => payment < this.paymentAdd)) {
-                this.payments.push(this.paymentAdd);
+                this.payments.push(parseInt(this.paymentAdd));
                 this.paymentAdd = "";
             } else {
                 Swal.fire({

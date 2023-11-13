@@ -118,8 +118,8 @@
                                         <button type="button" class="input-group-text btn btn-success" @click="addPayments">Add pay</button>
                                         <button type="button" class="input-group-text btn btn-danger" @click="deletePayments">Reset pay</button>
                                     </div>
-                                    <div v-if="payments.length >= 1" class="text-start text-white mt-1">
-                                        <span>Payments add:</span>
+                                    <div v-if="payments.length >= 1" class="text-start p-1 text-white mt-2 five-color-bg rounded-3">
+                                        <span class="fw-bold">Payments add:</span>
                                         <span v-for="payment of payments" class="ms-2"> {{payment}} |</span>
                                     </div>
                                 </fieldset>
