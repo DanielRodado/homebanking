@@ -66,11 +66,19 @@ public class AccountController {
         return new ResponseEntity<>("Account created!", HttpStatus.CREATED);
     }
 
-    @PostMapping("/clients/current/accounts/deleted")
-    public ResponseEntity<String> deletedAccount(@RequestParam Long id) {
+    @PostMapping("/clients/current/accounts/delete")
+    public ResponseEntity<String> deletedAccount(@RequestParam Long id, Authentication currentClient) {
 
         if (!accountService.existsAccountById(id)) {
-            return new ResponseEntity<>("This account does not exist.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The account you are trying to delete does not exist.", HttpStatus.FORBIDDEN);
+        }
+
+        if (!accountService.existsAccountByIdAndClient(id, clientService.getClientByEmail(currentClient.getName()))) {
+            return new ResponseEntity<>("The account you are trying to delete does not belong to you.", HttpStatus.FORBIDDEN);
+        }
+
+        if (accountService.existsAccountByIdAndBalanceGreaterThanEqual(id, 1.0)) {
+            return new ResponseEntity<>("This account cannot be deleted, it contains money.", HttpStatus.FORBIDDEN);
         }
 
         accountService.deletedAccountById(id);

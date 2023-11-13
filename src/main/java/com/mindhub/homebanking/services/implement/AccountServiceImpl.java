@@ -24,18 +24,26 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Set<AccountDTO> getAllAccountsDTO() {
-        return getAllAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+    public Set<Account> filterAccountsNotDeleted() {
+        return getAllAccounts().stream().filter(account -> !account.getDeleted()).collect(Collectors.toSet());
     }
 
     @Override
-    public Set<Account> getAllAccountsByClient(Client client) {
-        return accountRepository.findByClient(client);
+    public Set<AccountDTO> getAllAccountsDTO() {
+        return filterAccountsNotDeleted().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Account> getAllAccountsByClientAndIsDeleteIsFalse(Client client) {
+        return accountRepository.findByClientAndIsDeletedEquals(client, false);
     }
 
     @Override
     public Set<AccountDTO> getAllAccountsDTOByClient(Client client) {
-        return getAllAccountsByClient(client).stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+        return getAllAccountsByClientAndIsDeleteIsFalse(client)
+                .stream()
+                .map(account -> new AccountDTO(account))
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -78,6 +86,16 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean existsAccountByClientAndNumber(Client client, String number) {
         return accountRepository.existsByClientAndNumber(client, number);
+    }
+
+    @Override
+    public boolean existsAccountByIdAndClient(Long id, Client client) {
+        return accountRepository.existsByIdAndClient(id, client);
+    }
+
+    @Override
+    public boolean existsAccountByIdAndBalanceGreaterThanEqual(Long id, Double balance) {
+        return accountRepository.existsByIdAndBalanceGreaterThanEqual(id, balance);
     }
 
     @Override

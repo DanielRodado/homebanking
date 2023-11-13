@@ -13,9 +13,11 @@ public interface AccountService {
 
     List<Account> getAllAccounts();
 
+    Set<Account> filterAccountsNotDeleted();
+
     Set<AccountDTO> getAllAccountsDTO();
 
-    Set<Account> getAllAccountsByClient(Client client);
+    Set<Account> getAllAccountsByClientAndIsDeleteIsFalse(Client client);
 
     Set<AccountDTO> getAllAccountsDTOByClient(Client client);
 
@@ -34,6 +36,10 @@ public interface AccountService {
     boolean existsAccountByNumber(String number);
 
     boolean existsAccountByClientAndNumber(Client client, String number);
+
+    boolean existsAccountByIdAndClient(Long id, Client client);
+
+    boolean existsAccountByIdAndBalanceGreaterThanEqual(Long id, Double balance);
 
     void saveAccount(Account account);
 }

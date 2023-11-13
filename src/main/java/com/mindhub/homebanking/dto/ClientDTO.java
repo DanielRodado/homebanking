@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClientDTO {
-    private Long ID;
-    private String firstName, lastName;
-    private String email;
+    private Long id;
+    private String firstName, lastName, email;
+    private Boolean isAdmin;
     private List<AccountDTO> accounts;
-
     private List<ClientLoanDTO> loans;
     private List<CardDTO> cards;
 
     public ClientDTO(Client client) {
-        this.ID = client.getId();
+        this.id = client.getId();
         this.firstName = client.getFirstName();
         this.lastName = client.getLastName();
         this.email = client.getEmail();
+        this.isAdmin = client.getAdmin();
         this.accounts =
                 client.getAccounts().stream()
                         .filter(account -> !account.getDeleted())
@@ -33,8 +33,8 @@ public class ClientDTO {
                         .collect(Collectors.toList());
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -47,6 +47,10 @@ public class ClientDTO {
 
     public String getEmail() {
         return email;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
     }
 
     public List<AccountDTO> getAccounts() {

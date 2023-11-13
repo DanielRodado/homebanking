@@ -12,6 +12,8 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     boolean existsByNumber(String number);
     Account findByNumber(String number);
     byte countByClientAndIsDeleted(Client client, Boolean isDeleted);
-    Set<Account> findByClient(Client client);
+    Set<Account> findByClientAndIsDeletedEquals(Client client, Boolean isDeleted);
     boolean existsByClientAndNumber(Client client, String number);
+    boolean existsByIdAndBalanceGreaterThanEqual(Long id, Double balance);
+    boolean existsByIdAndClient(Long id, Client client);
 }

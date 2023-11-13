@@ -22,13 +22,14 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
 
        http.authorizeRequests() // Autoriza peticiones
                .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
+               .antMatchers(HttpMethod.GET, "/api/clients/current").permitAll()
                .antMatchers(HttpMethod.GET, "/web/index.html", "/web/pages/login.html", "/web/pages/register.html",
-                       "/web/css/**", "/web/js/**", "/web/assets/**", "/api/clients/current").permitAll()
+                                                             "/web/css/**", "/web/js/**", "/web/assets/**").permitAll()
                .antMatchers("/h2-console/**", "/rest/**", "/api/clients", "/api/clients/{id}", "/api/loans/create",
-                                              "/api/accounts", "/api/accounts/**",
-                       "/web/pages/manager.html", "/web/pages/admin-loan.html").hasAuthority("ADMIN")
-               .antMatchers(HttpMethod.POST,"/api/clients/current/**", "/api/loans").authenticated()
+                                              "/api/accounts", "/api/accounts/**").hasAuthority("ADMIN")
+               .antMatchers("/web/pages/manager.html", "/web/pages/admin-loan.html").hasAuthority("ADMIN")
                .antMatchers(HttpMethod.GET, "/web/pages/**", "/api/clients/current/**", "/api/loans").authenticated()
+               .antMatchers(HttpMethod.POST,"/api/clients/current/**", "/api/loans").authenticated()
                .anyRequest().denyAll();
 
 
