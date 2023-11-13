@@ -100,7 +100,7 @@ public class LoanController {
     @PostMapping("/loans/create")
     public ResponseEntity<String> createNewLoan(@RequestParam String nameOfLoan, @RequestParam Double maxAmount,
                                                 @RequestParam Double interestRate,
-                                                @RequestParam int payment) {
+                                                @RequestParam List<Integer> payments) {
 
         if (nameOfLoan.isBlank()) {
             return new ResponseEntity<>("The loan name cannot be empty.", HttpStatus.FORBIDDEN);
@@ -118,11 +118,13 @@ public class LoanController {
             return new ResponseEntity<>("The interest rate cannot be less than or equal to 0.", HttpStatus.FORBIDDEN);
         }
 
-        if (payment <= 0) {
-            return new ResponseEntity<>("Loan payments cannot be less or equal to 0", HttpStatus.FORBIDDEN);
+        for (Integer payment: payments) {
+            if (payment <= 0) {
+                return new ResponseEntity<>("Loan payments cannot be less or equal to 0", HttpStatus.FORBIDDEN);
+            }
         }
 
-        Loan loan = new Loan(nameOfLoan, maxAmount, interestRate, List.of(payment));
+        Loan loan = new Loan(nameOfLoan, maxAmount, interestRate, payments);
         loanService.saveLoan(loan);
 
         return new ResponseEntity<>("New loan created!", HttpStatus.CREATED);
