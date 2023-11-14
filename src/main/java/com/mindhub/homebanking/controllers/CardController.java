@@ -64,7 +64,7 @@ public class CardController {
         return new ResponseEntity<>("Created card!",HttpStatus.CREATED);
     }
 
-    @PostMapping("/clients/current/cards/deleted")
+    @PostMapping("/clients/current/cards/delete")
     public ResponseEntity<String> deletedCard(@RequestParam Long id) {
 
         if (!cardService.existsCardById(id)) {

@@ -9,6 +9,8 @@ public class ClientLoanDTO {
     private Double amount;
     private int payments;
 
+    private int paymentsMade = 0;
+
     public ClientLoanDTO() {
     }
 
@@ -38,5 +40,9 @@ public class ClientLoanDTO {
 
     public int getPayments() {
         return payments;
+    }
+
+    public int getPaymentsMade() {
+        return paymentsMade;
     }
 }

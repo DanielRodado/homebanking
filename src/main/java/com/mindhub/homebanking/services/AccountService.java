@@ -41,5 +41,7 @@ public interface AccountService {
 
     boolean existsAccountByIdAndBalanceGreaterThanEqual(Long id, Double balance);
 
+    boolean existsAccountByNumberAndBalanceLessThan(String accountNumber, Double balance);
+
     void saveAccount(Account account);
 }

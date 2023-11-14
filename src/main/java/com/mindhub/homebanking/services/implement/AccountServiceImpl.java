@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Set<Account> getAllAccountsByClientAndIsDeleteIsFalse(Client client) {
-        return accountRepository.findByClientAndIsDeletedEquals(client, false);
+        return accountRepository.findByClientAndIsDeleted(client, false);
     }
 
     @Override
@@ -96,6 +96,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean existsAccountByIdAndBalanceGreaterThanEqual(Long id, Double balance) {
         return accountRepository.existsByIdAndBalanceGreaterThanEqual(id, balance);
+    }
+
+    @Override
+    public boolean existsAccountByNumberAndBalanceLessThan(String accountNumber, Double balance) {
+        return accountRepository.existsByNumberAndBalanceLessThan(accountNumber, balance);
     }
 
     @Override

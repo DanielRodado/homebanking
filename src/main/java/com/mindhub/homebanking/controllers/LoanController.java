@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.LoanApplicationDTO;
 import com.mindhub.homebanking.dto.LoanDTO;
+import com.mindhub.homebanking.dto.PayLoanApplicationDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +78,8 @@ public class LoanController {
             return new ResponseEntity<>("The destination account entered does not belong to you, enter one that belongs to you", HttpStatus.FORBIDDEN);
         }
 
-        ClientLoan clientLoan = new ClientLoan(loanApplication.getAmount()*(loan.getInterestRate()/12),
+        ClientLoan clientLoan =
+                new ClientLoan((double) Math.round(loanApplication.getAmount()+(loanApplication.getAmount()*(loan.getInterestRate()/100))),
                 loanApplication.getPayments());
         loan.addClientLoan(clientLoan);
         client.addClientLoan(clientLoan);
@@ -128,6 +130,64 @@ public class LoanController {
         loanService.saveLoan(loan);
 
         return new ResponseEntity<>("New loan created!", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/loans/pay")
+    @Transactional
+    public ResponseEntity<String> payLoan(@RequestBody PayLoanApplicationDTO payLoanApp, Authentication currentClient) {
+
+        if (!clientLoanService.existsClientLoanById(payLoanApp.getClientLoanId())) {
+            return new ResponseEntity<>("The loan does not exist.", HttpStatus.ACCEPTED);
+        }
+
+        Client client = clientService.getClientByEmail(currentClient.getName());
+
+        if (!clientLoanService.existsClientLoanByClientAndId(client, payLoanApp.getClientLoanId())) {
+            return new ResponseEntity<>("This loan does not belong to you", HttpStatus.ACCEPTED);
+        }
+
+        if (!accountService.existsAccountByNumber(payLoanApp.getAccountNumber())) {
+            return new ResponseEntity<>("Account number " + payLoanApp.getAccountNumber() + " does not exist.", HttpStatus.FORBIDDEN);
+        }
+
+        if (!accountService.existsAccountByClientAndNumber(client, payLoanApp.getAccountNumber())) {
+            return new ResponseEntity<>("The account number " + payLoanApp.getAccountNumber() + " does not belong to you.",
+                    HttpStatus.FORBIDDEN);
+        }
+
+        if (accountService.existsAccountByNumberAndBalanceLessThan(
+                payLoanApp.getAccountNumber(), payLoanApp.getAmountToPay())) {
+            return new ResponseEntity<>("Insufficient amount to pay", HttpStatus.FORBIDDEN);
+        }
+
+        if (clientLoanService.existsClientLoanByIdAndPaymentsLessThan(
+                payLoanApp.getClientLoanId(), payLoanApp.getPayments())) {
+            return new ResponseEntity<>("Payments received exceed loan repayments.", HttpStatus.FORBIDDEN);
+        }
+
+        ClientLoan clientLoan = clientLoanService.getClientLoanByid(payLoanApp.getClientLoanId());
+
+        if (clientLoanService.existsClientLoanByIdAndAmountLessThan(
+                payLoanApp.getClientLoanId(), clientLoan.getAmountMade() + payLoanApp.getAmountToPay())) {
+            return new ResponseEntity<>("The amount paid in exceeds the amount of the loan.", HttpStatus.FORBIDDEN);
+        }
+
+        clientLoan.setPayments(clientLoan.getPaymentsMade() + payLoanApp.getPayments());
+        clientLoan.setAmountMade(clientLoan.getAmountMade() + payLoanApp.getAmountToPay());
+        clientLoanService.saveClientLoan(clientLoan);
+
+        Account account = accountService.getAccountByNumber(payLoanApp.getAccountNumber());
+        account.setBalance(account.getBalance() - payLoanApp.getAmountToPay());
+        accountService.saveAccount(account);
+
+        Transaction transaction = new Transaction(TransactionType.DEBIT, payLoanApp.getAmountToPay(),
+                account.getBalance() - payLoanApp.getAmountToPay(),
+                payLoanApp.getPayments() + " loan installments paid.", formattedLocalDateTime(LocalDateTime.now()));
+
+        account.addTransaction(transaction);
+        transactionService.saveTransaction(transaction);
+
+        return new ResponseEntity<>("Dues paid!", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/loans")

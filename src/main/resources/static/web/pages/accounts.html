@@ -92,16 +92,32 @@
             </header>
             <main class="flex-grow-1">
                 <section class="first-color-bg pt-5 position-relative">
-                    <button v-if="client.accounts.length < 3" type="button" class="btn btn-primary ms-3 ms-md-5 mb-5 mb-md-0"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    >
-                        Add Account
-                    </button>
+                    <div class="dropdown ms-3 ms-md-5 mb-5 mb-md-0">
+                        <button class="btn btn-secondary dropdown-toggle third-color-bg" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Accounts Options
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button v-if="client.accounts.length < 3" type="button" class="btn dropdown-item"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                     >
+                                    Add Account
+                                </button>
+                            </li>
+                            <li>
+                                <button v-if="client.accounts.length >= 1" type="button" class="btn dropdown-item"
+                                    data-bs-toggle="modal" data-bs-target="#modalDeleteAccount"
+                                    >
+                                    Delete account
+                                </button>
+                            </li>
+                        </ul>
+                      </div>
                     <div class="container">
                         <div class="title text-center mb-4">
                             <h2>Hello, {{client.firstName}}</h2>
                             <p v-if="client.accounts.length === 0" class="mb-5">You do not have accounts</p>
-                            <p v-else-if="client.accounts.length === 1">These are their accounts:</p>
+                            <p v-else-if="client.accounts.length === 1">This is your account:</p>
                             <p v-else>These are their accounts:</p>
                         </div>
                         <div class="d-flex flex-wrap gap-4 justify-content-center">
@@ -135,7 +151,7 @@
                                   <tbody class="table-group-divider fw-">
                                     <tr v-for="loan of client.loans.sort((a, b) => b.id - a.id)">
                                         <th>{{loan.name}}</th>
-                                        <th>{{loan.amount.toLocaleString()}}</th>
+                                        <th>${{loan.amount.toLocaleString("es-ES")}}</th>
                                         <th>{{loan.payments}}</th>
                                     </tr>
                                   </tbody>
@@ -178,6 +194,34 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" @click="addAccount">Crate Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="modalDeleteAccount" tabindex="-1" aria-labelledby="modalDeleteAccountLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Choose the account to delete</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="radio-inputs-create-account w-100">
+                                    <label v-for="account of client.accounts">
+                                        <input class="radio-input-create-account w-auto" type="radio" name="accountDelete" :value="account.id" v-model="idAccountDelete">
+                                            <span class="radio-tile-create-acc">
+                                                <span class="radio-icon-create-acc">
+                                                    <i :class="{'bi bi-credit-card-2-front-fill fs-5': account.type === 'SAVINGS', 
+                                                                 'bi bi-credit-card-fill fs-5': account.type === 'CHECKINGS' }"></i>
+                                                </span>
+                                                <span class="radio-label-create-acc">{{account.number}}</span>
+                                            </span>
+                                    </label>
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger" @click="deleteAccount">Delete Account</button>
                             </div>
                         </div>
                     </div>

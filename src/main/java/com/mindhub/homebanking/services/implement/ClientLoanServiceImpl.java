@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.services.implement;
 
+import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.ClientLoan;
 import com.mindhub.homebanking.repositories.ClientLoanRepository;
 import com.mindhub.homebanking.services.ClientLoanService;
@@ -11,6 +12,31 @@ public class ClientLoanServiceImpl implements ClientLoanService {
 
     @Autowired
     private ClientLoanRepository clientLoanRepository;
+
+    @Override
+    public ClientLoan getClientLoanByid(Long id) {
+        return clientLoanRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public boolean existsClientLoanById(Long id) {
+        return clientLoanRepository.existsById(id);
+    }
+
+    @Override
+    public boolean existsClientLoanByClientAndId(Client client, Long id) {
+        return clientLoanRepository.existsByClientAndId(client, id);
+    }
+
+    @Override
+    public boolean existsClientLoanByIdAndPaymentsLessThan(Long id, int payments) {
+        return clientLoanRepository.existsByIdAndPaymentsLessThan(id, payments);
+    }
+
+    @Override
+    public boolean existsClientLoanByIdAndAmountLessThan(Long id, Double amount) {
+        return clientLoanRepository.existsByIdAndAmountLessThan(id, amount);
+    }
 
     @Override
     public void saveClientLoan(ClientLoan clientLoan) {
