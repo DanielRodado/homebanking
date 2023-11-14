@@ -79,6 +79,12 @@ public class LoanController {
             return new ResponseEntity<>("The destination account entered does not belong to you, enter one that belongs to you", HttpStatus.FORBIDDEN);
         }
 
+        if (clientLoanService.existsClientLoanByClientAndLoan(client, loan)) {
+            return new ResponseEntity<>("You already have one type of "+ loan.getName() + " loan, if you wish to " +
+                    "apply for another one, pay the one you already have.",
+                    HttpStatus.FORBIDDEN);
+        }
+
         ClientLoan clientLoan =
                 new ClientLoan((double) Math.round(loanApplication.getAmount()+(loanApplication.getAmount()*(loan.getInterestRate()/100))),
                 loanApplication.getPayments());

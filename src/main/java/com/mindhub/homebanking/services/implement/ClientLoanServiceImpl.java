@@ -2,6 +2,7 @@ package com.mindhub.homebanking.services.implement;
 
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.ClientLoan;
+import com.mindhub.homebanking.models.Loan;
 import com.mindhub.homebanking.repositories.ClientLoanRepository;
 import com.mindhub.homebanking.services.ClientLoanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class ClientLoanServiceImpl implements ClientLoanService {
     @Override
     public boolean existsClientLoanByIdAndAmountLessThan(Long id, Double amount) {
         return clientLoanRepository.existsByIdAndAmountLessThan(id, amount);
+    }
+
+    @Override
+    public boolean existsClientLoanByClientAndLoan(Client client, Loan loan) {
+        return clientLoanRepository.existsByClientAndLoan(client, loan);
     }
 
     @Override
