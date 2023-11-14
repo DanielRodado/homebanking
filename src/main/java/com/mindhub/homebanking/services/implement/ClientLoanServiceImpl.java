@@ -42,4 +42,10 @@ public class ClientLoanServiceImpl implements ClientLoanService {
     public void saveClientLoan(ClientLoan clientLoan) {
         clientLoanRepository.save(clientLoan);
     }
+
+    @Override
+    public void deleteClientLoan(ClientLoan clientLoan) {
+        clientLoan.setDeleted(true);
+        saveClientLoan(clientLoan);
+    }
 }

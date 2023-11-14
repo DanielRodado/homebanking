@@ -137,7 +137,8 @@
                 <section class="four-color-bg section-table-loans">
                     <div class="container pt-5 pb-5">
                         <h4 v-if="client.loans.length === 0" class="third-color-bg text-white text-center mb-0 p-3 user-select-none">No loan records</h4>
-                        <div v-else>
+                        <div v-else class="d-flex flex-column align-items-stretch justify-content-center">
+                            <a href="./pay-loans.html" role="button" class="btn btn-primary mb-3">Pay loans</a>
                             <h4 class="third-color-bg text-white text-center mb-0 p-3 user-select-none">Loans Log</h4>
                             <div class="table-responsive second-color-bg mb-0">
                                 <table class="table table-bordered table-primary table-striped text-center mb-0">
@@ -145,14 +146,18 @@
                                     <tr class="">
                                       <th scope="col">Name</th>
                                       <th scope="col">Amount</th>
+                                      <th scope="col">Amount Made</th>
                                       <th scope="col">Payments</th>
+                                      <th scope="col">Payments Made</th>
                                     </tr>
                                   </thead>
                                   <tbody class="table-group-divider fw-">
                                     <tr v-for="loan of client.loans.sort((a, b) => b.id - a.id)">
                                         <th>{{loan.name}}</th>
                                         <th>${{loan.amount.toLocaleString("es-ES")}}</th>
+                                        <th>${{loan.amountMade.toLocaleString()}}</th>
                                         <th>{{loan.payments}}</th>
+                                        <th>{{loan.paymentsMade}}</th>
                                     </tr>
                                   </tbody>
                                 </table>

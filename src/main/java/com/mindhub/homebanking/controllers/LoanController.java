@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.LoanApplicationDTO;
 import com.mindhub.homebanking.dto.LoanDTO;
+import com.mindhub.homebanking.dto.NewLoanApplication;
 import com.mindhub.homebanking.dto.PayLoanApplicationDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.*;
@@ -100,33 +101,32 @@ public class LoanController {
     }
 
     @PostMapping("/loans/create")
-    public ResponseEntity<String> createNewLoan(@RequestParam String nameOfLoan, @RequestParam Double maxAmount,
-                                                @RequestParam Double interestRate,
-                                                @RequestParam List<Integer> payments) {
+    public ResponseEntity<String> createNewLoan(@RequestBody NewLoanApplication newLoanApp) {
 
-        if (nameOfLoan.isBlank()) {
+        if (newLoanApp.getNameOfLoan().isBlank()) {
             return new ResponseEntity<>("The loan name cannot be empty.", HttpStatus.FORBIDDEN);
         }
 
-        if (loanService.existsLoanByName(formatterStringStartUpperEndLower(nameOfLoan))) {
+        if (loanService.existsLoanByName(formatterStringStartUpperEndLower(newLoanApp.getNameOfLoan()))) {
             return new ResponseEntity<>("Loan name already exists, enter another name", HttpStatus.FORBIDDEN);
         }
 
-        if (maxAmount <= 0) {
+        if (newLoanApp.getMaxAmount() <= 0) {
             return new ResponseEntity<>("Maximum loan amount cannot be less than or equal to 0", HttpStatus.FORBIDDEN);
         }
 
-        if (interestRate <= 0) {
+        if (newLoanApp.getInterestRate() <= 0) {
             return new ResponseEntity<>("The interest rate cannot be less than or equal to 0.", HttpStatus.FORBIDDEN);
         }
 
-        for (Integer payment: payments) {
+        for (Integer payment: newLoanApp.getPayments()) {
             if (payment <= 0) {
                 return new ResponseEntity<>("Loan payments cannot be less or equal to 0", HttpStatus.FORBIDDEN);
             }
         }
 
-        Loan loan = new Loan(formatterStringStartUpperEndLower(nameOfLoan), maxAmount, interestRate, payments);
+        Loan loan = new Loan(formatterStringStartUpperEndLower(newLoanApp.getNameOfLoan()), newLoanApp.getMaxAmount(),
+                             newLoanApp.getInterestRate(), newLoanApp.getPayments());
         loanService.saveLoan(loan);
 
         return new ResponseEntity<>("New loan created!", HttpStatus.CREATED);
@@ -172,22 +172,27 @@ public class LoanController {
             return new ResponseEntity<>("The amount paid in exceeds the amount of the loan.", HttpStatus.FORBIDDEN);
         }
 
-        clientLoan.setPayments(clientLoan.getPaymentsMade() + payLoanApp.getPayments());
+        clientLoan.setPayments(clientLoan.getPayments() - payLoanApp.getPayments());
+        clientLoan.setPaymentsMade(clientLoan.getPaymentsMade() + payLoanApp.getPayments());
         clientLoan.setAmountMade(clientLoan.getAmountMade() + payLoanApp.getAmountToPay());
-        clientLoanService.saveClientLoan(clientLoan);
 
         Account account = accountService.getAccountByNumber(payLoanApp.getAccountNumber());
-        account.setBalance(account.getBalance() - payLoanApp.getAmountToPay());
-        accountService.saveAccount(account);
 
-        Transaction transaction = new Transaction(TransactionType.DEBIT, payLoanApp.getAmountToPay(),
+        Transaction transaction = new Transaction(TransactionType.DEBIT, -payLoanApp.getAmountToPay(),
                 account.getBalance() - payLoanApp.getAmountToPay(),
                 payLoanApp.getPayments() + " loan installments paid.", formattedLocalDateTime(LocalDateTime.now()));
 
         account.addTransaction(transaction);
         transactionService.saveTransaction(transaction);
 
-        return new ResponseEntity<>("Dues paid!", HttpStatus.ACCEPTED);
+        account.setBalance(account.getBalance() - payLoanApp.getAmountToPay());
+        accountService.saveAccount(account);
+
+        if (clientLoanService.existsClientLoanByIdAndAmountLessThan(payLoanApp.getClientLoanId(), 1.0)) {
+            clientLoanService.deleteClientLoan(clientLoan);
+        }
+
+        return new ResponseEntity<>("The payment was successful!", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/loans")

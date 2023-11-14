@@ -5,7 +5,7 @@ public class PayLoanApplicationDTO {
     private Long clientLoanId;
     private int payments;
     private Double amountToPay;
-    private String AccountNumber;
+    private String accountNumber;
 
     public PayLoanApplicationDTO() {
     }
@@ -23,6 +23,6 @@ public class PayLoanApplicationDTO {
     }
 
     public String getAccountNumber() {
-        return AccountNumber;
+        return accountNumber;
     }
 }

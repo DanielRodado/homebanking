@@ -11,5 +11,6 @@ public interface ClientLoanService {
     boolean existsClientLoanByIdAndPaymentsLessThan(Long id, int payments);
     boolean existsClientLoanByIdAndAmountLessThan(Long id, Double amount);
     void saveClientLoan(ClientLoan clientLoan);
+    void deleteClientLoan(ClientLoan clientLoan);
 
 }

@@ -28,8 +28,14 @@ createApp({
                 .catch((error) => console.log(error));
         },
         createNewLoan() {
+            const obj = {
+                nameOfLoan: this.typeOfLoan,
+                maxAmount: this.maxAmount,
+                interestRate: this.interestRate,
+                payments: this.payments
+            }
             axios
-                .post("/api/loans/create", `nameOfLoan=${this.typeOfLoan}&maxAmount=${this.maxAmount}&interestRate=${this.interestRate}&payments=${this.payments}`)
+                .post("/api/loans/create", obj)
                 .catch((error) => this.messageError(error.response.data));
         },
         messageError(message) {

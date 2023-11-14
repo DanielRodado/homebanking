@@ -25,7 +25,10 @@ public class ClientDTO {
                         .map(account -> new AccountDTO(account))
                         .collect(Collectors.toList());
         this.loans =
-                client.getClientLoans().stream().map(clientLoan -> new ClientLoanDTO(clientLoan)).collect(Collectors.toList());
+                client.getClientLoans().stream()
+                        .filter(clientLoan -> !clientLoan.getDeleted())
+                        .map(clientLoan -> new ClientLoanDTO(clientLoan))
+                        .collect(Collectors.toList());
         this.cards =
                 client.getCards().stream()
                         .filter(card -> !card.getDeleted())

@@ -20,6 +20,8 @@ public class ClientLoan {
 
     private Double amountMade = 0.0;
 
+    private Boolean isDeleted = false;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Client client;
 
@@ -54,6 +56,10 @@ public class ClientLoan {
         return amountMade;
     }
 
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -76,6 +82,10 @@ public class ClientLoan {
 
     public void setAmountMade(Double amountMade) {
         this.amountMade = amountMade;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     public void setClient(Client client) {
