@@ -1,9 +1,9 @@
 :root {
-    --first-color: hwb(233 3% 84%);
+    --first-color: #080c29;
     --second-color: hwb(228 11% 67%);
     --third-color: hwb(190 9% 21%);
-    --four-color: hwb(233 3% 80%);
-    --five-color: hwb(208 0% 50%);
+    --four-color: #080d33;
+    --five-color: #004480;
 }
 
 * {
@@ -38,6 +38,38 @@ p::selection {
 }
 
 /* Login / Register */
+
+.container--login-v2 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #121212;
+    background: linear-gradient(
+        135deg,
+        #080d33 25%,
+        #080d33 25%,
+        #004480 50%,
+        #080d33 50%,
+        #080d33 75%,
+        #004480 75%,
+        #004480
+    );
+    background-size: 2.5rem 2.5rem;
+
+    /* Animation */
+    animation: move--login 4s linear infinite;
+}
+
+@keyframes move--login {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 2.5rem 2.5rem;
+    }
+}
 
 /* btn-logout */
 
@@ -147,7 +179,7 @@ p::selection {
     padding: 0;
     margin: 10px auto;
     cursor: pointer;
-    background-color: #ffeba7;
+    background-color: var(--third-color);
 }
 .checkbox--login:checked + .label-select > .ball-select,
 .checkbox--login:not(:checked) + .label-select > .ball-select {
@@ -157,7 +189,7 @@ p::selection {
     height: 2.25rem;
     border-radius: 50%;
     color: #ffeba7;
-    background-color: var(--third-color);
+    background-color: var(--five-color);
     z-index: 20;
     top: -10px;
     left: -10px;
@@ -643,6 +675,93 @@ p::selection {
 
 /* Index */
 
+/* Create card */
+
+.button--create-acc {
+    padding: 0.625rem 1.563rem;
+    border: 0;
+    border-radius: 6.25rem;
+    background-color: var(--third-color);
+    color: #ffffff;
+    font-weight: Bold;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+  }
+  
+  .button--create-acc:hover {
+    background-color: #6fc5ff;
+    box-shadow: 0 0 1.25rem #6fc5ff50;
+    transform: scale(1.1);
+  }
+  
+  .button--create-acc:active {
+    background-color: #3d94cf;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
+  }
+
+/* Create card */
+
+
+.button--delete-account {
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 1.25rem rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: .3s;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .svgIcon--delete-acc {
+    width: 0.75rem;
+    transition-duration: .3s;
+  }
+  
+  .svgIcon--delete-acc path {
+    fill: white;
+  }
+  
+  .button--delete-account:hover {
+    width: 8.75rem;
+    border-radius: 3.125rem;
+    transition-duration: .3s;
+    background-color: rgb(255, 69, 69);
+    align-items: center;
+  }
+  
+  .button--delete-account:hover .svgIcon--delete-acc {
+    width: 3.125rem;
+    transition-duration: .3s;
+    transform: translateY(60%);
+  }
+  
+  .button--delete-account::before {
+    position: absolute;
+    top: -1.25rem;
+    content: "Delete";
+    color: white;
+    transition-duration: .3s;
+    font-size: 2px;
+  }
+  
+  .button--delete-account:hover::before {
+    font-size: 0.813rem;
+    opacity: 1;
+    transform: translateY(1.875rem);
+    transition-duration: .3s;
+  }
+
+
 .radio-inputs-create-account {
     display: flex;
     justify-content: center;
@@ -661,26 +780,31 @@ p::selection {
 .radio-input-create-account:checked + .radio-tile-create-acc {
     border-color: #2260ff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    color: #2260ff;
+    color: #2260ff !important;
 }
 
 .radio-input-create-account:checked + .radio-tile-create-acc:before {
     transform: scale(1);
     opacity: 1;
     background-color: #2260ff;
-    border-color: #2260ff;
+    border-color: #2260ff !important;
 }
 
-.radio-input-create-account:checked + .radio-tile-create-acc .radio-icon-create-acc svg {
-    fill: #2260ff;
+.radio-input-create-account:checked
+    + .radio-tile-create-acc
+    .radio-icon-create-acc
+    i {
+    fill: #2260ff !important;
 }
 
-.radio-input-create-account:checked + .radio-tile-create-acc .radio-label-create-acc {
-    color: #2260ff;
+.radio-input-create-account:checked
+    + .radio-tile-create-acc
+    .radio-label-create-acc {
+    color: #2260ff !important;
 }
 
 .radio-input-create-account:focus + .radio-tile-create-acc {
-    border-color: #2260ff;
+    border-color: #2260ff !important;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
 }
 
@@ -722,7 +846,7 @@ p::selection {
 }
 
 .radio-tile-create-acc:hover {
-    border-color: #2260ff;
+    border-color: #2260ff !important;
 }
 
 .radio-tile-create-acc:hover:before {
@@ -1671,6 +1795,77 @@ footer {
 }
 
 /* TRANSFER */
+
+
+.button--loan-apply {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 0.625rem 1.25rem rgba(0, 0, 0, 0.2);
+    padding-block: 0.5rem;
+    padding-inline: 1.25rem;
+    background-color: var(--third-color);
+    border-radius: 624.938rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffff;
+    gap: 0.625rem;
+    font-weight: bold;
+    border: 3px solid #ffffff4d;
+    outline: none;
+    overflow: hidden;
+    font-size: 0.95rem;
+  }
+  
+  .icon--loan-apply {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .button--loan-apply:hover {
+    transform: scale(1.05);
+    border-color: var(--five-color);
+  }
+  
+  .button--loan-apply:hover .icon--loan-apply {
+    transform: translate(0.25rem);
+  }
+  
+  .button--loan-apply:hover::before {
+    animation: shine 1.5s ease-out infinite;
+  }
+  
+  .button--loan-apply::before {
+    content: "";
+    position: absolute;
+    width: 6.25rem;
+    height: 100%;
+    background-image: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0) 70%
+    );
+    top: 0;
+    left: -6.25rem;
+    opacity: 0.6;
+  }
+  
+  @keyframes shine {
+    0% {
+      left: -6.25rem;
+    }
+  
+    60% {
+      left: 100%;
+    }
+  
+    to {
+      left: 100%;
+    }
+  }
+  
 
 @media only screen and (min-width: 480px) {
     .container--services,

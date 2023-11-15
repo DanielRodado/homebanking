@@ -45,6 +45,11 @@ public class ClientLoanServiceImpl implements ClientLoanService {
     }
 
     @Override
+    public boolean existsClientLoanByIdAndPayments(Long id, int payments) {
+        return clientLoanRepository.existsByIdAndPayments(id, payments);
+    }
+
+    @Override
     public void saveClientLoan(ClientLoan clientLoan) {
         clientLoanRepository.save(clientLoan);
     }

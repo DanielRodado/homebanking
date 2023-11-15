@@ -43,7 +43,7 @@ createApp({
                 title: "Are you sure?",
                 text: `You wish to pay ${this.payments} of the loan '${
                     this.loanSelected.name
-                }' installments at a price of $${this.amount.toLocaleString()}?`,
+                }' installments at a price of $${this.amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}?`,
                 customClass: {
                     popup: "text-center",
                 },
@@ -111,7 +111,7 @@ createApp({
         },
         changeAmount() {
             this.paymentAmout =
-                this.loanSelected.amount / this.loanSelected.payments;
+                (this.loanSelected.amount-this.loanSelected.amountMade) / this.loanSelected.payments;
         },
         amountChangePayments() {
             this.amount = (this.paymentAmout * parseInt(this.payments)).toFixed(

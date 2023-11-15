@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 import static com.mindhub.homebanking.utils.LoanUtil.formattedLocalDateTime;
@@ -194,7 +193,7 @@ public class LoanController {
         account.setBalance(account.getBalance() - payLoanApp.getAmountToPay());
         accountService.saveAccount(account);
 
-        if (clientLoanService.existsClientLoanByIdAndAmountLessThan(payLoanApp.getClientLoanId(), 1.0)) {
+        if (clientLoanService.existsClientLoanByIdAndPayments(payLoanApp.getClientLoanId(), 0)) {
             clientLoanService.deleteClientLoan(clientLoan);
         }
 

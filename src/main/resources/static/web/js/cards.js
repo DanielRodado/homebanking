@@ -9,7 +9,9 @@ createApp({
             cards: false,
             valueCard: "",
             dateNow: null,
-            isAdmin: null
+
+            idCardDelete: 0,
+            isAdmin: null,
         };
     },
 
@@ -71,6 +73,56 @@ createApp({
             const month = String(today.getMonth() + 1).padStart(2, "0");
             const day = String(today.getDate()).padStart(2, "0");
             return `${year}-${month}-${day}`;
+        },
+        deleteCard() {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Are you sure you want to delete this card?",
+                customClass: {
+                    popup: "text-center",
+                },
+                icon: "warning",
+                showCancelButton: true,
+                color: "#fff",
+                background: "#1c2754",
+                confirmButtonColor: "#17acc9",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios
+                        .post(
+                            "/api/clients/current/cards/delete",
+                            `id=${this.idCardDelete}`
+                        )
+                        .then(() => {
+                            Swal.fire({
+                                title: "Card deleted!",
+                                text: "Card successfully deleted.",
+                                customClass: {
+                                    popup: "text-center",
+                                },
+                                icon: "success",
+                                color: "#fff",
+                                background: "#1c2754",
+                            });
+                            this.getClients();
+                        })
+                        .catch((error) =>
+                            this.messageError(error.response.data)
+                        );
+                }
+            });
+        },
+        messageError(message) {
+            Swal.fire({
+                icon: "error",
+                title: "An error has occurred",
+                text: message,
+                color: "#fff",
+                background: "#1c2754",
+                confirmButtonColor: "#17acc9",
+            });
         },
     },
 }).mount("#app");

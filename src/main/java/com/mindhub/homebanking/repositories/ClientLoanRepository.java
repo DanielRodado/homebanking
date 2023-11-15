@@ -14,5 +14,7 @@ public interface ClientLoanRepository extends JpaRepository<ClientLoan, Long> {
     boolean existsByIdAndPaymentsLessThan(Long id, int payments);
 
     boolean existsByClientAndLoan(Client client, Loan loan);
+    boolean existsByIdAndPayments(Long id, int payments);
+
 
 }

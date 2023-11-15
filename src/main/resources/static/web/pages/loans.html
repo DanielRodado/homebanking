@@ -122,14 +122,48 @@
                                 </fieldset>
                                 <p v-if="amountIncrement" class="text-warning small text-center user-select-none mb-0 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{loanById.maxAmount.toLocaleString()}}</p>
                             </fieldset>
-                            <button type="button" class="btn btn-primary mt-4" @click="sendLoan()"
+                            <button type="button" class="btn btn-primary mt-4"  data-bs-toggle="modal" data-bs-target="#detailsLoan"
                                 :disabled="!(amount > 0 && amount <= loanById.maxAmount)"
                                 >
-                                Apply for a loan
+                                View loan details
                             </button>
                         </form>
                     </div>
                 </section>
+                <div class="modal fade" id="detailsLoan" tabindex="-1" aria-labelledby="detailsLoanLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content four-color-bg">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Details for <span class="third-color-text">'{{loanById.name}}'</span> loan</h1>
+                                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-white">
+                                    You have selected our <span class="third-color-text">{{loanById.name}}</span> loan with
+                                    interest rate of <span class="third-color-text">{{loanById.interestRate}}%</span>, a term of <span class="third-color-text">{{paymentsTo}}</span> installments
+                                    and a total amount of <span class="third-color-text">${{amount.toLocaleString()}}</span> .
+                                    <br>This translates, applying the interest rate, into installments of <span class="third-color-text">${{(((loanById.interestRate/100)*(amount / paymentsTo))+(amount / paymentsTo)).toLocaleString()}}</span> each.
+                                    <br>By agreeing to these terms, you are committing to make payments of <span class="third-color-text">${{(((loanById.interestRate/100)*(amount / paymentsTo))+(amount / paymentsTo)).toLocaleString()}}</span> during the agreed period.
+                                    We are excited to help you reach your financial goals!
+                                </p>
+                                <p class="text-white fw-bold">
+                                    <i class="bi bi-exclamation-triangle text-warning"></i>
+                                     Note: By accepting this loan, you confirm your commitment to make monthly
+                                    payments of <span class="third-color-text">${{(((loanById.interestRate/100)*(amount / paymentsTo))+(amount / paymentsTo)).toLocaleString()}}</span> .<br>This information is essential for your financial planning.
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="button--loan-apply" @click="sendLoan()">
+                                    Apply Loan
+                                    <svg fill="currentColor" viewBox="0 0 24 24" class="icon--loan-apply">
+                                        <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                                <!-- <button type="button" class="btn btn-danger">Delete Account</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
             <div v-if="loading" class="loader-container">
                 <div class="loader"></div>

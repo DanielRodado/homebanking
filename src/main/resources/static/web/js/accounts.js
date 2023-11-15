@@ -36,17 +36,45 @@ createApp({
             });
         },
         addAccount() {
-            axios
-                .post(
-                    "/api/clients/current/accounts",
-                    `typeAccount=${this.typeAccount}`
-                )
-                .then(() => {
-                    this.getClients();
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            Swal.fire({
+                title: "Are you sure?",
+                text: `Are you sure you want to create a '${this.typeAccount}' type account?`,
+                customClass: {
+                    popup: "text-center",
+                },
+                icon: "warning",
+                showCancelButton: true,
+                color: "#fff",
+                background: "#1c2754",
+                confirmButtonColor: "#17acc9",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, create!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios
+                        .post(
+                            "/api/clients/current/accounts",
+                            `typeAccount=${this.typeAccount}`
+                        )
+                        .then(() => {
+                            this.getClients();
+                            Swal.fire({
+                                title: "Done!",
+                                text: `'${this.typeAccount}' type account successfully created!`,
+                                customClass: {
+                                    popup: "text-center",
+                                },
+                                icon: "success",
+                                color: "#fff",
+                                background: "#1c2754",
+                            });
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            this.messageError(error.response.data)
+                        });
+                }
+            });
         },
         deleteAccount() {
             Swal.fire({
@@ -65,24 +93,26 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios
-                    .post(
-                        "/api/clients/current/accounts/delete",
-                        `id=${this.idAccountDelete}`
-                    )
-                    .then(() => {
-                        Swal.fire({
-                            title: "Account deleted!",
-                            text: "Account successfully deleted.",
-                            customClass: {
-                                popup: "text-center",
-                            },
-                            icon: "success",
-                            color: "#fff",
-                            background: "#1c2754",
-                        });
-                        this.getClients();
-                    })
-                    .catch((error) => this.messageError(error.response.data));
+                        .post(
+                            "/api/clients/current/accounts/delete",
+                            `id=${this.idAccountDelete}`
+                        )
+                        .then(() => {
+                            Swal.fire({
+                                title: "Account deleted!",
+                                text: "Account successfully deleted.",
+                                customClass: {
+                                    popup: "text-center",
+                                },
+                                icon: "success",
+                                color: "#fff",
+                                background: "#1c2754",
+                            });
+                            this.getClients();
+                        })
+                        .catch((error) =>
+                            this.messageError(error.response.data)
+                        );
                 }
             });
         },

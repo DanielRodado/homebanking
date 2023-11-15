@@ -97,7 +97,7 @@
                                     <label class="text-white fw-bolder" for="loan">Loan</label>
                                     <select class="form-select" name="loan" id="loan" v-model="idLoanSelected">
                                         <option v-for="loan of loans" :value="loan.id">
-                                            {{loan.name}} || ${{loan.amount.toLocaleString()}} || {{loan.payments}}
+                                            {{loan.name}} || ${{(loan.amount - loan.amountMade).toLocaleString()}} || {{loan.payments}}
                                         </option>
                                     </select>
                                 </fieldset>

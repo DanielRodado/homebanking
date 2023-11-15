@@ -93,26 +93,28 @@
             <main class="flex-grow-1">
                 <section class="first-color-bg pt-5 position-relative">
                     <div class="dropdown ms-3 ms-md-5 mb-5 mb-md-0">
-                        <button class="btn btn-secondary dropdown-toggle third-color-bg" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn dropdown-toggle five-color-bg fw-bold text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Accounts Options
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu w-25">
                             <li>
-                                <button v-if="client.accounts.length < 3" type="button" class="btn dropdown-item"
+                                <button v-if="client.accounts.length < 3" type="button" class="btn dropdown-item d-flex justify-content-between"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal"
                                      >
-                                    Add Account
+                                     <span class="fw-bolder">Add Account</span>
+                                     <i class="bi bi-plus-circle third-color-text fw-bold"></i>
                                 </button>
                             </li>
                             <li>
-                                <button v-if="client.accounts.length >= 1" type="button" class="btn dropdown-item"
+                                <button v-if="client.accounts.length >= 1" type="button" class="btn dropdown-item d-flex justify-content-between"
                                     data-bs-toggle="modal" data-bs-target="#modalDeleteAccount"
                                     >
-                                    Delete account
-                                </button>
+                                    <span class="fw-bolder">Delete account</span>
+                                     <i class="bi bi-x-circle third-color-text fw-bold"></i>
+                                    </button>
                             </li>
                         </ul>
-                      </div>
+                    </div>
                     <div class="container">
                         <div class="title text-center mb-4">
                             <h2>Hello, {{client.firstName}}</h2>
@@ -169,64 +171,65 @@
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
+                        <div class="modal-content four-color-bg">
+                            <div class="modal-header text-white">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Select the account you want to create!</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="radio-inputs-create-account w-100">
+                                <div class="radio-inputs-create-account w-auto m-auto">
                                     <label>
                                         <input class="radio-input-create-account" type="radio" name="typeOfAccount" value="SAVINGS" v-model="typeAccount">
-                                            <span class="radio-tile-create-acc">
+                                            <span class="radio-tile-create-acc bg-transparent">
                                                 <span class="radio-icon-create-acc">
-                                                    <i class="bi bi-credit-card-2-front-fill fs-5"></i>
+                                                    <i class="text-white bi bi-credit-card-2-front-fill fs-5"></i>
                                                 </span>
-                                                <span class="radio-label-create-acc">SAVINGS</span>
+                                                <span class="radio-label-create-acc text-white fw-bold">SAVINGS</span>
                                             </span>
                                     </label>
                                     <label>
                                         <input checked="" class="radio-input-create-account" type="radio" name="typeOfAccount" value="CHECKINGS" v-model="typeAccount">
-                                        <span class="radio-tile-create-acc">
+                                        <span class="radio-tile-create-acc bg-transparent">
                                             <span class="radio-icon-create-acc">
-                                                <i class="bi bi-credit-card-fill fs-5"></i>
+                                                <i class="bi bi-credit-card-fill fs-5 text-white"></i>
                                             </span>
-                                            <span class="radio-label-create-acc">CHECKINGS</span>
+                                            <span class="radio-label-create-acc text-white fw-bold">CHECKINGS</span>
                                         </span>
                                     </label>
                             </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" @click="addAccount">Crate Account</button>
+                                <button type="button" class="button--create-acc" @click="addAccount">Create Account</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal fade" id="modalDeleteAccount" tabindex="-1" aria-labelledby="modalDeleteAccountLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content four-color-bg">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Choose the account to delete</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Choose the account to delete</h1>
+                                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="radio-inputs-create-account w-100">
                                     <label v-for="account of client.accounts">
                                         <input class="radio-input-create-account w-auto" type="radio" name="accountDelete" :value="account.id" v-model="idAccountDelete">
-                                            <span class="radio-tile-create-acc">
+                                            <span class="radio-tile-create-acc bg-transparent">
                                                 <span class="radio-icon-create-acc">
-                                                    <i :class="{'bi bi-credit-card-2-front-fill fs-5': account.type === 'SAVINGS', 
-                                                                 'bi bi-credit-card-fill fs-5': account.type === 'CHECKINGS' }"></i>
+                                                    <i :class="{'bi bi-credit-card-2-front-fill fs-5 text-white': account.type === 'SAVINGS', 
+                                                                 'bi bi-credit-card-fill fs-5 text-white': account.type === 'CHECKINGS' }"></i>
                                                 </span>
-                                                <span class="radio-label-create-acc">{{account.number}}</span>
+                                                <span class="radio-label-create-acc text-white fw-bold fs-6">{{account.number}}</span>
                                             </span>
                                     </label>
                             </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger" @click="deleteAccount">Delete Account</button>
+                                <button type="button" class="button--delete-account bg-danger" @click="deleteAccount">
+                                    <svg viewBox="0 0 448 512" class="svgIcon--delete-acc"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+                                </button>
+                                <!-- <button type="button" class="btn btn-danger">Delete Account</button> -->
                             </div>
                         </div>
                     </div>
