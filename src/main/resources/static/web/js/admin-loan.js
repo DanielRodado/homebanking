@@ -4,9 +4,9 @@ createApp({
     data() {
         return {
             typeOfLoan: "",
-            maxAmount: 0,
-            interestRate: 0,
-            payments: 0,
+            maxAmount: null,
+            interestRate: null,
+            payments: null,
             loading: true,
             paymentAdd: "",
             payments: [],
@@ -30,12 +30,21 @@ createApp({
         createNewLoan() {
             const obj = {
                 nameOfLoan: this.typeOfLoan,
-                maxAmount: this.maxAmount,
-                interestRate: this.interestRate,
+                maxAmount: this.maxAmount || 0.0,
+                interestRate: this.interestRate || 0.0,
                 payments: this.payments
             }
             axios
                 .post("/api/loans/create", obj)
+                .then(() => {
+                    Swal.fire({
+                        title: "Loan created!",
+                        text: `The loan '${this.typeOfLoan}' has been successfully created.`,
+                        icon: "success",
+                        color: "#fff",
+                        background: "#1c2754",
+                    });
+                })
                 .catch((error) => this.messageError(error.response.data));
         },
         messageError(message) {
@@ -79,13 +88,6 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.createNewLoan();
-                    Swal.fire({
-                        title: "Loan created!",
-                        text: `The loan '${this.typeOfLoan}' has been successfully created.`,
-                        icon: "success",
-                        color: "#fff",
-                        background: "#1c2754",
-                    });
                 }
             });
         },

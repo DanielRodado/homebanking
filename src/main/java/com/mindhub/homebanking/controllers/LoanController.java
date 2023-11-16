@@ -112,25 +112,38 @@ public class LoanController {
             return new ResponseEntity<>("The loan name cannot be empty.", HttpStatus.FORBIDDEN);
         }
 
-        if (loanService.existsLoanByName(formatterStringStartUpperEndLower(newLoanApp.getNameOfLoan()))) {
-            return new ResponseEntity<>("Loan name already exists, enter another name", HttpStatus.FORBIDDEN);
+        String LoanName = formatterStringStartUpperEndLower(newLoanApp.getNameOfLoan());
+
+        if (loanService.existsLoanByName(LoanName)) {
+            return new ResponseEntity<>("Loan name ('" + LoanName + "') already exists, enter another name.",
+                    HttpStatus.FORBIDDEN);
         }
 
         if (newLoanApp.getMaxAmount() <= 0) {
-            return new ResponseEntity<>("Maximum loan amount cannot be less than or equal to 0", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Maximum loan amount cannot be less than or equal to 0.", HttpStatus.FORBIDDEN);
         }
 
         if (newLoanApp.getInterestRate() <= 0) {
             return new ResponseEntity<>("The interest rate cannot be less than or equal to 0.", HttpStatus.FORBIDDEN);
         }
 
-        for (Integer payment: newLoanApp.getPayments()) {
-            if (payment <= 0) {
-                return new ResponseEntity<>("Loan payments cannot be less or equal to 0", HttpStatus.FORBIDDEN);
-            }
+        if ((Integer) newLoanApp.getPayments().size() == 0) {
+            return new ResponseEntity<>("At least one payment is required to add it.", HttpStatus.FORBIDDEN);
         }
 
-        Loan loan = new Loan(formatterStringStartUpperEndLower(newLoanApp.getNameOfLoan()), newLoanApp.getMaxAmount(),
+        int temporaryPayment = 0;
+        for (Integer payment: newLoanApp.getPayments()) {
+            if (payment <= 0) {
+                return new ResponseEntity<>("Loan payments cannot be less or equal to 0.", HttpStatus.FORBIDDEN);
+            }
+            if (payment < temporaryPayment) {
+                return new ResponseEntity<>("You cannot enter one payment less than another, the order must be ascending.",
+                        HttpStatus.FORBIDDEN);
+            }
+            temporaryPayment = payment;
+        }
+
+        Loan loan = new Loan(LoanName, newLoanApp.getMaxAmount(),
                              newLoanApp.getInterestRate(), newLoanApp.getPayments());
         loanService.saveLoan(loan);
 
