@@ -32,8 +32,8 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @Transactional
     @PostMapping("/clients/current/transactions")
+    @Transactional
     public ResponseEntity<Object> newCard(@RequestParam Double amount,
                                           @RequestParam String description,
                                           @RequestParam String numberOfAccountFrom,
