@@ -134,7 +134,7 @@
                                                 <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="img-card">
                                                 <img src="https://i.ibb.co/WHZ3nRJ/visa.png" class="img-card">
                                             </div>
-                                            <div class="row--cards card-no position-relative">
+                                            <div class="row--cards card-no position-relative fw-bold">
                                                 <p>{{card.number.replace("-", "").slice(0, 4)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(4, 8)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(9, 13)}}</p>
@@ -182,7 +182,7 @@
                                                 <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="img-card">
                                                 <img src="https://i.ibb.co/WHZ3nRJ/visa.png" class="img-card">
                                             </div>
-                                            <div class="row--cards card-no position-relative">
+                                            <div class="row--cards card-no position-relative fw-bold">
                                                 <p>{{card.number.replace("-", "").slice(0, 4)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(4, 8)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(9, 13)}}</p>
@@ -230,7 +230,7 @@
                                                 <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="img-card">
                                                 <img src="https://i.ibb.co/WHZ3nRJ/visa.png" class="img-card">
                                             </div>
-                                            <div class="row--cards card-no position-relative">
+                                            <div class="row--cards card-no position-relative fw-bold">
                                                 <p>{{card.number.replace("-", "").slice(0, 4)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(4, 8)}}</p>
                                                 <p>{{card.number.replace("-", "").slice(9, 13)}}</p>
@@ -280,7 +280,7 @@
                                 <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="radio-inputs-create-account w-100">
+                                <div class="radio-inputs-create-account flex-wrap">
                                     <label v-for="card of cardsFiltered">
                                         <input class="radio-input-create-account" type="radio" name="deleteCard" :value="card.id" v-model="idCardDelete">
                                             <span class="radio-tile-create-acc bg-transparent w-auto p-2">

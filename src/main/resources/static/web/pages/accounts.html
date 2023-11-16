@@ -123,7 +123,7 @@
                             <p v-else>These are their accounts:</p>
                         </div>
                         <div class="d-flex flex-wrap gap-4 justify-content-center">
-                            <div v-for="account of client.accounts" class="premium-card text-center">
+                            <div v-for="account of client.accounts.sort((a, b) => b.id - a.id)" class="premium-card text-center">
                                 <a :href="`./account.html?id=${account.id}`" role="button" >
                                     <i class="bi bi-box-arrow-in-up-right btn-details"></i>
                                 </a>
@@ -212,8 +212,8 @@
                                 <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="radio-inputs-create-account w-100">
-                                    <label v-for="account of client.accounts">
+                                <div class="radio-inputs-create-account flex-wrap">
+                                    <label v-for="account of client.accounts.sort((a, b) => b.id - a.id)">
                                         <input class="radio-input-create-account w-auto" type="radio" name="accountDelete" :value="account.id" v-model="idAccountDelete">
                                             <span class="radio-tile-create-acc bg-transparent">
                                                 <span class="radio-icon-create-acc">

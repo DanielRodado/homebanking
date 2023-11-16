@@ -42,21 +42,19 @@ createApp({
         },
         colorCards(card) {
             if (card.color === "GOLD")
-                return {
-                    background:
-                        "linear-gradient(to right, #ffd700 0%, #e5aa00 100%)",
-                };
+              return {
+                background: "linear-gradient(222deg, #D17D25 30%, #F5D628 70%)"
+              };
             else if (card.color === "SILVER")
-                return {
-                    background:
-                        "linear-gradient(to right, #c0c0c0 0%, #a6a6a6 100%)",
-                };
+              return {
+                background: "linear-gradient(226deg, #C0C1C3 40%, #737575 70%)"
+              };
             else if (card.color === "TITANIUM")
-                return {
-                    background:
-                        "linear-gradient(to right, #708090 0%, #4d555f 100%)",
-                };
-        },
+              return {
+                background: "linear-gradient(226deg, #002E68 40%, #01000B 70%)"
+              };
+          }
+          ,
         logout() {
             axios.post("/api/logout").then(() => {
                 console.log("signed out!!!");

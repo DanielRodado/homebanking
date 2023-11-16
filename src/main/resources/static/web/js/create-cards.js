@@ -9,7 +9,7 @@ createApp({
             date: new Date(),
             loading: true,
             sendCard: false,
-            isAdmin: null
+            isAdmin: null,
         };
     },
 
@@ -77,18 +77,15 @@ createApp({
         colorCards() {
             if (this.cardColor === "GOLD")
                 return {
-                    background:
-                        "linear-gradient(to right, #ffd700 0%, #e5aa00 100%)",
+                    background: "linear-gradient(222deg, #D17D25 30%, #F5D628 70%)",
                 };
             else if (this.cardColor === "SILVER")
                 return {
-                    background:
-                        "linear-gradient(to right, #c0c0c0 0%, #a6a6a6 100%)",
+                    background: "linear-gradient(226deg, #C0C1C3 40%, #737575 70%)",
                 };
             else if (this.cardColor === "TITANIUM")
                 return {
-                    background:
-                        "linear-gradient(to right, #708090 0%, #4d555f 100%)",
+                    background: "linear-gradient(226deg, #002E68 40%, #01000B 70%)",
                 };
         },
         logout() {
