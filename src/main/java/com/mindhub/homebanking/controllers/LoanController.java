@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import static com.mindhub.homebanking.utils.LoanUtil.formattedLocalDateTime;
 import static com.mindhub.homebanking.utils.LoanUtil.formatterStringStartUpperEndLower;
 
 @RestController
@@ -95,7 +94,7 @@ public class LoanController {
 
         Transaction transaction = new Transaction(TransactionType.CREDIT, loanApplication.getAmount(),
                 account.getBalance() + loanApplication.getAmount(),
-                loan.getName() + " loan approved", formattedLocalDateTime(LocalDateTime.now()));
+                loan.getName() + " loan approved", LocalDateTime.now());
         account.addTransaction(transaction);
         transactionService.saveTransaction(transaction);
 
@@ -198,7 +197,7 @@ public class LoanController {
 
         Transaction transaction = new Transaction(TransactionType.DEBIT, -payLoanApp.getAmountToPay(),
                 account.getBalance() - payLoanApp.getAmountToPay(),
-                payLoanApp.getPayments() + " loan installments paid.", formattedLocalDateTime(LocalDateTime.now()));
+                payLoanApp.getPayments() + " loan installments paid.", LocalDateTime.now());
 
         account.addTransaction(transaction);
         transactionService.saveTransaction(transaction);

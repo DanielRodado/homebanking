@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
-import static com.mindhub.homebanking.utils.LoanUtil.formattedLocalDateTime;
-
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
@@ -87,10 +85,10 @@ public class TransactionController {
         // Se instancian las transacciones con sus datos
         Transaction transactionFrom = new Transaction(TransactionType.DEBIT, -amount,
                 accountFrom.getBalance()-amount, description + " To " + numberOfAccountTo,
-                formattedLocalDateTime(LocalDateTime.now()));
+                LocalDateTime.now());
         Transaction transactionTo = new Transaction(TransactionType.CREDIT, amount, accountTo.getBalance() + amount,
                 description + " From " + numberOfAccountFrom,
-                formattedLocalDateTime(LocalDateTime.now()));
+                LocalDateTime.now());
 
         accountFrom.addTransaction(transactionFrom);
         accountTo.addTransaction(transactionTo);
