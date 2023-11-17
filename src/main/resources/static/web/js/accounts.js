@@ -93,9 +93,9 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios
-                        .post(
+                        .patch(
                             "/api/clients/current/accounts/delete",
-                            `id=${this.idAccountDelete}`
+                            `AccountId=${this.idAccountDelete}`
                         )
                         .then(() => {
                             Swal.fire({

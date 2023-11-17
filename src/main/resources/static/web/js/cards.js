@@ -89,9 +89,9 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios
-                        .post(
+                        .patch(
                             "/api/clients/current/cards/delete",
-                            `id=${this.idCardDelete}`
+                            `cardId=${this.idCardDelete}`
                         )
                         .then(() => {
                             Swal.fire({
