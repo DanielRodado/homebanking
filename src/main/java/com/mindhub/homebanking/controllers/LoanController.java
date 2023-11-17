@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import static com.mindhub.homebanking.utils.LoanUtil.formattedLocalDateTime;
 import static com.mindhub.homebanking.utils.LoanUtil.formatterStringStartUpperEndLower;
 
 @RestController
@@ -94,7 +95,7 @@ public class LoanController {
 
         Transaction transaction = new Transaction(TransactionType.CREDIT, loanApplication.getAmount(),
                 account.getBalance() + loanApplication.getAmount(),
-                loan.getName() + " loan approved", LocalDateTime.now());
+                loan.getName() + " loan approved", formattedLocalDateTime(LocalDateTime.now()));
         account.addTransaction(transaction);
         transactionService.saveTransaction(transaction);
 
@@ -135,8 +136,8 @@ public class LoanController {
             if (payment <= 0) {
                 return new ResponseEntity<>("Loan payments cannot be less or equal to 0.", HttpStatus.FORBIDDEN);
             }
-            if (payment < temporaryPayment) {
-                return new ResponseEntity<>("You cannot enter one payment less than another, the order must be ascending.",
+            if (payment <= temporaryPayment) {
+                return new ResponseEntity<>("You cannot enter one payment less than or equal to another, the order must be ascending.",
                         HttpStatus.FORBIDDEN);
             }
             temporaryPayment = payment;
@@ -197,7 +198,7 @@ public class LoanController {
 
         Transaction transaction = new Transaction(TransactionType.DEBIT, -payLoanApp.getAmountToPay(),
                 account.getBalance() - payLoanApp.getAmountToPay(),
-                payLoanApp.getPayments() + " loan installments paid.", LocalDateTime.now());
+                payLoanApp.getPayments() + " loan installments paid.", formattedLocalDateTime(LocalDateTime.now()));
 
         account.addTransaction(transaction);
         transactionService.saveTransaction(transaction);

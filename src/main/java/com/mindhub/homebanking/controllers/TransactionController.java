@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
+import static com.mindhub.homebanking.utils.LoanUtil.formattedLocalDateTime;
+
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
@@ -46,20 +48,6 @@ public class TransactionController {
         if (numberOfAccountTo.isBlank())
             return new ResponseEntity<>("A target account is required.", HttpStatus.FORBIDDEN);
 
-        if (amount <= 0)
-            return new ResponseEntity<>("A transaction cannot be made with an amount less than or equal to 0", HttpStatus.FORBIDDEN);
-
-        if (description.isBlank())
-            return new ResponseEntity<>("Fill in the description field.", HttpStatus.FORBIDDEN);
-
-        if (description.length() > 100)
-            return new ResponseEntity<>("The description is too long (can´t be longer than 100 characters)",
-                    HttpStatus.FORBIDDEN);
-
-        // Verifica que los números de cuenta no sean iguales
-        if (numberOfAccountFrom.equals(numberOfAccountTo))
-            return new ResponseEntity<>("A transaction cannot be made to the same account.", HttpStatus.FORBIDDEN);
-
         // Verifica que exista la cuenta de origen
         if (!accountService.existsAccountByNumber(numberOfAccountFrom))
             return new ResponseEntity<>("The source account number does not exist.", HttpStatus.FORBIDDEN);
@@ -74,21 +62,35 @@ public class TransactionController {
         if (!accountService.existsAccountByNumber(numberOfAccountTo))
             return new ResponseEntity<>("The destination account number does not exist.", HttpStatus.FORBIDDEN);
 
+        // Verifica que los números de cuenta no sean iguales
+        if (numberOfAccountFrom.equals(numberOfAccountTo))
+            return new ResponseEntity<>("A transaction cannot be made to the same account.", HttpStatus.FORBIDDEN);
+
+        if (amount <= 0)
+            return new ResponseEntity<>("A transaction cannot be made with an amount less than or equal to 0", HttpStatus.FORBIDDEN);
+
         Account accountFrom = accountService.getAccountByNumber(numberOfAccountFrom);
 
         // Verifica que la cuenta de origen tenga el monto disponible.
         if (accountFrom.getBalance() < amount)
             return new ResponseEntity<>("Your account does not have enough amount to perform the transaction.", HttpStatus.FORBIDDEN);
 
+        if (description.isBlank())
+            return new ResponseEntity<>("Fill in the description field.", HttpStatus.FORBIDDEN);
+
+        if (description.length() > 100)
+            return new ResponseEntity<>("The description is too long (can´t be longer than 100 characters)",
+                    HttpStatus.FORBIDDEN);
+
         Account accountTo = accountService.getAccountByNumber(numberOfAccountTo);
 
         // Se instancian las transacciones con sus datos
         Transaction transactionFrom = new Transaction(TransactionType.DEBIT, -amount,
                 accountFrom.getBalance()-amount, description + " To " + numberOfAccountTo,
-                LocalDateTime.now());
+                formattedLocalDateTime(LocalDateTime.now()));
         Transaction transactionTo = new Transaction(TransactionType.CREDIT, amount, accountTo.getBalance() + amount,
                 description + " From " + numberOfAccountFrom,
-                LocalDateTime.now());
+                formattedLocalDateTime(LocalDateTime.now()));
 
         accountFrom.addTransaction(transactionFrom);
         accountTo.addTransaction(transactionTo);
