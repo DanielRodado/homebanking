@@ -56,13 +56,19 @@ createApp({
                 });
         },
         register() {
+            const objRegister = {
+                firstName: this.inputNameRegister,
+                lastName: this.inputLastNameRegister,
+                email: this.inputEmailRegister,
+                password: this.inputPasswordRegister,
+                createAdmin: false
+            }
             axios
                 .post(
                     "/api/clients",
-                    `firstName=${this.inputNameRegister}&lastName=${this.inputLastNameRegister}&email=${this.inputEmailRegister}&password=${this.inputPasswordRegister}`
+                    objRegister
                 )
                 .then(() => {
-                    console.log("User registered");
                     axios
                         .post(
                             "/api/login",
@@ -76,7 +82,6 @@ createApp({
                         .catch((error) => console.log(error));
                 })
                 .catch((error) => {
-                        console.error("Error registering user:", error);
                         this.messageError(error.response.data);
                     }
                 );

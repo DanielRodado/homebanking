@@ -20,6 +20,10 @@ public interface ClientService {
 
     boolean existsClientByEmail(String email);
 
+    boolean existsClientByEmailAndIsAdmin(String email, Boolean isAdmin);
+
+    void modifyClientToAdminByEmail(String email);
+
     void saveClient(Client client);
 
 }

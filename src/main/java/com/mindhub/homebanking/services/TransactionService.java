@@ -8,10 +8,6 @@ import java.util.Set;
 
 public interface TransactionService {
 
-    Set<Transaction> getAllTransactionsByAccount(Account account);
-
-    void deletedTransactions(Account account);
-
     void saveTransaction(Transaction transaction);
 
 }

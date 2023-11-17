@@ -38,10 +38,13 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public void deletedCardById(Long id) {
-        Card card = getCardById(id);
-        card.setDeleted(true);
-        saveCard(card);
+    public boolean existsCardByIdAndClient(Long id, Client client) {
+        return cardRepository.existsByIdAndClient(id, client);
+    }
+
+    @Override
+    public void softDeleteCardById(Long id) {
+        cardRepository.softDeleteCardById(id);
     }
 
     @Override

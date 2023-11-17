@@ -48,6 +48,16 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public boolean existsClientByEmailAndIsAdmin(String email, Boolean isAdmin) {
+        return clientRepository.existsByEmailAndIsAdmin(email, isAdmin);
+    }
+
+    @Override
+    public void modifyClientToAdminByEmail(String email) {
+        clientRepository.modifyClientToAdminByEmail(email);
+    }
+
+    @Override
     public void saveClient(Client client) {
         clientRepository.save(client);
     }

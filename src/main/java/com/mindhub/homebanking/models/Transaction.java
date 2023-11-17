@@ -20,8 +20,6 @@ public class Transaction {
 
     private Double balanceAccountBeforeTransaction;
 
-    private Boolean isDeleted = false;
-
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
@@ -61,10 +59,6 @@ public class Transaction {
         return balanceAccountBeforeTransaction;
     }
 
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
     public Account getAccount() {
         return account;
     }
@@ -87,10 +81,6 @@ public class Transaction {
 
     public void setBalanceAccountBeforeTransaction(Double balanceAccountBeforeTransaction) {
         this.balanceAccountBeforeTransaction = balanceAccountBeforeTransaction;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
     }
 
     public void setAccount(Account account) {

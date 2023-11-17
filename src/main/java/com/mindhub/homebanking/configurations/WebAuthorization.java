@@ -26,8 +26,10 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                .antMatchers(HttpMethod.GET, "/web/index.html", "/web/pages/login.html", "/web/pages/register.html",
                                                              "/web/css/**", "/web/js/**", "/web/assets/**").permitAll()
                .antMatchers("/h2-console/**", "/rest/**", "/api/clients", "/api/clients/{id}", "/api/loans/create",
-                                              "/api/accounts", "/api/accounts/**").hasAuthority("ADMIN")
+                       "/api/accounts", "/api/accounts/**", "/api/clients/admin").hasAuthority("ADMIN")
                .antMatchers("/web/pages/manager.html", "/web/pages/admin-loan.html").hasAuthority("ADMIN")
+               .antMatchers(HttpMethod.PATCH, "/api/clients/current/accounts/delete",
+                       "/api/clients/current/cards/delete").authenticated()
                .antMatchers(HttpMethod.GET, "/web/pages/**", "/api/clients/current/**", "/api/loans").authenticated()
                .antMatchers(HttpMethod.POST,"/api/clients/current/**", "/api/loans", "/api/loans/pay").authenticated()
                .anyRequest().denyAll();
@@ -57,7 +59,7 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .loginPage("/api/login");
 
-        http.logout().logoutUrl("/api/logout");
+        http.logout().logoutUrl("/api/logout").deleteCookies();
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request) {

@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.ClientDTO;
+import com.mindhub.homebanking.dto.NewClientDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
@@ -42,24 +43,44 @@ public class ClientController {
 
     // Register
     @PostMapping("/clients")
-    public ResponseEntity<String> newClient(
-            @RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<String> newClient(@RequestBody NewClientDTO newClient, Authentication currentClient) {
 
-        if (firstName.isBlank()) {
-            return new ResponseEntity<>("The name is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
-        }if (lastName.isBlank()) {
-            return new ResponseEntity<>("The last name is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
-        }if (email.isBlank()) {
-            return new ResponseEntity<>("The email is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
-        }if (password.isBlank()) {
-            return new ResponseEntity<>( "The password is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
+        if (newClient.isCreateAdmin() && currentClient == null) {
+            return new ResponseEntity<>("You are not authenticated, you cannot perform this action.", HttpStatus.FORBIDDEN);
         }
 
-        if (clientService.existsClientByEmail(email)) {
+        if (currentClient != null) {
+        boolean isAdmin = //GrantedAuthority
+                currentClient.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+
+            if (!isAdmin && newClient.isCreateAdmin()) {
+                return new ResponseEntity<>("You are not an admin, you cannot create admins.", HttpStatus.FORBIDDEN);
+            }
+        }
+
+
+        if (newClient.getEmail().isBlank()) {
+            return new ResponseEntity<>("The email is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
+        }
+
+        if (clientService.existsClientByEmail(newClient.getEmail())) {
             return new ResponseEntity<>("The e-mail address you entered is already registered.", HttpStatus.FORBIDDEN);
         }
 
-        Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password), false);
+        if (newClient.getFirstName().isBlank()) {
+            return new ResponseEntity<>("The name is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
+        }
+
+        if (newClient.getLastName().isBlank()) {
+            return new ResponseEntity<>("The last name is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
+        }
+
+        if (newClient.getPassword().isBlank()) {
+            return new ResponseEntity<>( "The password is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
+        }
+
+        Client client = new Client(newClient.getFirstName(), newClient.getLastName(), newClient.getEmail(),
+                passwordEncoder.encode(newClient.getPassword()), newClient.isCreateAdmin());
         clientService.saveClient(client);
 
         String accountNumber;
@@ -67,11 +88,34 @@ public class ClientController {
             accountNumber = generateAccountNumber();
         } while (accountService.existsAccountByNumber("VIN-" + accountNumber));
 
-        Account account = new Account(accountNumber, LocalDate.now(), 0.00, AccountType.SAVINGS);
+        Account account = new Account(accountNumber, LocalDate.now(), newClient.isCreateAdmin() ? 10000.00 : 0.00,
+                AccountType.SAVINGS);
         client.addAccount(account);
         accountService.saveAccount(account);
 
-        return new ResponseEntity<>("Client created successfully", HttpStatus.CREATED);
+        if (newClient.isCreateAdmin()) {
+            return new ResponseEntity<>("Admin created successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Client created successfully", HttpStatus.CREATED);
+        }
+
+    }
+
+
+    @PatchMapping("clients/admin")
+    public ResponseEntity<String> modifyClientToAdmin(@RequestParam String clientEmail) {
+
+        if (!clientService.existsClientByEmail(clientEmail)) {
+            return new ResponseEntity<>("The client you want to modify to admin does not exist.", HttpStatus.FORBIDDEN);
+        }
+
+        if (clientService.existsClientByEmailAndIsAdmin(clientEmail, true)) {
+            return new ResponseEntity<>("The client to be modified to admin is already an admin.", HttpStatus.FORBIDDEN);
+        }
+
+        clientService.modifyClientToAdminByEmail(clientEmail);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/clients/current")

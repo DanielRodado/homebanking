@@ -39,7 +39,7 @@ public interface AccountService {
 
     boolean existsAccountByIdAndClient(Long id, Client client);
 
-    boolean existsAccountByIdAndBalanceGreaterThanEqual(Long id, Double balance);
+    boolean existsAccountByIdAndBalanceGreaterThan(Long id, Double balance);
 
     boolean existsAccountByNumberAndBalanceLessThan(String accountNumber, Double balance);
 

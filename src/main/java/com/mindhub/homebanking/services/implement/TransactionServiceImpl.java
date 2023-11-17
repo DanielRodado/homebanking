@@ -16,20 +16,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-    @Override
-    public Set<Transaction> getAllTransactionsByAccount(Account account) {
-        return transactionRepository.findByAccount(account);
-    }
-
-    @Override
-    public void deletedTransactions(Account account) {
-        Set<Transaction> transactions = getAllTransactionsByAccount(account);
-        for (Transaction transaction: transactions) {
-            transaction.setDeleted(true);
-            saveTransaction(transaction);
-        }
-    }
-
 
     @Override
     public void saveTransaction(Transaction transaction) {

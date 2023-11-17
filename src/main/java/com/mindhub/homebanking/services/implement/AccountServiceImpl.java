@@ -63,9 +63,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deletedAccountById(Long id) {
-        Account account = getAccountById(id);
-        account.setDeleted(true);
-        saveAccount(account);
+        accountRepository.softDeleteAccountById(id);
     }
 
     @Override
@@ -94,8 +92,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean existsAccountByIdAndBalanceGreaterThanEqual(Long id, Double balance) {
-        return accountRepository.existsByIdAndBalanceGreaterThanEqual(id, balance);
+    public boolean existsAccountByIdAndBalanceGreaterThan(Long id, Double balance) {
+        return accountRepository.existsByIdAndBalanceGreaterThan(id, balance);
     }
 
     @Override

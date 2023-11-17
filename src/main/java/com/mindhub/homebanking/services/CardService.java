@@ -13,7 +13,9 @@ public interface CardService {
 
     boolean existsCardByClientAndTypeAndColorAndIsDeleted(Client client, String type, String color, Boolean isDeleted);
 
-    void deletedCardById(Long id);
+    boolean existsCardByIdAndClient(Long id, Client client);
+
+    void softDeleteCardById(Long id);
 
     void saveCard(Card card);
 

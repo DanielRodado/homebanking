@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -64,14 +61,19 @@ public class CardController {
         return new ResponseEntity<>("Created card!",HttpStatus.CREATED);
     }
 
-    @PostMapping("/clients/current/cards/delete")
-    public ResponseEntity<String> deletedCard(@RequestParam Long id) {
+    @PatchMapping("/clients/current/cards/delete")
+    public ResponseEntity<String> deletedCard(@RequestParam Long cardId, Authentication currentClient) {
 
-        if (!cardService.existsCardById(id)) {
+        if (!cardService.existsCardById(cardId)) {
             return new ResponseEntity<>("This card does not exist", HttpStatus.FORBIDDEN);
         }
 
-        cardService.deletedCardById(id);
+        if (!cardService.existsCardByIdAndClient(cardId, clientService.getClientByEmail(currentClient.getName()))) {
+            return new ResponseEntity<>("This card does not belong you", HttpStatus.FORBIDDEN);
+        }
+
+        cardService.softDeleteCardById(cardId);
+
         return new ResponseEntity<>("Card deleted!", HttpStatus.OK);
     }
 
