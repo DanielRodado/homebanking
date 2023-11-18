@@ -43,10 +43,13 @@ p::selection {
     width: 100%;
     height: 100%;
     background-color: var(--first-color);
-    background-image: radial-gradient(rgba(255, 255, 255, 0.171) 2px, transparent 0);
+    background-image: radial-gradient(
+        rgba(255, 255, 255, 0.171) 2px,
+        transparent 0
+    );
     background-size: 1.875rem 1.875rem;
-    background-position: -5px -5px
-  }
+    background-position: -5px -5px;
+}
 
 /* btn-logout */
 
@@ -663,24 +666,23 @@ p::selection {
     font-weight: Bold;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
-  }
-  
-  .button--create-acc:hover {
+}
+
+.button--create-acc:hover {
     background-color: #6fc5ff;
     box-shadow: 0 0 1.25rem #6fc5ff50;
     transform: scale(1.1);
-  }
-  
-  .button--create-acc:active {
+}
+
+.button--create-acc:active {
     background-color: #3d94cf;
     transition: all 0.25s;
     -webkit-transition: all 0.25s;
     box-shadow: none;
     transform: scale(0.98);
-  }
+}
 
 /* Create card */
-
 
 .button--delete-account {
     width: 3.125rem;
@@ -694,50 +696,49 @@ p::selection {
     justify-content: center;
     box-shadow: 0px 0px 1.25rem rgba(0, 0, 0, 0.164);
     cursor: pointer;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
     overflow: hidden;
     position: relative;
-  }
-  
-  .svgIcon--delete-acc {
+}
+
+.svgIcon--delete-acc {
     width: 0.75rem;
-    transition-duration: .3s;
-  }
-  
-  .svgIcon--delete-acc path {
+    transition-duration: 0.3s;
+}
+
+.svgIcon--delete-acc path {
     fill: white;
-  }
-  
-  .button--delete-account:hover {
+}
+
+.button--delete-account:hover {
     width: 8.75rem;
     border-radius: 3.125rem;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
     background-color: rgb(255, 69, 69);
     align-items: center;
-  }
-  
-  .button--delete-account:hover .svgIcon--delete-acc {
+}
+
+.button--delete-account:hover .svgIcon--delete-acc {
     width: 3.125rem;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
     transform: translateY(60%);
-  }
-  
-  .button--delete-account::before {
+}
+
+.button--delete-account::before {
     position: absolute;
     top: -1.25rem;
     content: "Delete";
     color: white;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
     font-size: 2px;
-  }
-  
-  .button--delete-account:hover::before {
+}
+
+.button--delete-account:hover::before {
     font-size: 0.813rem;
     opacity: 1;
     transform: translateY(1.875rem);
-    transition-duration: .3s;
-  }
-
+    transition-duration: 0.3s;
+}
 
 .radio-inputs-create-account {
     display: flex;
@@ -1773,7 +1774,6 @@ footer {
 
 /* TRANSFER */
 
-
 .button--loan-apply {
     position: relative;
     transition: all 0.3s ease-in-out;
@@ -1792,57 +1792,194 @@ footer {
     outline: none;
     overflow: hidden;
     font-size: 0.95rem;
-  }
-  
-  .icon--loan-apply {
+}
+
+.icon--loan-apply {
     width: 1.5rem;
     height: 1.5rem;
     transition: all 0.3s ease-in-out;
-  }
-  
-  .button--loan-apply:hover {
+}
+
+.button--loan-apply:hover {
     transform: scale(1.05);
     border-color: var(--five-color);
-  }
-  
-  .button--loan-apply:hover .icon--loan-apply {
+}
+
+.button--loan-apply:hover .icon--loan-apply {
     transform: translate(0.25rem);
-  }
-  
-  .button--loan-apply:hover::before {
+}
+
+.button--loan-apply:hover::before {
     animation: shine 1.5s ease-out infinite;
-  }
-  
-  .button--loan-apply::before {
+}
+
+.button--loan-apply::before {
     content: "";
     position: absolute;
     width: 6.25rem;
     height: 100%;
     background-image: linear-gradient(
-      120deg,
-      rgba(255, 255, 255, 0) 30%,
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0) 70%
+        120deg,
+        rgba(255, 255, 255, 0) 30%,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0) 70%
     );
     top: 0;
     left: -6.25rem;
     opacity: 0.6;
-  }
-  
-  @keyframes shine {
+}
+
+@keyframes shine {
     0% {
-      left: -6.25rem;
+        left: -6.25rem;
     }
-  
+
     60% {
-      left: 100%;
+        left: 100%;
     }
-  
+
     to {
-      left: 100%;
+        left: 100%;
     }
+}
+  
+  .label-admin {
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    display: inline-block;
+    color: inherit;
+    transition: border 0.2s;
+    border-bottom: 5px solid rgba(142, 68, 173, 0.2);
+    padding: 0.188rem 0.125rem; /* 3px 2px */
+  }
+  .label-admin:hover, a:hover {
+    border-bottom-color: #9b59b6;
   }
   
+  .layout--admin {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    grid-template-rows: 3.125rem 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  .input-option-admin {
+    display: none;
+  }
+  
+  .label-admin.nav--admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-bottom: 2px solid var(--third-color);
+    background: #ecf0f1;
+    user-select: none;
+    transition: background 0.4s, padding-left 0.2s;
+    padding-left: 0;
+  }
+  .input-option-admin:checked + .page--admin + .label-admin.nav--admin {
+    background: var(--five-color);
+    color: #ffffff;
+  }
+
+  
+  .page--admin {
+    grid-column-start: 1;
+    grid-row-start: 2;
+    grid-column-end: span 3;
+    padding: 0px 1.25rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .page-contents > * {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .page-contents > *:nth-child(1) {
+    transition-delay: 0.4s;
+  }
+  .page-contents > *:nth-child(2) {
+    transition-delay: 0.6s;
+  }
+  .page-contents > *:nth-child(3) {
+    transition-delay: 0.8s;
+  }
+  .page-contents > *:nth-child(4) {
+    transition-delay: 1s;
+  }
+  .page-contents > *:nth-child(5) {
+    transition-delay: 1.2s;
+  }
+  .page-contents > *:nth-child(6) {
+    transition-delay: 1.4s;
+  }
+  .page-contents > *:nth-child(7) {
+    transition-delay: 1.6s;
+  }
+  .page-contents > *:nth-child(8) {
+    transition-delay: 1.8s;
+  }
+  .page-contents > *:nth-child(9) {
+    transition-delay: 2s;
+  }
+  .page-contents > *:nth-child(10) {
+    transition-delay: 2.2s;
+  }
+  .page-contents > *:nth-child(11) {
+    transition-delay: 2.4s;
+  }
+  .page-contents > *:nth-child(12) {
+    transition-delay: 2.6s;
+  }
+  .page-contents > *:nth-child(13) {
+    transition-delay: 2.8s;
+  }
+  .page-contents > *:nth-child(14) {
+    transition-delay: 3s;
+  }
+  .page-contents > *:nth-child(15) {
+    transition-delay: 3.2s;
+  }
+  .page-contents > *:nth-child(16) {
+    transition-delay: 3.4s;
+  }
+  .page-contents > *:nth-child(17) {
+    transition-delay: 3.6s;
+  }
+  .page-contents > *:nth-child(18) {
+    transition-delay: 3.8s;
+  }
+  .page-contents > *:nth-child(19) {
+    transition-delay: 4s;
+  }
+  .page-contents > *:nth-child(20) {
+    transition-delay: 4.2s;
+  }
+  
+  .input-option-admin + .page--admin {
+    transition: transform 0.2s;
+    transform: translateX(100%);
+  }
+  
+  .input-option-admin:checked + .page--admin {
+    transform: translateX(0%);
+  }
+  .input-option-admin:checked + .page--admin .page-contents > * {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  
+  .page-contents {
+    max-width: 100%;
+    width: 31.25rem;
+    margin: 0 auto;
+  }
 
 @media only screen and (min-width: 480px) {
     .container--services,
@@ -2118,6 +2255,30 @@ footer {
         margin-top: 1.675rem;
         font-size: 0.85rem;
     }
+
+    .input-option-admin:checked + .page--admin + .label-admin.nav--admin {
+        padding-left: 20px;
+      }
+
+    .input-option-admin:checked + .page--admin + .label-admin.nav--admin span {
+        padding-left: 25px !important;
+        font-weight: bold;
+      }
+
+      .input-option-admin:checked + .page--admin + .label-admin.nav--admin svg {
+        opacity: 1;
+      }
+      .label-admin.nav--admin span {
+        padding-left: 0px;
+        position: relative;
+      }
+      .label-admin.nav--admin svg {
+        left: 0;
+        position: absolute;
+        width: 20px;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
 }
 
 @media only screen and (min-width: 992px) {
