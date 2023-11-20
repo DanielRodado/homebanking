@@ -125,5 +125,5 @@ createApp({
                 (account) => account.number === this.selectedAccountFrom
             );
         },
-    },
+    }
 }).mount("#app");
