@@ -9,7 +9,7 @@ createApp({
             date: new Date(),
             loading: true,
             sendCard: false,
-            isAdmin: null,
+            isAdmin: null
         };
     },
 
