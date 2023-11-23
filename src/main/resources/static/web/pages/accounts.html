@@ -215,7 +215,7 @@
                                 <div class="radio-inputs-create-account flex-wrap">
                                     <label v-for="account of client.accounts.sort((a, b) => b.id - a.id)">
                                         <input class="radio-input-create-account w-auto" type="radio" name="accountDelete" :value="account.id" v-model="idAccountDelete">
-                                            <span class="radio-tile-create-acc bg-transparent">
+                                            <span class="radio-tile-create-acc bg-transparent w-auto p-2">
                                                 <span class="radio-icon-create-acc">
                                                     <i :class="{'bi bi-credit-card-2-front-fill fs-5 text-white': account.type === 'SAVINGS', 
                                                                  'bi bi-credit-card-fill fs-5 text-white': account.type === 'CHECKINGS' }"></i>
