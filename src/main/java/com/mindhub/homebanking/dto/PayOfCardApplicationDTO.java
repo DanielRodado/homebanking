@@ -24,4 +24,6 @@ public class PayOfCardApplicationDTO {
     public Double getAmount() {
         return amount;
     }
+
+
 }
