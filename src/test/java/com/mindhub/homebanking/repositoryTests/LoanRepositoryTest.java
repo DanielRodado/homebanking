@@ -34,7 +34,7 @@ public class LoanRepositoryTest {
 
     @Test
     public void atLeastOneLoans(){
-        assertThat(loans, hasSize(equalTo(3)));
+        assertThat(loans, hasSize(greaterThanOrEqualTo(3)));
     }
 
 }

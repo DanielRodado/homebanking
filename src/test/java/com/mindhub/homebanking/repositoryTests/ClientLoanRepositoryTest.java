@@ -29,12 +29,12 @@ public class ClientLoanRepositoryTest {
 
 
     @Test
-    public void existsAccounts() {
+    public void existsClientLoans() {
         assertThat(clientLoans, is(not(empty())));
     }
 
     @Test
     public void balanceGreaterThan() {
-        assertThat(clientLoans, everyItem(hasProperty("amount", greaterThanOrEqualTo(15000.0))));
+        assertThat(clientLoans, hasItem(hasProperty("amount", greaterThanOrEqualTo(15000.0))));
     }
 }

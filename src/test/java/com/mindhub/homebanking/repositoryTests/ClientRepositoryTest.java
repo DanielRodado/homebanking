@@ -27,7 +27,7 @@ public class ClientRepositoryTest {
     @BeforeEach
     public void getAnyDataOfAnyClients() {
         clients = clientRepository.findAll();
-        client = clientRepository.findByEmail("melbamorel@gmail.com");
+        client = clientRepository.findByEmail("danielrodado@gmail.com");
     }
 
     @Test
