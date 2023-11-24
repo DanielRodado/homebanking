@@ -72,6 +72,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public byte countAccountsByIdAndClient(Long id, Client client) {
+        return accountRepository.countByIdAndClient(id, client);
+    }
+
+    @Override
     public boolean existsAccountById(Long id) {
         return accountRepository.existsById(id);
     }
