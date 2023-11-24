@@ -18,6 +18,8 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import static com.mindhub.homebanking.utils.AccountUtil.generateAccountNumber;
+import static com.mindhub.homebanking.utils.ClientUtil.verifiedUserEmail;
+import static com.mindhub.homebanking.utils.ClientUtil.verifiedUserPassword;
 
 @RestController
 @RequestMapping("/api")
@@ -67,6 +69,11 @@ public class ClientController {
             return new ResponseEntity<>("The e-mail address you entered is already registered.", HttpStatus.FORBIDDEN);
         }
 
+        if (!verifiedUserEmail(newClient.getEmail())) {
+            return new ResponseEntity<>("The email must contain an '@', something after the '@'; a ' . ', and something after the ' . '\n" +
+                    "Example: email@email.com", HttpStatus.FORBIDDEN);
+        }
+
         if (newClient.getFirstName().isBlank()) {
             return new ResponseEntity<>("The name is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
         }
@@ -77,6 +84,11 @@ public class ClientController {
 
         if (newClient.getPassword().isBlank()) {
             return new ResponseEntity<>( "The password is not valid, try to fill in the field.", HttpStatus.FORBIDDEN);
+        }
+
+        if (!verifiedUserPassword(newClient.getPassword())) {
+            return new ResponseEntity<>( "The password must have a minimum of 8 and a maximum of 15 characters, at " +
+                    "least one capital letter and one number. Special characters are not accepted.", HttpStatus.FORBIDDEN);
         }
 
         Client client = new Client(newClient.getFirstName(), newClient.getLastName(), newClient.getEmail(),

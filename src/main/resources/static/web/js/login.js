@@ -105,6 +105,9 @@ createApp({
                 icon: "error",
                 title: "An error has occurred",
                 text: message,
+                customClass: {
+                    popup: 'text-center'
+                },
                 color: "#fff",
                 background: "#1c2754",
                 confirmButtonColor: "#17acc9"
