@@ -12,9 +12,13 @@
         >
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <link rel="shortcut icon" href="../assets/logo-favicon.png" type="image/x-icon">
+        <link
+            href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css"
+            rel="stylesheet"
+        />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
       />
-        <link rel="stylesheet" href="./css/styles.css">
+        <link rel="stylesheet" href="./web/css/styles.css">
     </head>
     <body>
         <div id="app" class="app flex-column">
@@ -28,8 +32,8 @@
                             <p class="text-login mb-0" v-else>Login</p>
                         </button>
                         <div class="navbar-brand text-white fs-4"
-                              ><img src="./assets/logo-page.png" class="logo d-none d-sm-inline-block" alt="logo">
-                              <img src="./assets/logo-favicon.png" class="logo-sm d-sm-none" alt="logo">
+                              ><img src="./web/assets/logo-page.png" class="logo d-none d-md-inline-block" alt="logo">
+                              <img src="./web/assets/logo-favicon.png" class="logo-sm d-md-none" alt="logo">
                               <h1 class="d-none">FINOVATE</h1>
                         </div>
                         <input
@@ -56,7 +60,7 @@
                             aria-label="Toggle navigation"
                             :disabled="!isAuthenticated"
                         >
-                          <label :class="{'no-drop': isAuthenticated === false}" class="toggle d-md-flex" for="checkbox">
+                          <label :class="{'no-drop d-none d-md-flex': isAuthenticated === false}" class="toggle d-md-flex" for="checkbox">
                              <div id="bar1" class="bars"></div>
                              <div id="bar2" class="bars"></div>
                              <div id="bar3" class="bars"></div>
@@ -72,7 +76,7 @@
                                           :class="{'disabled user-select-none': isAuthenticated === false }"
                                           class="nav-link text-white ms-3 ms-md-0"
                                           aria-current="page"
-                                          href="./pages/accounts.html"
+                                          href="./web/pages/accounts.html"
                                           >Accounts</a
                                       >
                                   </li>
@@ -80,7 +84,7 @@
                                       <a  
                                         class="nav-link text-white ms-3 ms-md-0"
                                         :class="{'disabled user-select-none': isAuthenticated === false }"
-                                        href="./cards.html"
+                                        href="./web/pages/cards.html"
                                           >Cards</a
                                       >
                                   </li>
@@ -88,7 +92,7 @@
                                       <a 
                                         class="nav-link text-white ms-3 ms-md-0"
                                         :class="{'disabled user-select-none': isAuthenticated === false }"
-                                        href="./transfers.html"
+                                        href="./web/pages/transfers.html"
                                           >Trasaction</a
                                       >
                                   </li>
@@ -96,7 +100,7 @@
                                       <a 
                                         class="nav-link text-white ms-3 ms-md-0"
                                         :class="{'disabled user-select-none': isAuthenticated === false }"
-                                        href="./pages/loans.html"
+                                        href="./web/pages/loans.html"
                                           >Loan</a
                                       >
                                   </li>
@@ -114,8 +118,8 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active"  data-bs-interval="10000">
-                            <img src="./assets/img/banner-3-2.jpg" class="d-block w-100 img-banner-1 d-sm-none" alt="banner-3-1">
-                            <img src="./assets/img/banner-3-4.jpg" class="w-100 img-banner-1 d-none d-sm-block" alt="banner-3-1">
+                            <img src="./web/assets/img/banner-3-2.jpg" class="d-block w-100 img-banner-1 d-sm-none" alt="banner-3-1">
+                            <img src="./web/assets/img/banner-3-4.jpg" class="w-100 img-banner-1 d-none d-sm-block" alt="banner-3-1">
                             <div class="contain-banner five-color-bg text-white">
                                 <p class="text-banner">
                                     Welcome to <span class="third-color-text">FINOVATE</span>,
@@ -133,8 +137,8 @@
                             </div>
                         </div>
                         <div class="carousel-item"  data-bs-interval="10000">
-                            <img src="./assets/img/banner-2-2.jpg" class="d-block w-100 img-banner-1 d-sm-none" alt="banner-2-1">
-                            <img src="./assets/img/banner-2-4.jpg" class="w-100 img-banner-1 d-none d-sm-block" alt="banner-2-1">
+                            <img src="./web/assets/img/banner-2-2.jpg" class="d-block w-100 img-banner-1 d-sm-none" alt="banner-2-1">
+                            <img src="./web/assets/img/banner-2-4.jpg" class="w-100 img-banner-1 d-none d-sm-block" alt="banner-2-1">
                             <div class="contain-banner five-color-bg text-white">
                                 <p class="text-banner">
                                     Effortless registration! When you join <span class="third-color-text">FINOVATE</span>,
@@ -148,8 +152,8 @@
                             </div>
                         </div>
                         <div class="carousel-item"  data-bs-interval="10000">
-                            <img src="./assets/img/banner-1-2.jpg" class="d-block w-100 img-banner-1 d-sm-none" alt="banner-1-1">
-                            <img src="./assets/img/banner-1-4.jpg" class="w-100 img-banner-1 d-none d-sm-block" alt="banner-1-1">
+                            <img src="./web/assets/img/banner-1-2.jpg" class="d-block w-100 img-banner-1 d-sm-none" alt="banner-1-1">
+                            <img src="./web/assets/img/banner-1-4.jpg" class="w-100 img-banner-1 d-none d-sm-block" alt="banner-1-1">
                             <div class="contain-banner five-color-bg text-white">
                                 <p class="text-banner">
                                     At <span class="third-color-text">FINOVATE</span>,
@@ -243,7 +247,7 @@
                         <div class="row hg-container">
                             <div class="col-12 col-lg-6 mb-4 mb-lg-0">
                                 <div class="card rounded-0 border-0 h-100" style="width: 100%;">
-                                    <img src="./assets/img-sec-2.jpg" class="card-img-top rounded-0 object-fit-cover" alt="img-sec-2">
+                                    <img src="./web/assets/img-sec-2.jpg" class="card-img-top rounded-0 object-fit-cover" alt="img-sec-2">
                                     <div class="card-body second-color-bg">
                                       <p class="card-title text-white mb-0">Order your <span class="fw-bold third-color-text">FINOVATE</span> Credit Card</p>
                                       <p class="card-text text-white mt-md-2 text-line-height">Get your card and start traveling. All your purchases earn <span class="fw-bold third-color-text">FINOVATE</span> Points, don't miss out!</p>
@@ -255,7 +259,7 @@
                                 <div class="card border-0 rounded-0 mb-3 hg-card" style="width: 100%;">
                                     <div class="row g-0">
                                       <div class="col-md-4">
-                                        <img src="./assets/commerce-sec-2.png" class="img-fluid rounded-0 img-position-me" alt="img-2-sec-2">
+                                        <img src="./web/assets/commerce-sec-2.png" class="img-fluid rounded-0 img-position-me" alt="img-2-sec-2">
                                       </div>
                                       <div class="col-md-8">
                                         <div class="card-body second-color-bg h-100 p-lg-4">
@@ -269,7 +273,7 @@
                                   <div class="card border-0 rounded-0 mb-3 hg-card" style="width: 100%;">
                                     <div class="row g-0">
                                       <div class="col-md-4">
-                                        <img src="./assets/credit-card-sec-2.png" class="img-fluid rounded-0 img-position-me" alt="img-3-sec-2">
+                                        <img src="./web/assets/credit-card-sec-2.png" class="img-fluid rounded-0 img-position-me" alt="img-3-sec-2">
                                       </div>
                                       <div class="col-md-8">
                                         <div class="card-body second-color-bg h-100 p-lg-4">
@@ -408,7 +412,7 @@
                                 <div class="container py-4">
                                     <article class="postcard first-color-bg--card-home-sec blue" id="moneyTransfer">
                                         <a class="postcard__img_link" href="#">
-                                            <img class="postcard__img" src="./assets/money-transfer.jpg" alt="Money transfer" />
+                                            <img class="postcard__img" src="./web/assets/money-transfer.jpg" alt="Money transfer" />
                                         </a>
                                         <div class="postcard__text">
                                             <h1 class="postcard__title blue">Money Transfer</h1>
@@ -429,7 +433,7 @@
                                     </article>
                                     <article class="postcard first-color-bg--card-home-sec blue" id="bankDeposit">
                                         <a class="postcard__img_link" href="#">
-                                            <img class="postcard__img" src="./assets/deposit-img.png" alt="Deposit money" />	
+                                            <img class="postcard__img" src="./web/assets/deposit-img.png" alt="Deposit money" />	
                                         </a>
                                         <div class="postcard__text">
                                             <h1 class="postcard__title red">Bank Deposit</h1>
@@ -450,7 +454,7 @@
                                     </article>
                                     <article class="postcard first-color-bg--card-home-sec blue" id="applyLoan">
                                         <a class="postcard__img_link" href="#">
-                                            <img class="postcard__img" src="./assets/apply-loan-img.jpg" alt="Apply loan" />
+                                            <img class="postcard__img" src="./web/assets/apply-loan-img.jpg" alt="Apply loan" />
                                         </a>
                                         <div class="postcard__text">
                                             <h1 class="postcard__title blue">Apply Loan</h1>
@@ -471,7 +475,7 @@
                                     </article>
                                     <article class="postcard first-color-bg--card-home-sec blue" id="onlinePayment">
                                         <a class="postcard__img_link" href="#">
-                                            <img class="postcard__img" src="./assets/phone-transfer.jpg" alt="Payment online" />	
+                                            <img class="postcard__img" src="./web/assets/phone-transfer.jpg" alt="Payment online" />	
                                         </a>
                                         <div class="postcard__text">
                                             <h1 class="postcard__title red">Online Payment</h1>
@@ -492,7 +496,7 @@
                                     </article>
                                     <article class="postcard first-color-bg--card-home-sec blue" id="prepaidCard">
                                         <a class="postcard__img_link" href="#">
-                                            <img class="postcard__img" src="./assets/prepaid-card-img.jpg" alt="Prepaid cards" />
+                                            <img class="postcard__img" src="./web/assets/prepaid-card-img.jpg" alt="Prepaid cards" />
                                         </a>
                                         <div class="postcard__text">
                                             <h1 class="postcard__title blue">Prepaid Card</h1>
@@ -512,7 +516,7 @@
                                     </article>
                                     <article class="postcard first-color-bg--card-home-sec blue" id="payBill">
                                         <a class="postcard__img_link" href="#">
-                                            <img class="postcard__img" src="./assets/pay-bill-img.jpg" alt="Pay a bill" />	
+                                            <img class="postcard__img" src="./web/assets/pay-bill-img.jpg" alt="Pay a bill" />	
                                         </a>
                                         <div class="postcard__text">
                                             <h1 class="postcard__title red">Pay a Bill</h1>
@@ -550,6 +554,7 @@
         ></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="./js/login.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        <script src="./web/js/login.js"></script>
     </body>
 </html>

@@ -91,6 +91,16 @@ createApp({
                 .then(() => {
                     console.log("signed out!!!");
                     localStorage.setItem("isAuthenticated", JSON.stringify(this.isAuthenticated = false));
+                    Swal.fire({
+                        title: "Closed session",
+                        text: "successful logout!",
+                        customClass: {
+                            popup: 'text-center'
+                        },
+                        icon: "success",
+                        color: "#fff",
+                        background: "#1c2754",
+                    });
                 });
         },
         manageAccess() {
