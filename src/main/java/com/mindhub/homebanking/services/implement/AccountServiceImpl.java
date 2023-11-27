@@ -62,6 +62,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account getAccountOfClientWithGreaterBalance(Client client) {
+        return accountRepository.findTopByClientOrderByBalanceDesc(client);
+    }
+
+    @Override
     public void deletedAccountById(Long id) {
         accountRepository.softDeleteAccountById(id);
     }

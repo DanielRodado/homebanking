@@ -1,12 +1,12 @@
 package com.mindhub.homebanking.dto;
 
-public class PayOfCardApplicationDTO {
+public class PayWithCardApplicationDTO {
 
     private String numberCard, cvvCard, description;
 
     private Double amount;
 
-    public PayOfCardApplicationDTO() {
+    public PayWithCardApplicationDTO() {
     }
 
     public String getNumberCard() {

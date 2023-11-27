@@ -3,8 +3,6 @@ package com.mindhub.homebanking.services;
 import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
@@ -26,6 +24,8 @@ public interface AccountService {
     AccountDTO getAccountDTOById(Long id);
 
     Account getAccountByNumber(String number);
+
+    Account getAccountOfClientWithGreaterBalance(Client client);
 
     void deletedAccountById(Long id);
 

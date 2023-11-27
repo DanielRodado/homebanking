@@ -27,4 +27,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Modifying
     @Query("UPDATE Account a SET a.isDeleted = true WHERE a.id = :accountId")
     void softDeleteAccountById(@Param("accountId") Long id);
+
+    Account findTopByClientOrderByBalanceDesc(Client client);
+
 }

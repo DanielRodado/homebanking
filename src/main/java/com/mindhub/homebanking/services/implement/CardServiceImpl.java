@@ -9,6 +9,8 @@ import com.mindhub.homebanking.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class CardServiceImpl implements CardService {
 
@@ -18,6 +20,11 @@ public class CardServiceImpl implements CardService {
     @Override
     public Card getCardById(Long id) {
         return cardRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Client getClientByNumberCard(String number) {
+        return cardRepository.getClientByNumberCard(number);
     }
 
     @Override
@@ -40,6 +47,21 @@ public class CardServiceImpl implements CardService {
     @Override
     public boolean existsCardByIdAndClient(Long id, Client client) {
         return cardRepository.existsByIdAndClient(id, client);
+    }
+
+    @Override
+    public boolean existsCardByCvv(String cvv) {
+        return cardRepository.existsByCvv(cvv);
+    }
+
+    @Override
+    public boolean existsCardByNumberAndCvv(String number, String cvv) {
+        return cardRepository.existsByNumberAndCvv(number, cvv);
+    }
+
+    @Override
+    public boolean existsCardByNumberAndThruDateBeforeToday(String number) {
+        return cardRepository.existsByNumberAndThruDateBefore(number, LocalDate.now());
     }
 
     @Override
