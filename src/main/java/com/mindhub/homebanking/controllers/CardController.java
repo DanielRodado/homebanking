@@ -90,19 +90,19 @@ public class CardController {
     public ResponseEntity<String> payWithCard(@RequestBody PayWithCardApplicationDTO payWithCardApp) {
 
         if (!cardService.existsCardByNumber(payWithCardApp.getNumberCard())) {
-            return new ResponseEntity<>("The card number entered does not exist.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The card data entered are incorrect.", HttpStatus.FORBIDDEN);
         }
 
         if (cardService.existsCardByNumberAndThruDateBeforeToday(payWithCardApp.getNumberCard())) {
-            return new ResponseEntity<>("The card provided is expired.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The card data entered are incorrect.", HttpStatus.FORBIDDEN);
         }
 
         if (!cardService.existsCardByCvv(payWithCardApp.getCvvCard())) {
-            return new ResponseEntity<>("The card security number (CVV) entered does not exist.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The card data entered are incorrect.", HttpStatus.FORBIDDEN);
         }
 
         if (!cardService.existsCardByNumberAndCvv(payWithCardApp.getNumberCard(), payWithCardApp.getCvvCard())) {
-            return new ResponseEntity<>("The security number (CVV) is not linked to the card.", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The card data entered are incorrect.", HttpStatus.FORBIDDEN);
         }
 
         Account account =
