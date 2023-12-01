@@ -31,8 +31,6 @@ public interface AccountService {
 
     byte countAccountsByClientAndIsDeleted(Client client, Boolean isDeleted);
 
-    byte countAccountsByIdAndClient(Long id, Client client);
-
     boolean existsAccountById(Long id);
 
     boolean existsAccountByNumber(String number);
