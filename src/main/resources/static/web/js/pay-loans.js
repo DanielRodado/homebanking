@@ -16,6 +16,7 @@ createApp({
 
             isAdmin: null,
             loading: true,
+            loader: false,
         };
     },
 
@@ -43,7 +44,10 @@ createApp({
                 title: "Are you sure?",
                 text: `You wish to pay ${this.payments} of the loan '${
                     this.loanSelected.name
-                }' installments at a price of $${this.amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}?`,
+                }' installments at a price of $${this.amount.replace(
+                    /\B(?=(\d{3})+(?!\d))/g,
+                    ","
+                )}?`,
                 customClass: {
                     popup: "text-center",
                 },
@@ -56,28 +60,38 @@ createApp({
                 confirmButtonText: "Yes, pay!",
             }).then((result) => {
                 if (result.isConfirmed) {
+                    this.loader = true;
                     const obj = {
                         clientLoanId: this.idLoanSelected,
                         payments: this.payments || 0,
                         amountToPay: parseFloat(this.amount) || 0.0,
-                        accountNumber: this.fromAccount,
+                        accountNumber: this.fromAccount
                     };
                     axios
                         .post("/api/loans/pay", obj)
-                        .then(()=>  setTimeout(() => location.pathname = "/web/pages/accounts.html", 1200))
-                        .catch((error) =>
-                            this.messageError(error.response.data)
-                        );
-                    Swal.fire({
-                        title: "Paid for!!",
-                        text: "The payment was successful!",
-                        customClass: {
-                            popup: "text-center",
-                        },
-                        icon: "success",
-                        color: "#fff",
-                        background: "#1c2754",
-                    });
+                        .then(() => {
+                            this.loader = false;
+                            Swal.fire({
+                                title: "Paid for!!",
+                                text: "The payment was successful!",
+                                customClass: {
+                                    popup: "text-center",
+                                },
+                                icon: "success",
+                                color: "#fff",
+                                background: "#1c2754",
+                            });
+                            setTimeout(
+                                () =>
+                                    (location.pathname =
+                                        "/web/pages/accounts.html"),
+                                1850
+                            );
+                        })
+                        .catch((error) => {
+                            this.loader = false;
+                            this.messageError(error.response.data);
+                        });
                 }
             });
         },
@@ -93,7 +107,6 @@ createApp({
         },
         logout() {
             axios.post("/api/logout").then(() => {
-                console.log("signed out!!!");
                 localStorage.setItem(
                     "isAuthenticated",
                     JSON.stringify((this.isAuthenticated = false))
@@ -111,7 +124,8 @@ createApp({
         },
         changeAmount() {
             this.paymentAmout =
-                (this.loanSelected.amount-this.loanSelected.amountMade) / this.loanSelected.payments;
+                (this.loanSelected.amount - this.loanSelected.amountMade) /
+                this.loanSelected.payments;
         },
         amountChangePayments() {
             this.amount = (this.paymentAmout * parseInt(this.payments)).toFixed(

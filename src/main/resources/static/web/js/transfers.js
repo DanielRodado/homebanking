@@ -14,7 +14,8 @@ createApp({
             optionsNumber: { style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 },
 
             isAdmin: null,
-            loading: true
+            loading: true,
+            loader: false
         };
     },
 
@@ -64,22 +65,33 @@ createApp({
                 confirmButtonText: "Yes, trasfer!",
             }).then((result) => {
                 if (result.isConfirmed) {
+                    this.loader = true
                     axios
                         .post(
                             "/api/clients/current/transactions",
                             `amount=${this.amount}&description=${this.description}&numberOfAccountFrom=${this.selectedAccountFrom}&numberOfAccountTo=${this.selectedAccountTo}`
                         )
-
-                        .catch((error) =>
+                        .then(() => {
+                            this.loader = false
+                            Swal.fire({
+                                title: "Done!",
+                                text: `$${this.amount.toLocaleString()} were transferred to ${this.selectedAccountTo}`,
+                                icon: "success",
+                                color: "#fff",
+                                background: "#1c2754",
+                            });
+                        })
+                        .catch((error) => {
+                            this.loader = false
                             this.messageError(error.response.data)
-                        );
-                    Swal.fire({
-                        title: "Done!",
-                        text: `$${this.amount.toLocaleString()} were transferred to ${this.selectedAccountTo}`,
-                        icon: "success",
-                        color: "#fff",
-                        background: "#1c2754",
-                    });
+                        })
+                        .finally(() => {
+                            this.amount = null;
+                            this.description = "";
+                            if (!this.accounts.some(account => account.number === this.selectedAccountTo)) {
+                                this.selectedAccountTo = "";
+                            }
+                        });
                 }
             });
         },
@@ -95,7 +107,6 @@ createApp({
         },
         logout() {
             axios.post("/api/logout").then(() => {
-                console.log("signed out!!!");
                 localStorage.setItem(
                     "isAuthenticated",
                     JSON.stringify((this.isAuthenticated = false))

@@ -8,6 +8,7 @@ createApp({
             typeAccount: "",
             idAccountDelete: 0,
             isAdmin: null,
+            loader: false,
         };
     },
 
@@ -51,6 +52,7 @@ createApp({
                 confirmButtonText: "Yes, create!",
             }).then((result) => {
                 if (result.isConfirmed) {
+                    this.loader = true;
                     axios
                         .post(
                             "/api/clients/current/accounts",
@@ -58,6 +60,11 @@ createApp({
                         )
                         .then(() => {
                             this.getClients();
+
+                            this.loader = false;
+
+                            $('#modelAddAccount').modal('hide');
+
                             Swal.fire({
                                 title: "Done!",
                                 text: `'${this.typeAccount}' type account successfully created!`,
@@ -70,8 +77,8 @@ createApp({
                             });
                         })
                         .catch((error) => {
-                            console.log(error);
-                            this.messageError(error.response.data)
+                            this.loader = false;
+                            this.messageError(error.response.data);
                         });
                 }
             });
@@ -92,12 +99,19 @@ createApp({
                 confirmButtonText: "Yes, delete!",
             }).then((result) => {
                 if (result.isConfirmed) {
+                    this.loader = true;
                     axios
                         .patch(
                             "/api/clients/current/accounts/delete",
-                            `AccountId=${this.idAccountDelete}`
+                            `accountId=${this.idAccountDelete}`
                         )
                         .then(() => {
+                            this.getClients();
+
+                            this.loader = false;
+
+                            $('#modalDeleteAccount').modal('hide');
+
                             Swal.fire({
                                 title: "Account deleted!",
                                 text: "Account successfully deleted.",
@@ -108,11 +122,11 @@ createApp({
                                 color: "#fff",
                                 background: "#1c2754",
                             });
-                            this.getClients();
                         })
-                        .catch((error) =>
-                            this.messageError(error.response.data)
-                        );
+                        .catch((error) => {
+                            this.loader = false;
+                            this.messageError(error.response.data);
+                        });
                 }
             });
         },

@@ -90,7 +90,7 @@
                   <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Cards</h2>
                 </div>
             </header>
-            <main class="flex-grow-1 separation position-relative">
+            <main class="flex-grow-1 separation position-relative" :class="{'background-blur': loader}">
                 <div class="dropdown position-absolute top-0 ms-3 mt-5">
                     <button class="btn dropdown-toggle five-color-bg fw-bold text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Cards Options
@@ -102,7 +102,7 @@
                                 <i class="bi bi-plus-circle third-color-text fw-bold"></i>
                             </a>
                         </li>
-                        <li v-if="cards.length >= 1">
+                        <li v-if="cardsFiltered.length >= 1">
                             <button type="button" class="btn dropdown-item d-flex justify-content-between"
                                 data-bs-toggle="modal" data-bs-target="#modalDeleteCard"
                                 >
@@ -125,7 +125,7 @@
                         
                         <ul class="second-color-bg">
                             <li class="tab-content tab-content-first typography d-flex flex-wrap justify-content-center align-items-center gap-5">
-                                <h4 v-if="cardsFiltered.length === 0" class="text-white">You do not have DEBIT cards</h4>
+                                <h4 v-if="cardsFiltered.length === 0" class="text-white text-center">You do not have DEBIT cards</h4>
                                 <div v-else class="card--cards" v-for="card of cardsFiltered">
                                     <div class="card-inner">
                                         <div class="front--cards" :style="colorCards(card)">
@@ -173,7 +173,7 @@
                             </li>
                             
                             <li class="tab-content tab-content-2 typography d-flex flex-wrap justify-content-center align-items-center gap-5">
-                                <h4 v-if="cardsFiltered.length === 0" class="text-white">You do not have CREDIT cards</h4>
+                                <h4 v-if="cardsFiltered.length === 0" class="text-white text-center">You do not have CREDIT cards</h4>
                                 <div class="card--cards" v-for="card of cardsFiltered">
                                     <div class="card-inner">
                                         <div class="front--cards" :style="colorCards(card)">
@@ -221,7 +221,7 @@
                             </li>
                             
                             <li class="tab-content tab-content-3 typography d-flex flex-wrap justify-content-center align-items-center gap-5">
-                                <h4 v-if="cardsFiltered.length === 0" class="text-white">No cards</h4>
+                                <h4 v-if="cardsFiltered.length === 0" class="text-white text-center">No cards</h4>
                                 <div class="card--cards" v-for="card of cardsFiltered">
                                     <div class="card-inner">
                                         <div class="front--cards" :style="colorCards(card)">
@@ -270,7 +270,6 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <div class="modal fade" id="modalDeleteCard" tabindex="-1" aria-labelledby="modalDeleteCardLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -284,9 +283,8 @@
                                     <label v-for="card of cardsFiltered">
                                         <input class="radio-input-create-account" type="radio" name="deleteCard" :value="card.id" v-model="idCardDelete">
                                             <span class="radio-tile-create-acc bg-transparent w-auto p-2">
-                                                <span class="radio-icon-create-acc">
-                                                    <i :class="{'bi bi-credit-card-2-front-fill fs-5 text-white': card.type === 'CREDIT', 
-                                                                 'bi bi-credit-card-fill fs-5 text-white': card.type === 'DEBIT' }"></i>
+                                                <span class="radio-icon-create-acc text-white fw-bold">
+                                                    {{card.type}} - {{card.color}}
                                                 </span>
                                                 <span class="radio-label-create-acc text-white fw-bold fs-6">{{card.number}}</span>
                                             </span>
@@ -301,6 +299,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div v-if="loader" class="spinner-container">
+                    <div class="loader"></div>
                 </div>
             </main>
             <div v-if="loading" class="loader-container">
@@ -317,9 +318,10 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"
         ></script>
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../js/cards.js"></script>
     </body>
 </html>

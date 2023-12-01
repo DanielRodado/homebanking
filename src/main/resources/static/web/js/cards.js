@@ -7,11 +7,12 @@ createApp({
             cardsFiltered: [],
             loading: true,
             cards: false,
-            valueCard: "",
+            valueCard: "ALL",
             dateNow: null,
 
             idCardDelete: 0,
             isAdmin: null,
+            loader: false
         };
     },
 
@@ -27,6 +28,7 @@ createApp({
                     this.cards = data.cards;
                     this.isAdmin = data.admin;
                     this.cardsFiltered = data.cards;
+                    this.filterCards();
                     this.loading = false;
                 })
                 .catch((error) => console.log(error));
@@ -38,26 +40,26 @@ createApp({
                 this.cardsFiltered = this.cards.filter(
                     (card) => card.type === this.valueCard
                 );
-            +console.log(this.cardsFiltered);
         },
         colorCards(card) {
             if (card.color === "GOLD")
-              return {
-                background: "linear-gradient(222deg, #D17D25 30%, #F5D628 70%)"
-              };
+                return {
+                    background:
+                        "linear-gradient(222deg, #D17D25 30%, #F5D628 70%)",
+                };
             else if (card.color === "SILVER")
-              return {
-                background: "linear-gradient(226deg, #C0C1C3 40%, #737575 70%)"
-              };
+                return {
+                    background:
+                        "linear-gradient(226deg, #C0C1C3 40%, #737575 70%)",
+                };
             else if (card.color === "TITANIUM")
-              return {
-                background: "linear-gradient(226deg, #002E68 40%, #01000B 70%)"
-              };
-          }
-          ,
+                return {
+                    background:
+                        "linear-gradient(226deg, #002E68 40%, #01000B 70%)",
+                };
+        },
         logout() {
             axios.post("/api/logout").then(() => {
-                console.log("signed out!!!");
                 localStorage.setItem(
                     "isAuthenticated",
                     JSON.stringify((this.isAuthenticated = false))
@@ -88,12 +90,19 @@ createApp({
                 confirmButtonText: "Yes, delete!",
             }).then((result) => {
                 if (result.isConfirmed) {
+                    this.loader = true;
                     axios
                         .patch(
                             "/api/clients/current/cards/delete",
                             `cardId=${this.idCardDelete}`
                         )
                         .then(() => {
+                            this.getClients();
+
+                            this.loader = false;
+
+                            $('#modalDeleteCard').modal('hide');
+
                             Swal.fire({
                                 title: "Card deleted!",
                                 text: "Card successfully deleted.",
@@ -104,11 +113,12 @@ createApp({
                                 color: "#fff",
                                 background: "#1c2754",
                             });
-                            this.getClients();
                         })
-                        .catch((error) =>
-                            this.messageError(error.response.data)
-                        );
+                        .catch((error) => {
+                            this.loader = false;
+                            $('#modalDeleteCard').modal('hide');
+                            this.messageError(error.response.data);
+                        });
                 }
             });
         },
@@ -124,10 +134,3 @@ createApp({
         },
     },
 }).mount("#app");
-
-/* totalBalance() {
-      return this.accounts.reduce(
-        (total, account) => total + account.balance,
-        0
-      );
-    }, */

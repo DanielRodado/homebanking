@@ -92,7 +92,7 @@
                 </div>
             </header>
             <main class="flex-grow-1">
-                <section class="first-color-bg pt-5 pb-5">
+                <section class="first-color-bg pt-5 pb-5" :class="{'background-blur': loader}">
                     <div class="container container--transfer second-color-bg pb-3 rounded-4 border-shadow-V1">
                         <form class="d-flex flex-column p-1 p-md-3">
                             <fieldset class="p-2">
@@ -159,6 +159,9 @@
                         </form>
                     </div>
                 </section>
+                <div v-if="loader" class="spinner-container">
+                    <div class="loader"></div>
+                </div>
             </main>
             <div v-if="loading" class="loader-container">
                 <div class="loader"></div>

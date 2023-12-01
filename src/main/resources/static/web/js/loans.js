@@ -14,7 +14,8 @@ createApp({
             amountIncrement: false,
 
             loading: true,
-            isAdmin: null
+            isAdmin: null,
+            loader: false
         };
     },
 
@@ -41,6 +42,7 @@ createApp({
 
                     this.paymentsOfLoan = this.loans[0].payments;
                     this.loanById = this.loans[0];
+                    this.loading = false;
                 })
                 .catch((error) => console.log(error));
         },
@@ -50,12 +52,11 @@ createApp({
                     this.accounts = data;
                     this.accounts.sort((a, b) => b.id - a.id);
                     this.selectedAccountTo = this.accounts[0].number;
-
-                    this.loading = false;
                 })
                 .catch((error) => console.log(error));
         },
         postLoan() {
+            this.loader = true;
             const newLoan = {
                 idLoan: this.loanId,
                 amount: this.amount || 0,
@@ -65,12 +66,27 @@ createApp({
             axios
                 .post("/api/loans", newLoan)
                 .then(() => {
+                    this.loader = false;
+
+                    $('#detailsLoan').modal('hide');
+
+                    Swal.fire({
+                        title: "Approved plan!",
+                        text: `The '${this.loanById.name}' loan has been approved!`,
+                        icon: "success",
+                        color: "#fff",
+                        background: "#1c2754",
+                    });
                     setTimeout(
                         () => (location.pathname = "/web/pages/accounts.html"),
-                        2000
+                        1850
                     );
                 })
-                .catch((error) => this.messageError(error.response.data));
+                .catch((error) => {
+                    this.loader = false;
+                    $('#detailsLoan').modal('hide');
+                    this.messageError(error.response.data)
+                });
         },
         messageError(message) {
             Swal.fire({
@@ -85,7 +101,6 @@ createApp({
         },
         logout() {
             axios.post("/api/logout").then(() => {
-                console.log("signed out!!!");
                 localStorage.setItem(
                     "isAuthenticated",
                     JSON.stringify((this.isAuthenticated = false))
@@ -96,7 +111,7 @@ createApp({
         sendLoan() {
             Swal.fire({
                 title: "Are you sure?",
-                text: "Do you want to apply for this loan?",
+                text: `Would you like to apply for this '${this.loanById.name}' loan?`,
                 customClass: {
                     popup: 'text-center'
                 },
@@ -110,13 +125,6 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.postLoan();
-                    Swal.fire({
-                        title: "Approved plan!",
-                        text: "The requested loan has been approved.",
-                        icon: "success",
-                        color: "#fff",
-                        background: "#1c2754",
-                    });
                 }
             });
         },

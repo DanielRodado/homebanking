@@ -12,7 +12,9 @@ createApp({
             inputPasswordRegister: "",
 
             isAuthenticated: false,
-            isAuthenticatedVefified: false
+            isAuthenticatedVefified: false,
+
+            loadingLogin: false
         };
     },
 
@@ -22,6 +24,7 @@ createApp({
 
     methods: {
         login() {
+            this.loadingLogin = true;
             axios
                 .post(
                     "/api/login",
@@ -33,6 +36,7 @@ createApp({
                     location.pathname = "/web/pages/accounts.html";
                 })
                 .catch((error) => {
+                    this.loadingLogin = false;
                     console.log(error);
                     if (this.inputEmail === "" || this.inputPassword === "") {
                         Swal.fire({
@@ -44,6 +48,7 @@ createApp({
                             confirmButtonColor: "#17acc9",
                         });
                     } else {
+                        this.inputPassword = "";
                         Swal.fire({
                             icon: "error",
                             title: "Error logging in",
@@ -56,6 +61,7 @@ createApp({
                 });
         },
         register() {
+            this.loadingLogin = true;
             const objRegister = {
                 firstName: this.inputNameRegister,
                 lastName: this.inputLastNameRegister,
@@ -82,7 +88,8 @@ createApp({
                         .catch((error) => console.log(error));
                 })
                 .catch((error) => {
-                        this.messageError(error.response.data);
+                    this.loadingLogin = false;
+                    this.messageError(error.response.data);
                     }
                 );
         },

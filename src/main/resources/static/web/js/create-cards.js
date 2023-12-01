@@ -9,7 +9,8 @@ createApp({
             date: new Date(),
             loading: true,
             sendCard: false,
-            isAdmin: null
+            isAdmin: null,
+            loader: false,
         };
     },
 
@@ -47,12 +48,21 @@ createApp({
                 confirmButtonText: "Yes, create!",
             }).then((result) => {
                 if (result.isConfirmed) {
+                    this.loader = true;
                     axios
                         .post(
                             "/api/clients/current/cards",
                             `cardColor=${this.cardColor}&cardType=${this.cardType}`
                         )
                         .then(() => {
+                            this.loader = false;
+                            Swal.fire({
+                                title: "Created!",
+                                text: `Successfully created ${this.cardColor}-colored, ${this.cardType}-type card.`,
+                                icon: "success",
+                                color: "#fff",
+                                background: "#1c2754",
+                            });
                             setTimeout(
                                 () =>
                                     (location.pathname =
@@ -61,31 +71,27 @@ createApp({
                             );
                         })
                         .catch((error) => {
-                            console.error("Error:", error);
+                            this.loader = false;
                             this.messageError(error.response.data);
                         });
-                    Swal.fire({
-                        title: "Created!",
-                        text: "Card successfully created.",
-                        icon: "success",
-                        color: "#fff",
-                        background: "#1c2754",
-                    });
                 }
             });
         },
         colorCards() {
             if (this.cardColor === "GOLD")
                 return {
-                    background: "linear-gradient(222deg, #D17D25 30%, #F5D628 70%)",
+                    background:
+                        "linear-gradient(222deg, #D17D25 30%, #F5D628 70%)",
                 };
             else if (this.cardColor === "SILVER")
                 return {
-                    background: "linear-gradient(226deg, #C0C1C3 40%, #737575 70%)",
+                    background:
+                        "linear-gradient(226deg, #C0C1C3 40%, #737575 70%)",
                 };
             else if (this.cardColor === "TITANIUM")
                 return {
-                    background: "linear-gradient(226deg, #002E68 40%, #01000B 70%)",
+                    background:
+                        "linear-gradient(226deg, #002E68 40%, #01000B 70%)",
                 };
         },
         logout() {

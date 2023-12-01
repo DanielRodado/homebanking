@@ -90,7 +90,7 @@
                   <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Accounts</h2>
                 </div>
             </header>
-            <main class="flex-grow-1">
+            <main class="flex-grow-1" :class="{'background-blur': loader}">
                 <section class="first-color-bg pt-5 position-relative">
                     <div class="dropdown ms-3 mb-5 mb-md-0">
                         <button class="btn dropdown-toggle five-color-bg fw-bold text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -99,7 +99,7 @@
                         <ul class="dropdown-menu w-25">
                             <li>
                                 <button v-if="client.accounts.length < 3" type="button" class="btn dropdown-item d-flex justify-content-between"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    data-bs-toggle="modal" data-bs-target="#modelAddAccount"
                                      >
                                      <span class="fw-bolder">Add Account</span>
                                      <i class="bi bi-plus-circle third-color-text fw-bold"></i>
@@ -168,8 +168,11 @@
                     </div>
                     
                 </section>
+                <div v-if="loader" class="spinner-container">
+                    <div class="loader"></div>
+                </div>
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modelAddAccount" tabindex="-1" aria-labelledby="modelAddAccountLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content four-color-bg">
                             <div class="modal-header text-white">
@@ -215,7 +218,7 @@
                                 <div class="radio-inputs-create-account flex-wrap">
                                     <label v-for="account of client.accounts.sort((a, b) => b.id - a.id)">
                                         <input class="radio-input-create-account w-auto" type="radio" name="accountDelete" :value="account.id" v-model="idAccountDelete">
-                                            <span class="radio-tile-create-acc bg-transparent w-auto p-2">
+                                            <span class="radio-tile-create-acc bg-transparent w-auto p-2" style="min-width: 7rem;">
                                                 <span class="radio-icon-create-acc">
                                                     <i :class="{'bi bi-credit-card-2-front-fill fs-5 text-white': account.type === 'SAVINGS', 
                                                                  'bi bi-credit-card-fill fs-5 text-white': account.type === 'CHECKINGS' }"></i>
@@ -249,9 +252,10 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"
         ></script>
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <script src="../js/accounts.js"></script>
     </body>
 </html>

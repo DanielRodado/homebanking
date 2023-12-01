@@ -91,7 +91,7 @@
                 </div>
             </header>
             <main class="flex-grow-1">
-                <section class="first-color-bg pt-5 pb-5">
+                <section class="first-color-bg pt-5 pb-5" :class="{'background-blur': loader}">
                     <div class="container container--created-card four-color-bg pb-3">
                         <div class="row pt-3">
                             <div class="card-ilustration col-12 col-xl-6 mb-4">
@@ -177,6 +177,9 @@
                         </div>
                     </div>
                 </section>
+                <div v-if="loader" class="spinner-container">
+                    <div class="loader"></div>
+                </div>
             </main>
             <div v-if="loading" class="loader-container">
                 <div class="loader"></div>

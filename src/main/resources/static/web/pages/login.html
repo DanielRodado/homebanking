@@ -25,7 +25,7 @@
     <body>
         <div id="app" class="overflow-y-hidden vh-100">
             <div class="container--login-v2">
-                <div class="section">
+                <div class="section" :class="{'background-blur': loadingLogin}">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-12 text-center align-self-center py-5">
@@ -148,6 +148,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div v-if="loadingLogin" class="spinner-container">
+                        <div class="loader"></div>
                     </div>
                 </div>
             </div>
