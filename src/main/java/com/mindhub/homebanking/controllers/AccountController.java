@@ -79,7 +79,7 @@ public class AccountController {
             return new ResponseEntity<>("The account you are trying to delete does not belong to you.", HttpStatus.FORBIDDEN);
         }
 
-        if (accountService.countAccountsByIdAndClient(accountId, client) == 1) {
+        if (accountService.countAccountsByClientAndIsDeleted(client, false) == 1) {
             return new ResponseEntity<>("You only have one account, you cannot delete it.", HttpStatus.FORBIDDEN);
         }
 
