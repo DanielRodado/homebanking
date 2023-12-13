@@ -24,4 +24,4 @@ This project is a mock banking application developed with the objective of learn
 - Convert clients to administrators through a small administrative form.
 
 ### Author:
-#### Daniel Rodado - Lead Developer - Full Stack Java Developer.
+#### Daniel Rodado - Lead Developer - Full Stack Java Web Developer.
