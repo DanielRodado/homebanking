@@ -14,7 +14,7 @@ createApp({
             optionsNumber: { style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2 },
 
             isAdmin: null,
-            loading: true
+            loading: true,
         };
     },
 
