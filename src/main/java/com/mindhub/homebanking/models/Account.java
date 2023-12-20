@@ -106,7 +106,6 @@ public class Account {
         transaction.setAccount(this);
         this.transactions.add(transaction);
     }
-
     @Override
     public String toString() {
         return "Account{" +
