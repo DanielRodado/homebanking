@@ -11,7 +11,7 @@ public class Client {
     // Properties
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name, lastName, email, password;
@@ -19,7 +19,7 @@ public class Client {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
 
-    // Constructors
+    // Methods Constructors
 
     public Client() {
     }
@@ -74,5 +74,17 @@ public class Client {
     public void addAccount(Account account) {
         this.accounts.add(account);
         account.setClient(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", accounts=" + accounts +
+                '}';
     }
 }

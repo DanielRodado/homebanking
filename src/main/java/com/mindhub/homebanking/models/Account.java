@@ -3,12 +3,16 @@ package com.mindhub.homebanking.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
 
+    // Properties
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String number;
@@ -21,8 +25,13 @@ public class Account {
 
     private Boolean isDeleted = false;
 
-    @ManyToOne()
+    @ManyToOne
     private Client client;
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private Set<Transaction> transactions = new HashSet<>();
+
+    // Methods Constructors
 
     public Account() {
     }
@@ -33,6 +42,8 @@ public class Account {
         this.balance = balance;
         this.accountType = accountType;
     }
+
+    // Accessory methods
 
     public Long getId() {
         return id;
@@ -84,5 +95,25 @@ public class Account {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    // Methods
+    public void addTransaction(Transaction transaction) {
+        this.transactions.add(transaction);
+        transaction.setAccount(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", creationDate=" + creationDate +
+                ", balance=" + balance +
+                ", accountType=" + accountType +
+                ", isDeleted=" + isDeleted +
+                ", client=" + client +
+                ", transactions=" + transactions +
+                '}';
     }
 }
