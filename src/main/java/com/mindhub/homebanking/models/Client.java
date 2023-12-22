@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Client {
@@ -18,6 +19,12 @@ public class Client {
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<ClientLoan> clientLoans = new HashSet<>();
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<Card> cards = new HashSet<>();
 
     // Methods Constructors
 
@@ -76,15 +83,18 @@ public class Client {
         account.setClient(this);
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", accounts=" + accounts +
-                '}';
+    public void addClientLoan(ClientLoan clientLoan) {
+        this.clientLoans.add(clientLoan);
+        clientLoan.setClient(this);
     }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+        card.setClient(this);
+    }
+
+    public Set<Loan> getLoans() {
+        return this.clientLoans.stream().map(clientLoan -> clientLoan.getLoan()).collect(Collectors.toSet());
+    }
+
 }

@@ -85,10 +85,6 @@ public class Account {
         return isDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
-    }
-
     public Client getClient() {
         return client;
     }
