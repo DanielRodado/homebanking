@@ -21,7 +21,7 @@ public class Account {
 
     private Double balance;
 
-    private AccountType accountType;
+    private AccountType type;
 
     private Boolean isDeleted = false;
 
@@ -40,7 +40,7 @@ public class Account {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
-        this.accountType = accountType;
+        this.type = accountType;
     }
 
     // Accessory methods
@@ -73,12 +73,12 @@ public class Account {
         this.balance = balance;
     }
 
-    public AccountType getAccountType() {
-        return accountType;
+    public AccountType getType() {
+        return type;
     }
 
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
+    public void setType(AccountType type) {
+        this.type = type;
     }
 
     public Boolean getDeleted() {
@@ -91,6 +91,10 @@ public class Account {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
     }
 
     // Methods
@@ -106,7 +110,7 @@ public class Account {
                 ", number='" + number + '\'' +
                 ", creationDate=" + creationDate +
                 ", balance=" + balance +
-                ", accountType=" + accountType +
+                ", type=" + type +
                 ", isDeleted=" + isDeleted +
                 ", client=" + client +
                 ", transactions=" + transactions +

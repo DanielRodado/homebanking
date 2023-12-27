@@ -13,7 +13,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private TransactionType transactionType;
+    private TransactionType type;
 
     private Double amount;
 
@@ -32,7 +32,7 @@ public class Transaction {
     }
 
     public Transaction(TransactionType transactionType, Double amount, String description, LocalDateTime date, Double balanceAccountBeforeTransaction) {
-        this.transactionType = transactionType;
+        this.type = transactionType;
         this.amount = amount;
         this.description = description;
         this.date = date;
@@ -43,8 +43,8 @@ public class Transaction {
         return id;
     }
 
-    public TransactionType getTransactionType() {
-        return transactionType;
+    public TransactionType getType() {
+        return type;
     }
 
     public Double getAmount() {
@@ -91,7 +91,7 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", transactionType=" + transactionType +
+                ", type=" + type +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
                 ", date=" + date +
