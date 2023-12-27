@@ -7,11 +7,15 @@ import java.time.LocalDateTime;
 
 public class TransactionDTO {
 
+    // Properties
+
     private Long id;
     private TransactionType type;
     private Double amount, balanceAccountBeforeTransaction;
     private String description;
     private LocalDateTime date;
+
+    // Method Constructor
 
     public TransactionDTO(Transaction transaction) {
         this.id = transaction.getId();
@@ -21,6 +25,8 @@ public class TransactionDTO {
         this.description = transaction.getDescription();
         this.date = transaction.getDate();
     }
+
+    // Accessory methods
 
     public Long getId() {
         return id;

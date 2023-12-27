@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.DTO.ClientDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,5 +11,6 @@ import java.util.Set;
 @RequestMapping("/api")
 public class ClientController {
 
-    /*@GetMapping("/clients")*/
+    /*@GetMapping("/clients")
+    public Set<ClientDTO> getAllClientsDTO*/
 }

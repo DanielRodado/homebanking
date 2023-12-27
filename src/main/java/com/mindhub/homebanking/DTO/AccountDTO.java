@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 public class AccountDTO {
 
+    // Properties
+
     private Long id;
 
     private String number;
@@ -21,6 +23,8 @@ public class AccountDTO {
 
     private Set<TransactionDTO> transactions;
 
+    // Method Constructor
+
     public AccountDTO(Account account) {
         this.id = account.getId();
         this.number = account.getNumber();
@@ -32,6 +36,8 @@ public class AccountDTO {
                 .map(TransactionDTO::new)
                 .collect(Collectors.toSet());
     }
+
+    // Accessory methods
 
     public Long getId() {
         return id;

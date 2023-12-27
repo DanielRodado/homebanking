@@ -14,6 +14,12 @@ public class ClientLoan {
 
     private int payments;
 
+    private int paymentsMade = 0;
+
+    private Double amountMade = 0.0;
+
+    private Boolean isDeleted = false;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Client client;
 
@@ -50,6 +56,30 @@ public class ClientLoan {
 
     public void setPayments(int payments) {
         this.payments = payments;
+    }
+
+    public int getPaymentsMade() {
+        return paymentsMade;
+    }
+
+    public void setPaymentsMade(int paymentsMade) {
+        this.paymentsMade = paymentsMade;
+    }
+
+    public Double getAmountMade() {
+        return amountMade;
+    }
+
+    public void setAmountMade(Double amountMade) {
+        this.amountMade = amountMade;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     public Client getClient() {

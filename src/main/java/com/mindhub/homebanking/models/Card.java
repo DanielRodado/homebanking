@@ -38,6 +38,11 @@ public class Card {
 
     // Accessory Methods
 
+
+    public Long getId() {
+        return id;
+    }
+
     public String getCardHolder() {
         return cardHolder;
     }
