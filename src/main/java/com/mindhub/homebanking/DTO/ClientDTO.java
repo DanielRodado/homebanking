@@ -25,7 +25,7 @@ public class ClientDTO {
 
     public ClientDTO(Client client) {
         this.id = client.getId();
-        this.firstName = client.getName();
+        this.firstName = client.getFirstName();
         this.lastName = client.getLastName();
         this.email = client.getEmail();
         this.isAdmin = client.getAdmin();

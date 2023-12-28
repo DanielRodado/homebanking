@@ -26,6 +26,7 @@ public class Account {
     private Boolean isDeleted = false;
 
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)

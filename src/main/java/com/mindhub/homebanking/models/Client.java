@@ -15,7 +15,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name, lastName, email, password;
+    private String firstName, lastName, email, password;
 
     private Boolean isAdmin;
 
@@ -34,7 +34,7 @@ public class Client {
     }
 
     public Client(String name, String lastName, String email, String password, Boolean isAdmin) {
-        this.name = name;
+        this.firstName = name;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
@@ -47,12 +47,12 @@ public class Client {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {

@@ -2,6 +2,7 @@ package com.mindhub.homebanking.models;
 
 import jakarta.persistence.*;
 
+@Entity
 public class ClientLoan {
 
     // Properties

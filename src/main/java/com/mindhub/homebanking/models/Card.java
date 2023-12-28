@@ -19,6 +19,7 @@ public class Card {
     private Boolean isDeleted = false;
 
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
     // Methods Constructors
