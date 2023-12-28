@@ -1,7 +1,7 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.DTO.ClientDTO;
-import com.mindhub.homebanking.services.ClientServices;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import java.util.Set;
 public class ClientController {
 
     @Autowired
-    private ClientServices clientServices;
+    private ClientService clientServices;
 
     @GetMapping("/clients")
     public Set<ClientDTO> getAllClientsDTO() {
