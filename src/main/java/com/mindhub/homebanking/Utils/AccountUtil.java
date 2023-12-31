@@ -1,5 +1,7 @@
 package com.mindhub.homebanking.Utils;
 
+import com.mindhub.homebanking.services.AccountService;
+
 public final class AccountUtil {
 
     public static int generateRandomNumber(int min, int max) {
@@ -14,6 +16,14 @@ public final class AccountUtil {
             accountNumber.append(generateRandomNumber(0, 9));
         }
         return "VIN-" + accountNumber;
+    }
+
+    public static String verifiedNumberAccountNotRepeatDB(AccountService accountService) {
+        String accountNumber;
+        do {
+            accountNumber = generateAccountNumber();
+        } while (accountService.existsAccountByNumber("VIN-" + accountNumber));
+        return accountNumber;
     }
 
 }
