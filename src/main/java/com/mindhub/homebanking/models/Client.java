@@ -101,6 +101,10 @@ public class Client {
 
     // Methods
 
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
     public void addAccount(Account account) {
         this.accounts.add(account);
         account.setClient(this);
