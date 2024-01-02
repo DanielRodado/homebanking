@@ -26,9 +26,10 @@ public class SecurityConfig {
                                 "/web/css/**", "/web/js/**", "/web/assets/**").permitAll()
                         .requestMatchers("/rest/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/clients", "/api/clients/{id}",
-                                "/api/loans/create", "/api/accounts", "/api/accounts/**").hasAuthority("ADMIN")
+                                "/api/accounts", "/api/accounts/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/h2-console/**", "/web/pages/manager.html",
                                 "/web/pages/admin-loan.html").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/loans/create").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/api/clients/admin").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/web/pages/**", "/api/clients/current/**", "/api/loans").hasAuthority("CLIENT")
                         .requestMatchers(HttpMethod.POST,"/api/clients/current/**", "/api/loans", "/api/loans/pay").hasAuthority("CLIENT")
