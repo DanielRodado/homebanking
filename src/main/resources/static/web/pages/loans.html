@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FINOVATE - Loan</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="shortcut icon" href="../assets/logo-favicon.png" type="image/x-icon">
+        <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/styles.css">
+    </head>
+    <body>
+        <div id="app" class="app d-flex flex-column">
+            {{changeValuePayments}} {{changeTypeLoan}} {{maxAmount}}
+            <header>
+                <div class="header-contain-create-card d-flex flex-column align-items-center justify-content-center">
+                  <div class="bg-contain"></div>
+                  <nav class="navbar navbar-expand-md header-nav w-100">
+                      <div class="container-fluid container--mod">
+                          <a class="navbar-brand text-white fs-4" href="../../index.html"
+                              ><img src="../assets/logo-page.png" class="logo d-none d-sm-inline-block" alt="logo">
+                              <img src="../assets/logo-favicon.png" class="logo-sm d-sm-none" alt="logo">
+                              <h1 class="d-none">FINOVATE</h1>
+                              </a
+                          >
+                          <input 
+                                id="checkbox"
+                                type="checkbox"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav"
+                                aria-controls="navbarNav"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                            >
+                          <label class="toggle" for="checkbox">
+                             <div id="bar1" class="bars"></div>
+                             <div id="bar2" class="bars"></div>
+                             <div id="bar3" class="bars"></div>
+                          </label>
+                          <div
+                              class="collapse navbar-collapse justify-content-end"
+                              id="navbarNav"
+                          >
+                              <ul class="navbar-nav mt-3 mt-md-0">
+                                  <li class="nav-item link">
+                                      <a
+                                          class="nav-link text-white ms-3 ms-md-0"
+                                          aria-current="page"
+                                          href="./accounts.html"
+                                          >Accounts</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="./cards.html"
+                                          >Cards</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="./transfers.html"
+                                          >Trasaction</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link link-active">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="#"
+                                          >Loan</a
+                                      >
+                                  </li>
+                                  <li v-if="isAdmin" class="nav-item link">
+                                    <a class="nav-link text-white ms-3 ms-md-0" href="./admin.html"
+                                        >Admin</a
+                                    >
+                                </li>
+                              </ul>
+                              <div class="container-Btn-logout pt-2 pt-md-0 ms-md-2">
+                                  <button class="Btn--logout ms-1 ms-md-0" @click="logout">
+                                      <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+                                      <div class="text--logout">Logout</div>
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </nav>
+                  <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Loans</h2>
+                </div>
+            </header>
+            <main class="flex-grow-1">
+                <section class="first-color-bg pt-5 pb-5" :class="{'background-blur': loader}">
+                    <div class="container container--transfer second-color-bg pb-3 rounded-4 border-shadow-V1">
+                        <form class="d-flex flex-column p-1 pt-2 p-md-3">
+                            <fieldset class="d-flex flex-column gap-3">
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="accountFrom">Type of loan</label>
+                                    <select class="form-select" name="accountFrom" id="accountFrom" v-model="loanId">
+                                        <option v-for="loan of loans" :value="loan.id">{{loan.name}} || {{loan.interestRate}}%</option>
+                                    </select>
+                                    <p class="text-warning small text-center user-select-none mb-0 mt-2 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{loanById.maxAmount.toLocaleString()}}</p>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="payments">Payments</label>
+                                    <select class="form-select" name="payments" id="payments" v-model="paymentsTo">
+                                        <option v-for="payment of paymentsOfLoan" :value="payment">{{payment}}</option>
+                                    </select>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="ToAccounts">To Account</label>
+                                    <select class="form-select" name="ToAccounts" id="ToAccounts" v-model="selectedAccountTo">
+                                        <option v-for="account of accounts" :value="account.number">{{account.number}}</option>
+                                    </select>
+                                </fieldset>
+                                <fieldset>
+                                    <label class="text-white fw-bolder" for="amount">Amount</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" class="form-control" id="amount" v-model="amount">
+                                    </div>
+                                </fieldset>
+                                <p v-if="amountIncrement" class="text-warning small text-center user-select-none mb-0 text-start"><i class="bi bi-exclamation-triangle-fill"></i> Max AMOUNT: {{loanById.maxAmount.toLocaleString()}}</p>
+                            </fieldset>
+                            <button type="button" class="btn btn-primary mt-4"  data-bs-toggle="modal" data-bs-target="#detailsLoan"
+                                :disabled="!(amount > 0 && amount <= loanById.maxAmount)"
+                                >
+                                View loan details
+                            </button>
+                        </form>
+                    </div>
+                </section>
+                <div v-if="loader" class="spinner-container">
+                    <div class="loader"></div>
+                </div>
+                <div class="modal fade" id="detailsLoan" tabindex="-1" aria-labelledby="detailsLoanLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content four-color-bg">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-white fw-bold" id="exampleModalLabel">Details for <span class="third-color-text">'{{loanById.name}}'</span> loan</h1>
+                                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-white">
+                                    You have selected our <span class="third-color-text">{{loanById.name}}</span> loan with
+                                    interest rate of <span class="third-color-text">{{loanById.interestRate}}%</span>, a term of <span class="third-color-text">{{paymentsTo}}</span> installments
+                                    and a total amount of <span class="third-color-text">${{amount.toLocaleString()}}</span> .
+                                    <br>This translates, applying the interest rate, into installments of <span class="third-color-text">${{(((loanById.interestRate/100)*(amount / paymentsTo))+(amount / paymentsTo)).toLocaleString()}}</span> each.
+                                    <br>By agreeing to these terms, you are committing to make payments of <span class="third-color-text">${{(((loanById.interestRate/100)*(amount / paymentsTo))+(amount / paymentsTo)).toLocaleString()}}</span> during the agreed period.
+                                    We are excited to help you reach your financial goals!
+                                </p>
+                                <p class="text-white fw-bold">
+                                    <i class="bi bi-exclamation-triangle text-warning"></i>
+                                     Note: By accepting this loan, you confirm your commitment to make monthly
+                                    payments of <span class="third-color-text">${{(((loanById.interestRate/100)*(amount / paymentsTo))+(amount / paymentsTo)).toLocaleString()}}</span> .<br>This information is essential for your financial planning.
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="button--loan-apply" @click="sendLoan()">
+                                    Apply Loan
+                                    <svg fill="currentColor" viewBox="0 0 24 24" class="icon--loan-apply">
+                                        <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                                <!-- <button type="button" class="btn btn-danger">Delete Account</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <div v-if="loading" class="loader-container">
+                <div class="loader"></div>
+            </div>
+            <footer class="d-flex justify-content-center align-items-center">
+                <p class="m-0 text-center user-select-none">Copyright &copy; 2023 <span class="color-text-footer">FINOVATE</span> All Rights Reserved</p>
+            </footer>
+        </div>
+
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="../js/loans.js"></script>
+    </body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FINOVATE - Cards</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="shortcut icon" href="../assets/logo-favicon.png" type="image/x-icon">
+        <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/styles.css">
+    </head>
+    <body>
+
+
+        <div id="app" class="app flex-column">
+            <header>
+                <div class="header-contain d-flex flex-column align-items-center justify-content-center">
+                  <div class="bg-contain"></div>
+                  <nav class="navbar navbar-expand-md header-nav w-100">
+                      <div class="container-fluid container--mod">
+                          <a class="navbar-brand text-white fs-4" href="../../index.html"
+                              ><img src="../assets/logo-page.png" class="logo d-none d-sm-inline-block" alt="logo">
+                              <img src="../assets/logo-favicon.png" class="logo-sm d-sm-none" alt="logo">
+                              <h1 class="d-none">FINOVATE</h1>
+                              </a
+                          >
+                          <input 
+                                id="checkbox"
+                                type="checkbox"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav"
+                                aria-controls="navbarNav"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation"
+                            >
+                          <label class="toggle" for="checkbox">
+                             <div id="bar1" class="bars"></div>
+                             <div id="bar2" class="bars"></div>
+                             <div id="bar3" class="bars"></div>
+                          </label>
+                          <div
+                              class="collapse navbar-collapse justify-content-end"
+                              id="navbarNav"
+                          >
+                              <ul class="navbar-nav mt-3 mt-md-0">
+                                  <li class="nav-item link">
+                                      <a
+                                          class="nav-link text-white ms-3 ms-md-0"
+                                          aria-current="page"
+                                          href="./accounts.html"
+                                          >Accounts</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link link-active">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href=".#"
+                                          >Cards</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="./transfers.html"
+                                          >Trasaction</a
+                                      >
+                                  </li>
+                                  <li class="nav-item link">
+                                      <a class="nav-link text-white ms-3 ms-md-0" href="./loans.html"
+                                          >Loan</a
+                                      >
+                                  </li>
+                                  <li v-if="isAdmin" class="nav-item link">
+                                    <a class="nav-link text-white ms-3 ms-md-0" href="./admin.html"
+                                        >Admin</a
+                                    >
+                                </li>
+                              </ul>
+                              <div class="container-Btn-logout pt-2 pt-md-0 ms-md-2">
+                                <button class="Btn--logout ms-1 ms-md-0" @click="logout">
+                                    <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+                                    <div class="text--logout">Logout</div>
+                                </button>
+                            </div>
+                          </div>
+                      </div>
+                  </nav>
+                  <h2 class="title-header mb-0 fw-semibold user-select-none" v-if="!loading">Cards</h2>
+                </div>
+            </header>
+            <main class="flex-grow-1 separation position-relative" :class="{'background-blur': loader}">
+                <div class="dropdown position-absolute top-0 ms-3 mt-5">
+                    <button class="btn dropdown-toggle five-color-bg fw-bold text-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Cards Options
+                    </button>
+                    <ul class="dropdown-menu w-25">
+                        <li v-if="cards.length <= 6">
+                            <a class="dropdown-item d-flex justify-content-between" href="./create-cards.html">
+                                <span class="fw-bolder">Add card</span>
+                                <i class="bi bi-plus-circle third-color-text fw-bold"></i>
+                            </a>
+                        </li>
+                        <li v-if="cardsFiltered.length >= 1">
+                            <button type="button" class="btn dropdown-item d-flex justify-content-between"
+                                data-bs-toggle="modal" data-bs-target="#modalDeleteCard"
+                                >
+                                <span class="fw-bolder">Delete cards</span>
+                                <i class="bi bi-x-circle third-color-text fw-bold"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="page mt-5">		
+                    <div class="pcss3t pcss3t-effect-scale pcss3t-theme-1">
+                        <input type="radio" name="pcss3t"  id="tab1" class="tab-content-first" value="DEBIT" v-model="valueCard" @change="filterCards">
+                        <label for="tab1"><p class="mb-0">DEBIT</p></label>
+                        
+                        <input type="radio" name="pcss3t" id="tab2" class="tab-content-2" value="CREDIT" v-model="valueCard" @change="filterCards">
+                        <label for="tab2"><p class="mb-0">CREDIT</p></label>
+                        
+                        <input type="radio" name="pcss3t" id="tab3" class="tab-content-3" value="ALL" checked v-model="valueCard" @change="filterCards">
+                        <label for="tab3"><p class="mb-0">ALL</p></label>
+                        
+                        <ul class="second-color-bg">
+                            <li class="tab-content tab-content-first typography d-flex flex-wrap justify-content-center align-items-center gap-5">
+                                <h4 v-if="cardsFiltered.length === 0" class="text-white text-center">You do not have DEBIT cards</h4>
+                                <div v-else class="card--cards" v-for="card of cardsFiltered">
+                                    <div class="card-inner">
+                                        <div class="front--cards" :style="colorCards(card)">
+                                            <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img map">
+                                            <div class="row--cards">
+                                                <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="img-card">
+                                                <img src="https://i.ibb.co/WHZ3nRJ/visa.png" class="img-card">
+                                            </div>
+                                            <div class="row--cards card-no position-relative fw-bold">
+                                                <p>{{card.number.replace("-", "").slice(0, 4)}}</p>
+                                                <p>{{card.number.replace("-", "").slice(4, 8)}}</p>
+                                                <p>{{card.number.replace("-", "").slice(9, 13)}}</p>
+                                                <p>{{card.number.replace("-", "").slice(14, 18)}}</p>
+                                                <div v-if="dateNow > card.thruDate" class="expirated-line"></div>
+                                            </div>
+                                            <div class="row--cards card-holder">
+                                                <p>{{card.type}} CARD</p>
+                                                <p>VALID TILL</p>
+                                            </div>
+                                            <div class="row--cards name">
+                                                <p v-if="dateNow > card.thruDate" class="text-bg-danger">CARD EXPIRED</p>
+                                                <p v-else>{{card.cardHolder}}</p>
+                                                <p>{{card.thruDate}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="back" :style="colorCards(card)">
+                                            <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img">
+                                            <div class="bar"></div>
+                                            <div class="row--cards card-cvv">
+                                                <div>
+                                                    <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                                </div>
+                                                <p>{{card.cvv}}</p>
+                                            </div>
+                                            <div class="row--cards card-text">
+                                                <p>Your card for an innovative financial future, where every transaction opens doors to unlimited possibilities.</p>
+                                            </div>
+                                            <div class="row--cards signature d-none">
+                                                <p>CUSTOMER SIGNATURE</p>
+                                                <img src="https://i.ibb.co/WHZ3nRJ/visa.png" width="80px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            <li class="tab-content tab-content-2 typography d-flex flex-wrap justify-content-center align-items-center gap-5">
+                                <h4 v-if="cardsFiltered.length === 0" class="text-white text-center">You do not have CREDIT cards</h4>
+                                <div class="card--cards" v-for="card of cardsFiltered">
+                                    <div class="card-inner">
+                                        <div class="front--cards" :style="colorCards(card)">
+                                            <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img map">
+                                            <div class="row--cards">
+                                                <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="img-card">
+                                                <img src="https://i.ibb.co/WHZ3nRJ/visa.png" class="img-card">
+                                            </div>
+                                            <div class="row--cards card-no position-relative fw-bold">
+                                                <p>{{card.number.replace("-", "").slice(0, 4)}}</p>
+                                                <p>{{card.number.replace("-", "").slice(4, 8)}}</p>
+                                                <p>{{card.number.replace("-", "").slice(9, 13)}}</p>
+                                                <p>{{card.number.replace("-", "").slice(14, 18)}}</p>
+                                                <div v-if="dateNow > card.thruDate" class="expirated-line"></div>
+                                            </div>
+                                            <div class="row--cards card-holder">
+                                                <p>{{card.type}} CARD</p>
+                                                <p>VALID TILL</p>
+                                            </div>
+                                            <div class="row--cards name">
+                                                <p v-if="dateNow > card.thruDate" class="text-bg-danger">CARD EXPIRED</p>
+                                                <p v-else>{{card.cardHolder}}</p>
+                                                <p>{{card.thruDate}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="back" :style="colorCards(card)">
+                                            <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img">
+                                            <div class="bar"></div>
+                                            <div class="row--cards card-cvv">
+                                                <div>
+                                                    <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                                </div>
+                                                <p>{{card.cvv}}</p>
+                                            </div>
+                                            <div class="row--cards card-text">
+                                                <p>Your card for an innovative financial future, where every transaction opens doors to unlimited possibilities.</p>
+                                            </div>
+                                            <div class="row--cards signature d-none">
+                                                <p>CUSTOMER SIGNATURE</p>
+                                                <img src="https://i.ibb.co/WHZ3nRJ/visa.png" width="80px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            <li class="tab-content tab-content-3 typography d-flex flex-wrap justify-content-center align-items-center gap-5">
+                                <h4 v-if="cardsFiltered.length === 0" class="text-white text-center">No cards</h4>
+                                <div class="card--cards" v-for="card of cardsFiltered">
+                                    <div class="card-inner">
+                                        <div class="front--cards" :style="colorCards(card)">
+                                            <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img map">
+                                            <div class="row--cards">
+                                                <img src="https://i.ibb.co/G9pDnYJ/chip.png" class="img-card">
+                                                <img src="https://i.ibb.co/WHZ3nRJ/visa.png" class="img-card">
+                                            </div>
+                                            <div class="row--cards card-no position-relative fw-bold">
+                                                <p>{{card.number.replace("-", "").slice(0, 4)}}</p>
+                                                <p>{{card.number.replace("-", "").slice(4, 8)}}</p>
+                                                <p>{{card.number.replace("-", "").slice(9, 13)}}</p>
+                                                <p>{{card.number.replace("-", "").slice(14, 18)}}</p>
+                                                <div v-if="dateNow > card.thruDate" class="expirated-line"></div>
+                                            </div>
+                                            <div class="row--cards card-holder">
+                                                <p>{{card.type}} CARD</p>
+                                                <p>VALID TILL</p>
+                                            </div>
+                                            <div class="row--cards name">
+                                                <p v-if="dateNow > card.thruDate" class="text-bg-danger">CARD EXPIRED</p>
+                                                <p v-else>{{card.cardHolder}}</p>
+                                                <p>{{card.thruDate}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="back" :style="colorCards(card)">
+                                            <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img">
+                                            <div class="bar"></div>
+                                            <div class="row--cards card-cvv">
+                                                <div>
+                                                    <img src="https://i.ibb.co/S6JG8px/pattern.png">
+                                                </div>
+                                                <p>{{card.cvv}}</p>
+                                            </div>
+                                            <div class="row--cards card-text">
+                                                <p>Your card for an innovative financial future, where every transaction opens doors to unlimited possibilities.</p>
+                                            </div>
+                                            <div class="row--cards signature d-none">
+                                                <p>CUSTOMER SIGNATURE</p>
+                                                <img src="https://i.ibb.co/WHZ3nRJ/visa.png" width="80px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>				
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modalDeleteCard" tabindex="-1" aria-labelledby="modalDeleteCardLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content four-color-bg">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Choose the card to delete</h1>
+                                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="radio-inputs-create-account flex-wrap">
+                                    <label v-for="card of cardsFiltered">
+                                        <input class="radio-input-create-account" type="radio" name="deleteCard" :value="card.id" v-model="idCardDelete">
+                                            <span class="radio-tile-create-acc bg-transparent w-auto p-2">
+                                                <span class="radio-icon-create-acc text-white fw-bold">
+                                                    {{card.type}} - {{card.color}}
+                                                </span>
+                                                <span class="radio-label-create-acc text-white fw-bold fs-6">{{card.number}}</span>
+                                            </span>
+                                    </label>
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="button--delete-account bg-danger" @click="deleteCard">
+                                    <svg viewBox="0 0 448 512" class="svgIcon--delete-acc"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+                                </button>
+                                <!-- <button type="button" class="btn btn-danger">Delete Account</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="loader" class="spinner-container">
+                    <div class="loader"></div>
+                </div>
+            </main>
+            <div v-if="loading" class="loader-container">
+              <div class="loader"></div>
+            </div>
+            <footer class="d-flex justify-content-center align-items-center">
+                <p class="m-0 text-center user-select-none">Copyright &copy; 2023 <span class="color-text-footer">FINOVATE</span> All Rights Reserved</p>
+            </footer>
+        </div>
+
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="../js/cards.js"></script>
+    </body>
+</html>
