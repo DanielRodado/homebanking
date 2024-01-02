@@ -1,8 +1,8 @@
-package com.mindhub.homebanking.Utils;
+package com.mindhub.homebanking.utils;
 
 import com.mindhub.homebanking.services.CardService;
 
-import static com.mindhub.homebanking.Utils.AccountUtil.generateRandomNumber;
+import static com.mindhub.homebanking.utils.AccountUtil.generateRandomNumber;
 
 public final class CardUtil {
 

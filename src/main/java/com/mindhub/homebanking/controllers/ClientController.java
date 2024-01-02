@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-import static com.mindhub.homebanking.Utils.AccountUtil.generateAccountNumber;
-import static com.mindhub.homebanking.Utils.ClientUtil.verifiedUserEmail;
-import static com.mindhub.homebanking.Utils.ClientUtil.verifiedUserPassword;
+import static com.mindhub.homebanking.utils.AccountUtil.generateAccountNumber;
+import static com.mindhub.homebanking.utils.ClientUtil.verifiedUserEmail;
+import static com.mindhub.homebanking.utils.ClientUtil.verifiedUserPassword;
 
 @RestController
 @RequestMapping("/api")

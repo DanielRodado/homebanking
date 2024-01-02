@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
-import static com.mindhub.homebanking.Utils.LoanUtil.formattedLocalDateTime;
+import static com.mindhub.homebanking.utils.LoanUtil.formattedLocalDateTime;
 
 @RestController
 @RequestMapping("/api")

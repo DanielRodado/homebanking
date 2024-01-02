@@ -1,4 +1,4 @@
-package com.mindhub.homebanking.Utils;
+package com.mindhub.homebanking.utils;
 
 import com.mindhub.homebanking.services.AccountService;
 

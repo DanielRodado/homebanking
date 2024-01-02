@@ -1,4 +1,4 @@
-package com.mindhub.homebanking.Utils;
+package com.mindhub.homebanking.utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
